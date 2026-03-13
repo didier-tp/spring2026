@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
-@Service
+//@Service
 @Transactional
 public class GenericRDServiceImpl<T extends WithIdAsString,E,ID> extends GenericRServiceImpl<T,E,ID> implements GenericRDService<T> {
 

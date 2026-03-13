@@ -2,7 +2,7 @@ référentiel git (doc ,  exemples , enonces tp , solutions tp )
 pour les tps des cours  spring de 2026 avec Spring7/SpringBoot3
 
 ============
-URL actuelle: https://github.com/didier-tp/spring_2026
+URL actuelle: https://github.com/didier-tp/spring2026
 ===========
 mode opératoire conseillé:
 --------

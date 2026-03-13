@@ -6,12 +6,13 @@ import tp.appliSpring.bank.core.model.Client;
 import tp.appliSpring.bank.core.model.Compte;
 import tp.appliSpring.bank.persistence.entity.ClientEntity;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
+import tp.appliSpring.generic.converter.MyGenericMapperUtil;
 
 import java.util.List;
 
 //@Mapper // MyMapper.INSTANCE...
 @Mapper(componentModel = "spring") //for @Autowired or ...
-public interface MyBankConverter {
+public interface MyBankConverter extends MyGenericMapperUtil {
 
     MyBankConverter INSTANCE = Mappers.getMapper( MyBankConverter.class );
 

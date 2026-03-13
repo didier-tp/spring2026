@@ -23,6 +23,12 @@ public class Compte implements WithIdAsString {
         this.solde = solde;
     }
 
+    public Compte(long numero, String label, Double solde) {
+        this.numero = String.valueOf(numero);
+        this.label = label;
+        this.solde = solde;
+    }
+
     @Override
     public String extractId() {
         return this.numero;
