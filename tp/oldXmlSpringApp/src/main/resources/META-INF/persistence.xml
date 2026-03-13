@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+	<persistence-unit name="appliSpringJpa"
+		transaction-type="RESOURCE_LOCAL">
+		
+		
+     <!--  ATTENTION : ce fichier n'est utile qu'en version JPA/Hibernate sans springBoot 
+                        avec springBoot , la configuration doit être placée 
+                        dans application.properties -->		
+
+		<!-- on précise ici la technologie choisie pour coder/implementer JPA Hibernate 
+			(ou OpenJpa ou EclipseLink) -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<!-- indiquer liste des classes avec @Entity (facultatif) -->
+       <class>tp.appliSpring.core.entity.Compte</class>
+
+		<!-- configurer d'une façon ou d'une autre une connexion à la base de données -->
+		<!-- aujourd'hui via des propriétés spécifiques Hibernate -->
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create"/> 
+			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<!--  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" /> -->
+			
+			<!-- <property name="hibernate.show_sql" value="true"/> -->
+			
+			<!--  propriete deja definies dans application.properties et dataSourceSpringConf.xml -->
+			<!-- 
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/mydatabase?createDatabaseIfNotExist=true&serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="root" />
+			 -->
+		</properties>
+
+	</persistence-unit>
+</persistence>

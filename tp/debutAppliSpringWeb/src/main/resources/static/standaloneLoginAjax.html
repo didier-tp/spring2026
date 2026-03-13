@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>loginAjax</title>
+<script src="js/my_ajax_util.js"></script>
+<script src="js/standaloneLoginAjax.js"></script>
+</head>
+<body>
+	
+	 <h3>standalone login (post) pour obtenir token jwt sans oauth2/keycloak</h3>
+    username: <input type="text" value="user1" id="txtUsername" /> <br/>
+    ex: user1 with ROLE_USER<br/>
+    admin1 with ROLE_ADMIN <br/>
+    client_1 , client_2 , client_n with ROLE_CUSTOMER (bank)<br/>
+    password: <input type="text" value="pwd1" id="txtPassword" /> (ex: pwd1,pwd,...)<br/>
+    <input type="button" value="login" onclick="doLogin()" />&nbsp;
+    <input type="button" value="logout" onclick="doLogout()" /><br/>
+    message : <span id="spanMessageLogin"></span>
+    <hr/>
+    current token : <span id="spanMessageToken"></span>
+    <hr/>
+    <a href="index.html">retour vers index.html</a> <br/>
+</body>
+</html>

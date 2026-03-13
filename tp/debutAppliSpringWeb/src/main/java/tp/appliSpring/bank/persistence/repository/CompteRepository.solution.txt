@@ -1,0 +1,4 @@
+     List<CompteEntity> findBySoldeBetween(double soldeMini,double soldeMaxi);
+
+	@Query("SELECT c FROM CompteEntity c WHERE c.solde >= ?1 and c.solde <= ?2")
+	List<CompteEntity> findBySoldeEntre(double soldeMini,double soldeMaxi);

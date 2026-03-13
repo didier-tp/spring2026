@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<div xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}"
+     layout:fragment="content">
+    <h2 class="error">Error Page (navigation invalide ou autre)</h2>
+    <hr/>
+    <h3>Generic Error - <span th:text="${status}">Status</span></h3>
+	  <ul>
+	    <li>Timestamp: <span th:text="${timestamp}">Timestamp</span></li>
+	    <li>Path: <span th:text="${path}">Path</span></li>
+	    <li>Error: <span th:text="${error}">Error</span></li>
+	  </ul>
+    <hr/>
+    <div>
+        <p th:utext="${errorMessage}"></p>
+        <a href="index.html" th:href="@{/index.html}">Back to main index</a> <br/>
+        <a href="index.html" th:href="@{/index-site.html}">Back to index-site</a> <br/>
+        <a href="index.html" th:href="@{/site/app/toWelcome}">Back to welcome</a> <br/>
+    </div>
+</div>
+  

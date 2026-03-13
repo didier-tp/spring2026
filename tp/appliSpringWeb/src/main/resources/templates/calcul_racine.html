@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<div xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}"
+     layout:fragment="content">
+    <h1>Calcul de racine carree</h1>
+    
+    <form th:action="@{/site/basic/calculRacineCarree}" method="GET">
+		<label class="simpleAlign">x:</label> 
+		<input type="text" name="x" th:value="${x}" /> <br />
+		
+		<label class="simpleAlign"></label>
+		<input	type="submit" value="calculer racine carree" /> <br />
+	</form>
+	<hr/>
+	<label class="simpleAlign">racine carree=</label>
+	<span class="highlight"  th:utext="${racine}"></span><br />
+	<hr/>
+    
+</div>
+  

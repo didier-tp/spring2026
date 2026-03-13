@@ -1,0 +1,32 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{_layout}" >
+
+<div  layout:fragment="content">
+    <h1>calcul tva</h1>
+    <hr/>
+    <form th:action="@{/site/basic/calculTva}" method="GET">
+        <label class="simpleAlign">taux de tva (en %):</label>
+        <input type="text" name="taux" th:value="${taux}" /> <br />
+        <label class="simpleAlign">ht:</label> <input type="text" name="ht"
+                                                      th:value="${ht}" /> <br />
+        <label class="simpleAlign"></label>
+        <input	type="submit" value="calculer tva et ttc" /> <br />
+    </form>
+    <hr/>
+    <label class="simpleAlign">tva=</label><span class="highlight" th:utext="${tva}"></span><br />
+    <label class="simpleAlign">ttc=</label><span class="highlight" th:utext="${ttc}"></span><br />
+
+</div>
+
+
+
+    <div  layout:fragment="_myFooter">
+        <div style="background:yellow;color:blue">
+            Mon pied de page redéfini <a th:href="@{/site/app/toWelcome}">welcome</a> &nbsp;&nbsp; &nbsp;
+                 <a href="../../index-site.html" >index-site</a>
+        </div>
+    </div>
+
+</div>

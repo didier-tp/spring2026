@@ -1,0 +1,20 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{_layout}" layout:fragment="content">
+
+    <h1>Welcome SpringMVC/Thymeleaf </h1>
+    <p>message=<b><span th:utext="${message}"></span></b></p>
+    <hr/>
+    <h3>basic</h3>
+    <a th:href="@{/site/basic/calculTva}" >calcul_tva</a> <br/>
+    <a th:href="@{/site/basic/calculRacineCarree}" >calculRacineCarree</a> <br/>
+    <a th:href="@{/site/basic/toInscription}" >inscription (form)</a> <br/>
+    <h3>bank/espace client</h3>
+    <a th:href="@{/site/bank/espace_client}" >espace_client (comptes , virement , ...)</a> <br/>
+    <p>NB: accès direct que si la sécurité n'est pas activée.</p>
+    <p>avec spring-security, navigation automatiquement déviée vers login si besoin</p>
+    <h3>with spring-security</h3>
+    <a th:href="@{/site/app/login}" >login (spring security) (user,admin,client)</a> <br/>
+    <a th:href="@{/site/app/logout}"> logout (avec spring security)</a> <br/>
+</div>
