@@ -20,7 +20,7 @@ public class CompteRestCtrl {
 	private CompteRepository compteRepository;
 
 	@GetMapping("/{id}")
-	public CompteEntity badVersionWithoutDtoForGetCompteById(@PathVariable("id") long numeroCompte) {
+	public CompteEntity badVersionWithoutDtoForGetCompteById(@PathVariable("id") String numeroCompte) {
 		return compteRepository.findById( numeroCompte).get();
 		//NB: plantage si pas de @JsonIgnore et généralement sans_DTO = très mauvaise pratique
 	}
@@ -40,7 +40,7 @@ public class CompteRestCtrl {
 	//declencher en mode GET avec
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
 	@GetMapping("/{id}")
-	public Compte getCompteById(@PathVariable("id") long numeroCompte) {
+	public Compte getCompteById(@PathVariable("id") String numeroCompte) {
 		return serviceCompte.searchById(numeroCompte);
 		//NB: l'objet retourné sera automatiquement converti au format json
 	}
@@ -73,7 +73,7 @@ public class CompteRestCtrl {
 	//avec dans la partie "body" de la requête
 	// { "numero" : 1 , "label" : "libelleModifie" , "solde" : 120.0  }
 	@PutMapping("/{id}")
-	public ResponseEntity<Compte> putCompte(@RequestBody Compte compte, @PathVariable("id") Long idToUpdate) {
+	public ResponseEntity<Compte> putCompte(@RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
 		compte.setNumero(idToUpdate);
 		Compte compteMisAJour = serviceCompte.update(compte);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //204 : OK sans aucun message dans partie body

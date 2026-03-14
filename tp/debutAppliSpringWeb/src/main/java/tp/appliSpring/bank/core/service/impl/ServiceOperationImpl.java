@@ -27,19 +27,21 @@ public class ServiceOperationImpl implements ServiceOperation {
     private OperationRepository daoOperation;
 
     @Override
-    public Operation create(Operation op, Long numCpt) {
+    public Operation create(Operation op, String numCpt) {
+        Long numCptLong = Long.parseLong(numCpt);
         OperationEntity opEntity = myBankGenericMapper.map(op,OperationEntity.class);
-        CompteEntity compteEntity = daoCompte.findById(numCpt).get();
+        CompteEntity compteEntity = daoCompte.findById(numCptLong).get();
         opEntity.setCompte(compteEntity);
         OperationEntity savedOpEntity = daoOperation.save(opEntity);
-        op.setNumero(savedOpEntity.getNumero());
+        op.setNumero(String.valueOf(savedOpEntity.getNumero()));
         return op;
     }
 
     @Transactional()
-    public List<Operation> searchByCompte(long numCpt) {
-        //CompteEntity compteEntity = daoCompte.findWithOperations(numCpt);
-        CompteEntity compteEntity = daoCompte.findById(numCpt).get();
+    public List<Operation> searchByCompte(String numCpt) {
+        Long numCptLong = Long.parseLong(numCpt);
+        //CompteEntity compteEntity = daoCompte.findWithOperations(numCptLong);
+        CompteEntity compteEntity = daoCompte.findById(numCptLong).get();
         compteEntity.getOperations().size();// boucle interne automatique (lazy loading différé)
         return myBankGenericMapper.map(compteEntity.getOperations(),Operation.class);
     }

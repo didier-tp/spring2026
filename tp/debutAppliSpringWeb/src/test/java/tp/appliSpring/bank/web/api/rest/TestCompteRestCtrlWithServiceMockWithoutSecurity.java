@@ -40,7 +40,7 @@ public class TestCompteRestCtrlWithServiceMockWithoutSecurity {
         List<Compte> comptes = new ArrayList<>();
         comptes.add(new Compte(1L,"compteA",40.0));
         comptes.add(new Compte(2L,"compteB",90.0));
-        Mockito.when(compteService.searchCustomerAccounts(1L)).thenReturn(comptes);
+        Mockito.when(compteService.searchCustomerAccounts("1")).thenReturn(comptes);
         try {
             /*
             MvcResult mvcResult =

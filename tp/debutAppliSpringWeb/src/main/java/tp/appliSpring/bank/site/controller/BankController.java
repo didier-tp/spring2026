@@ -56,8 +56,8 @@ public class BankController {
 		return new VirementForm(null,null, null);
 	}
 
-	private Long automaticNumClientRetreiveAfterSpringSecurityLogin(){
-		Long numCli = null;
+	private String automaticNumClientRetreiveAfterSpringSecurityLogin(){
+		String numCli = null;
         //on récupère le username de l'utilisateur loggé avec spring security
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -66,7 +66,7 @@ public class BankController {
                 System.out.println("client WithSecurity , username="+username);
                 //on considère que username vaut (par convention dans ce Tp) "client_" + numClient
                 //et on extrait donc le numero du client authentifié:
-                Long numClient= Long.parseLong(username.substring(7));
+                String numClient= username.substring(7);
                 System.out.println("client WithSecurity , numClient="+numClient);
                 numCli=numClient;
             }
@@ -78,7 +78,7 @@ public class BankController {
 
 	@RequestMapping("/espace_client")
 	 public String clientLogin(Model model,
-			 @RequestParam(name="numClient", required = false)  Long numClient) {
+			 @RequestParam(name="numClient", required = false)  String numClient) {
 		System.out.println("/site/bank/espace_client with numClient="+numClient );
 		String message="";
 		if(numClient==null )
@@ -103,11 +103,11 @@ public class BankController {
 
 	@RequestMapping("comptesDuClient")
 	public String comptesDuClient(Model model) {
-		/* Long numClient=(Long)model.getAttribute("numClient");
+		/* String numClient=(String)model.getAttribute("numClient");
 
 		 */
 		Client client = (Client) model.getAttribute("client");
-		Long numClient = client!=null ? client.getNumero() : null;
+		String numClient = client!=null ? client.getNumero() : null;
 
 		if(numClient==null)
 			return "clientLogin";
@@ -141,7 +141,7 @@ public class BankController {
 		}
 		/*else*/
 		try {
-			Long numClient=(Long)model.getAttribute("numClient");
+			String numClient=(String)model.getAttribute("numClient");
 			if(numClient==null)
 				return "clientLogin";
 			compte = serviceCompte.create(compte);
@@ -156,7 +156,7 @@ public class BankController {
 
 	@RequestMapping("toVirement")
 	public String toVirement(Model model,HttpSession httpSession) {
-		Long numClient=(Long)model.getAttribute("numClient");
+		String numClient=(String)model.getAttribute("numClient");
 		if(numClient==null)
 			return "clientLogin";
 		List<Compte> listeComptes = serviceCompte.searchCustomerAccounts(numClient);
@@ -180,7 +180,7 @@ public class BankController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("message", e.getMessage());
-			Long numClient=(Long)model.getAttribute("numClient");
+			String numClient=(String)model.getAttribute("numClient");
 			List<Compte> listeComptes = serviceCompte.searchCustomerAccounts(numClient);
 			model.addAttribute("listeComptes", listeComptes);
 			return "virement";

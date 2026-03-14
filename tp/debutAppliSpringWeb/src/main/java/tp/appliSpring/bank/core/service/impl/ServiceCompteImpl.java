@@ -11,14 +11,15 @@ import tp.appliSpring.bank.persistence.entity.ClientEntity;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.repository.ClientRepository;
 import tp.appliSpring.bank.persistence.repository.CompteRepository;
-import tp.appliSpring.generic.service.GenericServiceDirectImpl;
+import tp.appliSpring.generic.service.GenericCRUDServiceImpl;
+import tp.appliSpring.generic.service.GenericCRUDServiceImpl;
 
 import java.util.List;
 
 
 @Service //@Component de type Service
 //@Transactional
-public class ServiceCompteImpl extends GenericServiceDirectImpl<Compte,CompteEntity,Long> implements ServiceCompte {
+public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntity,Long> implements ServiceCompte  {
 
 	private CompteRepository daoCompte;//dao principal
 	private MyBankGenericMapper myBankGenericMapper;
@@ -26,7 +27,7 @@ public class ServiceCompteImpl extends GenericServiceDirectImpl<Compte,CompteEnt
 
 	@Autowired
 	public ServiceCompteImpl(CompteRepository daoCompte, ClientRepository daoClient, MyBankGenericMapper myBankGenericMapper){
-		super(Compte.class,CompteEntity.class,daoCompte,myBankGenericMapper);
+		super(Compte.class,CompteEntity.class,Long.class,daoCompte,myBankGenericMapper);
 		this.daoCompte=daoCompte;
 		this.daoClient=daoClient;
 		this.myBankGenericMapper=myBankGenericMapper;
@@ -34,13 +35,15 @@ public class ServiceCompteImpl extends GenericServiceDirectImpl<Compte,CompteEnt
 
 	@Transactional()
 	//@Transactional(propagation = Propagation.REQUIRED)par défaut
-	public void transfer(double montant, long numCptDeb, long numCptCred)throws BankException {
+	public void transfer(double montant, String numCptDeb, String numCptCred)throws BankException {
 		try {
-			CompteEntity cptDeb = daoCompte.findById(numCptDeb).get();
+			Long numCptDebLong = Long.parseLong(numCptDeb);
+			CompteEntity cptDeb = daoCompte.findById(numCptDebLong).get();
 			cptDeb.setSolde(cptDeb.getSolde() - montant);
 			daoCompte.save(cptDeb);
 
-			CompteEntity cptCred = daoCompte.findById(numCptCred).get();
+			Long numCptCredLong = Long.parseLong(numCptCred);
+			CompteEntity cptCred = daoCompte.findById(numCptCredLong).get();
 			cptCred.setSolde(cptCred.getSolde() + montant);
 			daoCompte.save(cptCred);
 		} catch (Exception e) {
@@ -51,9 +54,11 @@ public class ServiceCompteImpl extends GenericServiceDirectImpl<Compte,CompteEnt
 
 	@Override
 	@Transactional()
-	public void fixerProprietaireCompte(long numCompte, long numClient) {
-		ClientEntity clientEntity = daoClient.findById(numClient).get();
-		CompteEntity compteEntity = daoCompte.findById(numCompte).get();
+	public void fixerProprietaireCompte(String numCompte, String numClient) {
+		Long numCompteLong= Long.parseLong(numCompte);
+		Long numClientLong= Long.parseLong(numClient);
+		ClientEntity clientEntity = daoClient.findById(numClientLong).get();
+		CompteEntity compteEntity = daoCompte.findById(numCompteLong).get();
 		clientEntity.getComptes().add(compteEntity);
 		daoClient.save(clientEntity);
 	}
@@ -64,19 +69,21 @@ public class ServiceCompteImpl extends GenericServiceDirectImpl<Compte,CompteEnt
 	public List<Compte> searchWithMinimumBalance(double soldeMini) {
 		List<CompteEntity> compteEntityList = daoCompte.findBySoldeGreaterThanEqual(soldeMini);
 
-		return myBankGenericMapper.map(compteEntityList,Compte.class); //V1 via indirect generic mapper
-		//return myBankGenericMapper.getMyBankConverter().compteEntityListToCompteList(compteEntityList); //V2 via specific MyBankConverter based on mapStruct
+		//return myBankGenericMapper.map(compteEntityList,Compte.class); //V1 via indirect generic mapper
+		return myBankGenericMapper.getMyBankConverter().compteEntityListToCompteList(compteEntityList); //V2 via specific MyBankConverter based on mapStruct
 	}
 
 	@Override
-	public List<Compte> searchCustomerAccounts(Long numClient) {
-        //version 1 avec conversion entity -> model:
-		//return myBankGenericMapper.map(daoCompte.findByClientsNumero(numClient),Compte.class);
+	public List<Compte> searchCustomerAccounts(String numClient) {
+		Long numClientLong= Long.parseLong(numClient);
+		//version 1 avec conversion entity -> model:
+		//return myBankGenericMapper.map(daoCompte.findByClientsNumero(numClientLong),Compte.class);
 
-        //version 2 avec projection direct en model via @Query Jpa/spring-data:
-        return daoCompte.findAsComptesByClientNum(numClient);
+		//version 2 avec projection direct en model via @Query Jpa/spring-data:
+		return daoCompte.findAsComptesByClientNum(numClientLong);
 
 	}
+
 
 
 }

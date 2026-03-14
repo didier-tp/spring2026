@@ -4,14 +4,14 @@ public class VirementForm {
 	
 	private Double montant;
 	
-	private Long numCptDeb;
-	private Long numCptCred;
+	private String numCptDeb;
+	private String numCptCred;
 
 	
 	public VirementForm() {
 	}
 
-	public VirementForm(Double montant, Long numCptDeb, Long numCptCred) {
+	public VirementForm(Double montant, String numCptDeb, String numCptCred) {
 		super();
 		this.montant = montant;
 		this.numCptDeb = numCptDeb;
@@ -24,18 +24,20 @@ public class VirementForm {
 	public void setMontant(Double montant) {
 		this.montant = montant;
 	}
-	public Long getNumCptDeb() {
+
+	public String getNumCptDeb() {
 		return numCptDeb;
 	}
-	public void setNumCptDeb(Long numCptDeb) {
+
+	public void setNumCptDeb(String numCptDeb) {
 		this.numCptDeb = numCptDeb;
 	}
-	public Long getNumCptCred() {
+
+	public String getNumCptCred() {
 		return numCptCred;
 	}
-	public void setNumCptCred(Long numCptCred) {
+
+	public void setNumCptCred(String numCptCred) {
 		this.numCptCred = numCptCred;
 	}
-	
-	
 }

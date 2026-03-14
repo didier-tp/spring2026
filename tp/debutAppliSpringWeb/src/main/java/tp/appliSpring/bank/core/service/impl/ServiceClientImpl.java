@@ -9,12 +9,12 @@ import tp.appliSpring.bank.core.model.Client;
 import tp.appliSpring.bank.core.service.ServiceClient;
 import tp.appliSpring.bank.persistence.entity.ClientEntity;
 import tp.appliSpring.bank.persistence.repository.ClientRepository;
-import tp.appliSpring.generic.service.GenericServiceDirectImpl;
+import tp.appliSpring.generic.service.GenericCRUDServiceImpl;
 
 
 @Service //@Component de type Service
 @Transactional
-public class ServiceClientImpl extends GenericServiceDirectImpl<Client,ClientEntity,Long> implements ServiceClient {
+public class ServiceClientImpl extends GenericCRUDServiceImpl<Client,ClientEntity,Long> implements ServiceClient {
 
 	private ClientRepository daoClient;
 
@@ -30,15 +30,16 @@ public class ServiceClientImpl extends GenericServiceDirectImpl<Client,ClientEnt
 
 	@Autowired
 	public ServiceClientImpl(ClientRepository daoClient, PasswordEncoder passwordEncoder, MyBankGenericMapper myBankGenericMapper){
-		super(Client.class, ClientEntity.class,daoClient,myBankGenericMapper);
+		super(Client.class, ClientEntity.class,Long.class,daoClient,myBankGenericMapper);
 		this.myBankGenericMapper=myBankGenericMapper;
 		this.daoClient=daoClient;
 		this.passwordEncoder=passwordEncoder;
 	}
 
 	@Override
-	public  Client searchByIdWithAccounts(long numeroCli) {
-		ClientEntity clientEntity = daoClient.findWithAccountById(numeroCli);
+	public  Client searchByIdWithAccounts(String numeroCli) {
+		Long numeroCliLong = Long.parseLong(numeroCli);
+		ClientEntity clientEntity = daoClient.findWithAccountById(numeroCliLong);
 		return myBankGenericMapper.map(clientEntity,Client.class);
 	}
 

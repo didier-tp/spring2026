@@ -36,8 +36,8 @@ public class TestServiceCompte {
                 new Compte(null, "compteA", 300.0));
         Compte compteBSauvegarde = this.serviceCompte.create(
                 new Compte(null, "compteB", 100.0));
-        long numCptA = compteASauvegarde.getNumero();
-        long numCptB = compteBSauvegarde.getNumero();
+        String numCptA = compteASauvegarde.getNumero();
+        String numCptB = compteBSauvegarde.getNumero();
         //remonter en memoire les anciens soldes des compte A et B avant virement
         //(+affichage console ou logger)
         double soldeA_avant = compteASauvegarde.getSolde();
@@ -69,7 +69,7 @@ public class TestServiceCompte {
 	COPIER/COLLER à ADPATER de  testVirement()
             AVEC
 	try {
-	      this.serviceCompte.transfer(50.0, numCptA, -numCptB); //erreur volontaire
+	      this.serviceCompte.transfer(50.0, numCptA, "-1"); //erreur volontaire
 	} catch (Exception e) {
 		logger.error("echec normal du virement " + e.getMessage());
 	}

@@ -27,7 +27,7 @@ public class WebSocketTaskController {
 
 	public void updateDoneTask(TaskMessage doneTaskMessage) {
 		Task partialDoneTask = doneTaskMessage.getTask();
-		long numero = partialDoneTask.getNumero();
+		String numero = partialDoneTask.getNumero();
 		String author = partialDoneTask.getAuthor();
 		String doneTaskResponse = partialDoneTask.getResponse();
         try {
@@ -46,7 +46,7 @@ public class WebSocketTaskController {
 		Task partialNewTask = newTaskMessage.getTask();
 	    String sender = newTaskMessage.getSender();
 		Task savedTask = serviceTask.create(partialNewTask);
-		long numero = savedTask.getNumero();
+		String numero = savedTask.getNumero();
 		this.lastMessage="New Task created by "+sender + " with numero=" + numero;
 	}
 

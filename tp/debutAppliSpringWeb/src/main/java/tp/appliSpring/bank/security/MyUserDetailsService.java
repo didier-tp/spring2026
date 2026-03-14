@@ -52,7 +52,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		else {
 			//NB le username considéré comme potentiellement égal à "client_" + numClient
 			try {
-				Long numClient = Long.parseLong(username.substring(7));
+				String numClient = username.substring(7);
 				Client customer = serviceCustomer.searchById(numClient);
 				authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 				authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));

@@ -18,7 +18,7 @@ public class CompteToCreate extends Compte {
     @Override
     //@Schema(description = "unknown account number before creation (should be null)")
     @Schema(hidden = true)  //ou bien @JsonIgnore
-    public Long getNumero() {
+    public String getNumero() {
         return super.getNumero();
     }
 

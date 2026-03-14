@@ -8,11 +8,11 @@ import tp.appliSpring.bank.core.model.Task;
 import tp.appliSpring.bank.core.service.ServiceTask;
 import tp.appliSpring.bank.persistence.entity.TaskEntity;
 import tp.appliSpring.bank.persistence.repository.TaskRepository;
-import tp.appliSpring.generic.service.GenericServiceDirectImpl;
+import tp.appliSpring.generic.service.GenericCRUDServiceImpl;
 
 @Service
 @Transactional
-public class ServiceTaskImpl extends GenericServiceDirectImpl<Task, TaskEntity,Long> implements ServiceTask {
+public class ServiceTaskImpl extends GenericCRUDServiceImpl<Task, TaskEntity,Long> implements ServiceTask {
 
     private MyBankGenericMapper myBankGenericMapper;
 
@@ -20,7 +20,7 @@ public class ServiceTaskImpl extends GenericServiceDirectImpl<Task, TaskEntity,L
 
     @Autowired
     public ServiceTaskImpl(TaskRepository daoTask, MyBankGenericMapper myBankGenericMapper){
-        super(Task.class,TaskEntity.class,daoTask,myBankGenericMapper);
+        super(Task.class,TaskEntity.class,Long.class,daoTask,myBankGenericMapper);
         this.daoTask=daoTask;
         this.myBankGenericMapper =myBankGenericMapper;
     }

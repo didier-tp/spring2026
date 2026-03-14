@@ -103,7 +103,7 @@ public class BankController {
 
 	@RequestMapping("comptesDuClient")
 	public String comptesDuClient(Model model) {
-		/* Long numClient=(Long)model.getAttribute("numClient");
+		/* String numClient=(String)model.getAttribute("numClient");
 
 		 */
 		Client client = (Client) model.getAttribute("client");

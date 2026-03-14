@@ -1,10 +1,10 @@
 package tp.appliSpring.bank.core.model;
 
-import tp.appliSpring.generic.model.WithId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import tp.appliSpring.generic.model.WithIdAsString;
 
 import java.util.Date;
 
@@ -12,11 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Operation implements WithId<Long> {
-    private Long numero;
+public class Operation implements WithIdAsString {
+    private String numero;
 
     @Override
-    public Long extractId() {
+    public String extractId() {
         return this.numero;
     }
 
@@ -26,14 +26,14 @@ public class Operation implements WithId<Long> {
 
     private Date dateOp;
 
-    public Operation(Long numero, String label, Double montant, Date dateOp) {
+    public Operation(String numero, String label, Double montant, Date dateOp) {
         this.numero = numero;
         this.label = label;
         this.montant = montant;
         this.dateOp = dateOp;
     }
 
-    public Operation(Long numero, String label, Double montant){
+    public Operation(String numero, String label, Double montant){
         this(numero,label,montant,new Date());
     }
 

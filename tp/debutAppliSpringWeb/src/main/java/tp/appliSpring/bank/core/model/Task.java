@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import tp.appliSpring.generic.model.WithId;
+import tp.appliSpring.generic.model.WithIdAsString;
 
 import java.util.Date;
 
@@ -13,12 +13,12 @@ import java.util.Date;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Task implements WithId<Long>  {
+public class Task implements WithIdAsString {
 
-    private Long numero;
+    private String numero;
 
 	@Override
-	public Long extractId() {
+	public String extractId() {
 		return this.numero;
 	}
 
@@ -32,7 +32,7 @@ public class Task implements WithId<Long>  {
 
     private String author; //may be null
 
-	public Task(Long numero, String title, String request, String response, Date timestamp, String author) {
+	public Task(String numero, String title, String request, String response, Date timestamp, String author) {
 		this.numero = numero;
 		this.title = title;
 		this.request = request;
@@ -41,7 +41,7 @@ public class Task implements WithId<Long>  {
 		this.author = author;
 	}
 
-	public Task(Long numero, String title, String request){
+	public Task(String numero, String title, String request){
 		this(numero, title, request, null, null, null);
 	}
 
