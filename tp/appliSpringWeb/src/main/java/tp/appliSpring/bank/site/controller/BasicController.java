@@ -11,7 +11,7 @@ import tp.appliSpring.bank.site.form.InscriptionForm;
 
 
 @Controller
-@RequestMapping("/site/basic")
+@RequestMapping(value="/site/basic/v{version}" , version="1")
 //@SessionAttributes({"x" ,"racine" })
 public class BasicController {
     @RequestMapping("helloWorld")

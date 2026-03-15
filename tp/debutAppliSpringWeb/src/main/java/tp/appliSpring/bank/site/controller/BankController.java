@@ -81,8 +81,11 @@ public class BankController {
 			 @RequestParam(name="numClient", required = false)  String numClient) {
 		System.out.println("/site/bank/espace_client with numClient="+numClient );
 		String message="";
-		if(numClient==null )
+		/*
+		  if(numClient==null ){
 			numClient = automaticNumClientRetreiveAfterSpringSecurityLogin();
+			}
+		 */
 		if(numClient==null )
 			message="numClient is required";
 		if(numClient!=null) {
@@ -120,7 +123,7 @@ public class BankController {
 
 	@RequestMapping("toAddCompte")
 	public String toAddCompte(Model model) {
-		Long numClient=(Long)model.getAttribute("numClient");
+		String numClient=(String)model.getAttribute("numClient");
 		if(numClient==null)
 			return "client_login";
 		return "add_compte";

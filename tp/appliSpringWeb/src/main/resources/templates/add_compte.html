@@ -5,7 +5,7 @@
      layout:fragment="content">
     <h1>Ajout de compte pour le client <span th:utext="${numClient}"></span></h1>
     
-    <form th:action="@{/site/bank/doAddCompte}" method="POST"
+    <form th:action="@{/site/bank/v1/doAddCompte}" method="POST"
           th:object="${compte}">
 	    <label class="simpleAlign">label:</label> 
 			<input type="text" name="label" th:field="*{label}" />
@@ -20,6 +20,6 @@
 	<hr/>
 	<span class="highlight"  th:utext="${message}"></span><br />
 	<hr/>
-	<a th:href="@{/site/bank/comptesDuClient}"> retour comptesDuClient</a> <br/>
+	<a th:href="@{/site/bank/v1/comptesDuClient}"> retour comptesDuClient</a> <br/>
 </div>
   

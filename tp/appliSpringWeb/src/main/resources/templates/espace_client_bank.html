@@ -5,7 +5,7 @@
      layout:fragment="content">
     <h1>espace Client banque</h1>
     
-    <form th:action="@{/site/bank/espace_client}" method="POST">
+    <form th:action="@{/site/bank/v1/espace_client}" method="POST">
     	<label class="simpleAlign">numClient:</label>
 		<input type="text" name="numClient" th:value="${#ctx.session.numClient}" /> (ex: 1)<br />
 
@@ -22,7 +22,7 @@
     <label class="simpleAlign">email:</label> <span class="highlight" th:utext="${client.email}" ></span><br />
     <label class="simpleAlign">adresse:</label> <span class="highlight" th:utext="${client.adresse}"></span><br />
 	<hr/>
-	<a th:href="@{/site/bank/comptesDuClient}"> comptesDuClient (apres validation numClient)</a> <br/>
-	<a th:href="@{/site/app/logout}"> logout</a><br/>
+	<a th:href="@{/site/bank/v1/comptesDuClient}"> comptesDuClient (apres validation numClient)</a> <br/>
+	<a th:href="@{/site/app/v1/logout}"> logout</a><br/>
 </div>
   

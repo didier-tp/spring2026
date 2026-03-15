@@ -6,7 +6,7 @@
 <div  layout:fragment="content">
     <h1>calcul tva</h1>
     <hr/>
-    <form th:action="@{/site/basic/calculTva}" method="GET">
+    <form th:action="@{/site/basic/v1/calculTva}" method="GET">
         <label class="simpleAlign">taux de tva (en %):</label>
         <input type="text" name="taux" th:value="${taux}" /> <br />
         <label class="simpleAlign">ht:</label> <input type="text" name="ht"
@@ -24,8 +24,8 @@
 
     <div  layout:fragment="_myFooter">
         <div style="background:yellow;color:blue">
-            Mon pied de page redéfini <a th:href="@{/site/app/toWelcome}">welcome</a> &nbsp;&nbsp; &nbsp;
-                 <a href="../../index-site.html" >index-site</a>
+            Mon pied de page redéfini <a th:href="@{/site/app/v1/toWelcome}">welcome</a> &nbsp;&nbsp; &nbsp;
+                 <a href="../../../index-site.html" >index-site</a>
         </div>
     </div>
 

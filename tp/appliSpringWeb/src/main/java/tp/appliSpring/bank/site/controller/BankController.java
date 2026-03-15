@@ -24,7 +24,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/site/bank")
+@RequestMapping(value="/site/bank/v{version}" , version="1")
 @SessionAttributes({"client" , "numClient" , "password" })
 public class BankController {
 	@Autowired
@@ -79,7 +79,7 @@ public class BankController {
 	@RequestMapping("/espace_client")
 	 public String clientLogin(Model model,
 			 @RequestParam(name="numClient", required = false)  String numClient) {
-		System.out.println("/site/bank/espace_client with numClient="+numClient );
+		System.out.println("/site/bank/v1/espace_client with numClient="+numClient );
 		String message="";
 		if(numClient==null )
 			numClient = automaticNumClientRetreiveAfterSpringSecurityLogin();
@@ -90,7 +90,7 @@ public class BankController {
                 Client client = serviceClient.searchById(numClient);
                 model.addAttribute("client", client);
                 String cryptedPwd = client.getPassword();
-                System.out.println("/site/bank/espace_client: cryptedPwd="+cryptedPwd);
+                System.out.println("/site/bank/v1/espace_client: cryptedPwd="+cryptedPwd);
             } catch (EntityNotFoundException e) {
                 message=e.getMessage();
             }

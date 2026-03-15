@@ -15,7 +15,7 @@
 	</script>
     <h1>Inscription</h1>
     
-    <form th:action="@{/site/basic/doInscription}" method="GET"
+    <form th:action="@{/site/basic/v1/doInscription}" method="GET"
           th:object="${inscriptionF}">
 	    <label class="simpleAlign">nom:</label> 
 			<input type="text" name="nom" th:field="*{nom}" /><br/>

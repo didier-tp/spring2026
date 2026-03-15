@@ -22,6 +22,13 @@ public class ApiConfig implements WebMvcConfigurer {
     }
 }
 
+/*
+Attention, cette config (ici ou dans application.properties)
+a par défaut un effet à la fois sur la partie /rest/...
+et sur la partie /site/...
+==> versioning partout ou pas du tout ou ???
+ */
+
 //configuration équivalente avec spring-boot dans application.properties:
 /*
 spring.mvc.apiversion.default=1

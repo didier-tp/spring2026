@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/site/app")
+@RequestMapping(value="/site/app/v{version}" , version="1")
 public class AppCtrl {
     @RequestMapping("/toWelcome")
     String toWelcome(Model model) {
