@@ -30,7 +30,6 @@ V1 with @WebMvcTest
 @WebMvcTest(controllers = { HelloRestCtrl.class } )
 //NB: @WebMvcTest load only some compoent usefull for testing @RestController
 //and do not load some components like "@Service , @Repository , ...
-@ActiveProfiles({"withSecurity"})
 @Import(SecurityConfigForRest.class)
 public class TestHelloRestCtrlWithMocksV1 {
     @Autowired
