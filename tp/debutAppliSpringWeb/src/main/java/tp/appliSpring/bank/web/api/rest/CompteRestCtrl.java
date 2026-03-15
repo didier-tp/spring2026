@@ -6,25 +6,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tp.appliSpring.bank.core.model.Compte;
 import tp.appliSpring.bank.core.service.ServiceCompte;
+import tp.appliSpring.bank.persistence.entity.CompteEntity;
+import tp.appliSpring.bank.persistence.repository.CompteRepository;
 
 
 @RestController //@Component de type controller d'api rest
 @RequestMapping(value="/rest/api-bank/v1/comptes" , headers="Accept=application/json")
 @CrossOrigin(origins = "*" , methods = { RequestMethod.GET , RequestMethod.POST ,
-		             RequestMethod.PATCH , RequestMethod.DELETE , RequestMethod.PUT})
+		RequestMethod.PATCH , RequestMethod.DELETE , RequestMethod.PUT})
 public class CompteRestCtrl {
 
-	/*
+/*
 	//Code potentiellement en erreur à ne pas reproduire:
 	@Autowired
 	private CompteRepository compteRepository;
 
-	@GetMapping("/{id}")
-	public CompteEntity badVersionWithoutDtoForGetCompteById(@PathVariable("id") String numeroCompte) {
+	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/bad/1
+	@GetMapping("/bad/{id}")
+	public CompteEntity badVersionWithoutDtoForGetCompteById(@PathVariable("id") Long numeroCompte) {
 		return compteRepository.findById( numeroCompte).get();
 		//NB: plantage si pas de @JsonIgnore et généralement sans_DTO = très mauvaise pratique
 	}
-    */
+*/
 
 
 	private ServiceCompte serviceCompte;
@@ -46,7 +49,7 @@ public class CompteRestCtrl {
 	}
 
 
-	
+
     /*
 	//V2 avec ResponseEntity<?> mais sans ExceptionHandler
 
@@ -71,7 +74,7 @@ public class CompteRestCtrl {
 	//appelé en mode PUT
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1
 	//avec dans la partie "body" de la requête
-	// { "numero" : 1 , "label" : "libelleModifie" , "solde" : 120.0  }
+	// { "numero" : "1" , "label" : "libelleModifie" , "solde" : 120.0  }
 	@PutMapping("/{id}")
 	public ResponseEntity<Compte> putCompte(@RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
 		compte.setNumero(idToUpdate);

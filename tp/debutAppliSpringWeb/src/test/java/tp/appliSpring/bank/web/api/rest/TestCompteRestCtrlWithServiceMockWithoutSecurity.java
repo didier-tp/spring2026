@@ -38,8 +38,8 @@ public class TestCompteRestCtrlWithServiceMockWithoutSecurity {
     public void testComptesDuClient1WithMockOfCompteService(){
 //préparation du mock (qui sera utilisé en arrière plan du contrôleur rest à tester):
         List<Compte> comptes = new ArrayList<>();
-        comptes.add(new Compte(1L,"compteA",40.0));
-        comptes.add(new Compte(2L,"compteB",90.0));
+        comptes.add(new Compte("1","compteA",40.0));
+        comptes.add(new Compte("2","compteB",90.0));
         Mockito.when(compteService.searchCustomerAccounts("1")).thenReturn(comptes);
         try {
             /*

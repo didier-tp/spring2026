@@ -38,14 +38,19 @@ public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntit
 	public void transfer(double montant, String numCptDeb, String numCptCred)throws BankException {
 		try {
 			Long numCptDebLong = Long.parseLong(numCptDeb);
-			CompteEntity cptDeb = daoCompte.findById(numCptDebLong).get();
-			cptDeb.setSolde(cptDeb.getSolde() - montant);
-			daoCompte.save(cptDeb);
+			/* //à compléter en TP:
+			//1. remonter le "CompteEntity" à débiter selon son numero Long
+			//   nouveau solde = ancien solde -montant
+			//   sauvegarder si  nécessaire les valeurs modifiées en base
+			 */
 
 			Long numCptCredLong = Long.parseLong(numCptCred);
-			CompteEntity cptCred = daoCompte.findById(numCptCredLong).get();
-			cptCred.setSolde(cptCred.getSolde() + montant);
-			daoCompte.save(cptCred);
+			/* //à compléter en TP:
+			//1. remonter le "CompteEntity" à créditer selon son numero Long
+			//   nouveau solde = ancien solde + montant
+			//   sauvegarder si  nécessaire les valeurs modifiées en base
+			 */
+
 		} catch (Exception e) {
 			throw new BankException("echec virement",e);
 		}

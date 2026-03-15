@@ -41,7 +41,8 @@ public class OpenApiDocAnnotConfig {
                     .name("Compte")
                     .title("Compte")
                     .description("Bank Account")
-                    .addProperties("numero", new IntegerSchema().example("1"))
+                    //.addProperties("numero", new IntegerSchema().example("1")) //old version 2025
+                    .addProperties("numero", new StringSchema().example("1")) //new version 2025
                     .addProperties("label", new StringSchema().example("myBankAccount"))
                     .addProperties("solde", new NumberSchema().example("50.0"));
         var compteContent = new Content()
