@@ -12,6 +12,7 @@ public class ExempleApp {
 		//et qui est initialisé selon une ou plusieurs classes de configuration.
 		
 		//MonCalculateur monCalculateur = contextSpring.getBean(MonCalculateur.class);
+		//MonCalculateur monCalculateur = (MonCalculateur) contextSpring.getBean("monCalculateurCarre");
 		MonCalculateur monCalculateur = contextSpring.getBean("monCalculateurCarre" ,MonCalculateur.class);
 		System.out.println("resCalcul="+monCalculateur.calculer(4));//4*4=16.0 ou autre 
 
@@ -21,7 +22,7 @@ public class ExempleApp {
 		CoordinateurAvecInjectionParConstructeur coordinateur2PrisEnChargeParSpring
 				       = contextSpring.getBean(CoordinateurAvecInjectionParConstructeur.class);
 		coordinateur2PrisEnChargeParSpring.calculerEtAfficher();
-		
+
 		((AnnotationConfigApplicationContext) contextSpring).close();
 	}
 }
