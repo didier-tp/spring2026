@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import tp.appliSpring.explicit.beans.*;
 
 @Configuration
+@PropertySources( @PropertySource("classpath:exemples.properties"))
 public class ExempleConfigExplicite {
 
     //A faire en Tp:
@@ -21,20 +22,32 @@ public class ExempleConfigExplicite {
     //et vraiante ...Maj si présence du profile "maj"
     //tester le comportement en activant ou pas de profile "maj" en début de main()
 
-    private String monPrefixe="#";
+    @Value("${preferences.prefixe:#}")
+    private String monPrefixe; //="#";
 
+    @Value("${preferences.suffixe:#}")
+    private String monSuffixe; //="#";
 
-    private String monSuffixe="#";
-
-    @Bean
+    @Bean @Profile("!maj")
     public Prefixeur prefixeur(){
         return new PrefixeurBasic(monPrefixe);
     }
 
 
-    @Bean
+    @Bean @Profile("!maj")
     public Suffixeur suffixeur(){
         return new SuffixeurBasic(monSuffixe);
+    }
+
+    @Bean @Profile("maj")
+    public Prefixeur prefixeurMaj(){
+        return new PrefixeurMaj(monPrefixe);
+    }
+
+
+    @Bean @Profile("maj")
+    public Suffixeur suffixeurMaj(){
+        return new SuffixeurMaj(monSuffixe);
     }
 
     @Bean
