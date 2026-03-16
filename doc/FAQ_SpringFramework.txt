@@ -1,0 +1,67 @@
+Quels sont les scopes "spring" existants:
+----------------------------------------
+https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html
+old SCOPE_GLOBAL_SESSION remove in spring 5
+
+------------------
+spring conteneur léger : moins lourd que EJB et tomcat peut suffire
+---------------
+
+Héritage spring/xml via parent=".."
+------------
+WebFlux : moins de thread , mode non bloquant, asynchrone, réactive , ...
+
+--------
+WebFlux handler:
+https://github.com/ksereda/Spring-WebFlux/blob/master/persons-app-2/src/main/java/com/example/personsapp2/handler/PersonHandler.java
+--------
+https://www.baeldung.com/spring-nosuchbeandefinitionexception
+https://medium.com/@mesfandiari77/try-catch-vs-try-with-resources-in-java-03f262c571a8
+---------------
+SpringMVC ModelAndView:
+ https://tutorialspedia.com/how-java-spring-mvc-works-spring-mvc-request-flow-explained-step-by-step/
+--------------
+Spring et kotlin
+https://spring.io/guides/tutorials/spring-boot-kotlin
+---------------
+$.ajax : appel ajax via jQuery (avant vue/angular/react)
+------------
+injection par constructeur en xml: https://springjava.com/spring-core/constructor-injection/
+--------------
+@EnableWebMvc
+https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/enable.html
+--------------
+Rappels fondamentaux config spring xml , ref="..."
+----------
+@Required (rare, deprecated)
+https://stackoverflow.com/questions/68398867/spring-required-annotation-deprecated
+------------
+WebClient 
+----------
+TransactionTemplate (gestion par code): https://www.baeldung.com/spring-programmatic-transaction-management
+-------------------
+readonly in @Transactional: 
+ https://stackoverflow.com/questions/1614139/spring-transactional-read-only-propagation
+---------------------
+unchecked exception= exception héritant de RuntimeException
+------------------
+JdbcTemplate exception handling:
+https://stackoverflow.com/questions/8916565/spring-jdbctemplate-how-to-catch-exception
+----------------
+https://www.baeldung.com/spring-boot-3-observability
+-------------------
+ApplicationContext = cas particulier de BeanFactory
+--------------
+spring-servlet.xml : https://www.baeldung.com/spring-applicationcontext-vs-spring-servlet-xml
+----------------
+Spring EL avance : 
+https://www.baeldung.com/spring-expression-language
+https://docs.spring.io/spring-framework/reference/core/expressions/beandef.html
+https://docs.spring.io/spring-framework/docs/3.0.x/reference/expressions.html
+------------
+Spring Bean thread-safe ???
+https://medium.com/@JanessaTech/interview-how-to-guarantee-thread-safety-when-spring-bean-is-default-singleton-b0e53334ee7b
+
+
+
+
