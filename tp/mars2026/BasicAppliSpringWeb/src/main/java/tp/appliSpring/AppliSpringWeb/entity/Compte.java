@@ -15,6 +15,6 @@ public class Compte {
     private Long numero;
 
     private String label;
-    
+
     private double solde;
 }
