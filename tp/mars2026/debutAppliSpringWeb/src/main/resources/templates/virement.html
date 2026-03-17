@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<div xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}"
+     layout:fragment="content">
+    <h1>Virement</h1>
+    
+    <form th:action="@{/site/bank/doVirement}" method="POST"
+          th:object="${virement}">
+	    <label class="simpleAlign">montant:</label> 
+			<input type="text" name="montant" th:field="*{montant}" />
+			<span th:if="${#fields.hasErrors('montant')}" th:errorclass="error" th:errors="*{montant}" ></span><br/>
+		<label class="simpleAlign">numCptDeb:</label> 
+			<!-- nb: syntaxe th:field en *{...} pour selectionner une sous partie 
+					         de l'objet precisee par th:object du formulaire -->
+			<select th:field="*{numCptDeb}" >
+	           <option th:each ="cpt : ${listeComptes}" th:value="${cpt.numero}" th:utext="${cpt.numero} + ' - ' + ${cpt.label} + ' : ' + ${cpt.solde}"></option>
+	         </select> <br/>
+		<label class="simpleAlign">numCptCred:</label> 
+			<!-- nb: syntaxe th:field en *{...} pour selectionner une sous partie 
+					         de l'objet precisee par th:object du formulaire -->
+			<select th:field="*{numCptCred}" >
+	           <option th:each ="cpt : ${listeComptes}" th:value="${cpt.numero}" th:utext="${cpt.numero} + ' - ' + ${cpt.label} + ' : ' + ${cpt.solde}"></option>
+	         </select> <br/>
+		<label class="simpleAlign"></label>
+		<input	type="submit" value="effectuer virement" /> <br />
+	</form>
+	<hr/>
+	<span class="highlight"  th:utext="${message}"></span><br />
+	<hr/>
+	<a th:href="@{/site/bank/comptesDuClient}"> retour comptesDuClient</a> <br/>
+</div>
+  

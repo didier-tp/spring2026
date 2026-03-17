@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Task WebSocket</title>
+        <script src="./js/sockjs.min.js"></script>
+        <script src="./js/stomp.min.js"></script>
+        <script src="./js/my-task.js"></script>
+        
+    </head>
+    <body onload="disconnect()">
+        <div>
+            <div>
+                sender/from/author:<input type="text" id="from" placeholder="your name"/> <br />
+                <button id="connect" onclick="connect();">Connect</button>
+                <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+            </div>
+            <hr />
+            <div id="whenConnectedDiv">
+                <span id="msg"></span> <br/>
+                <hr/>
+                numero/taskId to complete:<input type="text" id="taskIdToComplete" /> <br/>
+                response (done action):<input type="text" id="doneTaskResponse" />
+                <button id="completeTask" onclick="sendDoneMessage();">Complete task</button>
+                <hr/>
+                <h3>list of tasks</h3>
+                <ul id="taskListUl"></ul>
+                <hr/>
+                title:<input type="text" id="titleNewTask" /> <br/>
+                request (to do):<input type="text" id="requestNewTask" />
+                <button id="newTask" onclick="sendNewMessage();">new task</button>
+            </div>
+        </div>
+
+    </body>
+</html>

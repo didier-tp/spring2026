@@ -1,0 +1,7 @@
+spring.security.oauth2.client.registration.anywebappclient.provider=spring
+spring.security.oauth2.client.registration.anywebappclient.client-id=anywebappclient
+spring.security.oauth2.client.registration.anywebappclient.client-secret=noNeedOfSecretHere
+spring.security.oauth2.client.registration.anywebappclient.authorization-grant-type=authorization_code
+#spring.security.oauth2.client.registration.anywebappclient.scope= message.read,message.write
+
+spring.security.oauth2.client.provider.spring.issuer-uri=https://www.d-defrance.fr/keycloak/realms/sandboxrealm
