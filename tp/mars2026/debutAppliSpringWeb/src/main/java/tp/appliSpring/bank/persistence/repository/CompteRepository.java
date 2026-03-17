@@ -48,4 +48,9 @@ public interface CompteRepository extends JpaRepository<CompteEntity,Long>{
 	//@Query("SELECT c FROM CompteEntity c WHERE c.solde >= ?1 AND c.solde <= ?2")
 	@Query("SELECT c FROM CompteEntity c WHERE c.solde >= :soldeMini AND c.solde <= :soldeMaxi")
 	List<CompteEntity> findBySoldeEntreMiniEtMaxi(double soldeMini,double soldeMaxi);
+
+	//Exemple de  nativeQuery (SQL , pas JPQL)
+	@Query(nativeQuery = true ,
+			value="SELECT c.numero , c.label , c.solde FROM compte c WHERE c.solde >= ?1 and c.solde <= ?2")
+	List<CompteEntity> nativeFindBySoldeEntre(double soldeMini,double soldeMaxi);
 }

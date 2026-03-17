@@ -92,6 +92,7 @@ public class TestCompteDao {
     public void testWFindBySoldeBetweenV2(){
         //List<CompteEntity> liste = daoCompte.findBySoldeBetween(150.0,350.0);
         List<CompteEntity> liste = daoCompte.findBySoldeEntreMiniEtMaxi(150.0,350.0);
+        //List<CompteEntity> liste = daoCompte.nativeFindBySoldeEntre(150.0,350.0);
         log.debug("liste (entre 150 et 350)="+liste);
         //assertTrue(liste.size()==2);
         assertTrue(liste.size()>=2);
