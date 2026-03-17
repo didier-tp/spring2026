@@ -1,5 +1,6 @@
 package tp.appliSpring.AppliSpringWeb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -14,6 +15,6 @@ public class Compte {
     private Long numero;
 
     private String label;
-
+    
     private double solde;
 }
