@@ -2,6 +2,7 @@ package tp.appliSpring.bank.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import tp.appliSpring.bank.core.model.Compte;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 
@@ -42,4 +43,9 @@ public interface CompteRepository extends JpaRepository<CompteEntity,Long>{
 	List<CompteEntity> findBySoldeGreaterThanEqual(double soldeMini);
 
     //A COMPLETER EN TP
+	List<CompteEntity> findBySoldeBetween(double soldeMini,double soldeMaxi);
+
+	//@Query("SELECT c FROM CompteEntity c WHERE c.solde >= ?1 AND c.solde <= ?2")
+	@Query("SELECT c FROM CompteEntity c WHERE c.solde >= :soldeMini AND c.solde <= :soldeMaxi")
+	List<CompteEntity> findBySoldeEntreMiniEtMaxi(double soldeMini,double soldeMaxi);
 }

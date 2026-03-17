@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import tp.appliSpring.AppliSpringApplication;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.entity.OperationEntity;
@@ -72,6 +73,29 @@ public class TestCompteDao {
         assertTrue(liste.size()>=3);
     }
 
+    @Test
+    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    public void testWFindBySoldeBetween(){
+        CompteEntity compteA1 = this.daoCompte.save(new CompteEntity(null,"compteA1",100.0));
+        CompteEntity compteA2 = this.daoCompte.save(new CompteEntity(null,"compteA2",200.0));
+        CompteEntity compteA3 = this.daoCompte.save(new CompteEntity(null,"compteA3",300.0));
+        CompteEntity compteA4 = this.daoCompte.save(new CompteEntity(null,"compteA4",400.0));
+        //List<CompteEntity> liste = daoCompte.findBySoldeBetween(150.0,350.0);
+        List<CompteEntity> liste = daoCompte.findBySoldeEntreMiniEtMaxi(150.0,350.0);
+        log.debug("liste (entre 150 et 350)="+liste);
+        //assertTrue(liste.size()==2);
+        assertTrue(liste.size()>=2);
+    }
+
+    @Test
+    @Sql("/import_4comptes.sql") //src/test/resources/import_4comptes.sql
+    public void testWFindBySoldeBetweenV2(){
+        //List<CompteEntity> liste = daoCompte.findBySoldeBetween(150.0,350.0);
+        List<CompteEntity> liste = daoCompte.findBySoldeEntreMiniEtMaxi(150.0,350.0);
+        log.debug("liste (entre 150 et 350)="+liste);
+        //assertTrue(liste.size()==2);
+        assertTrue(liste.size()>=2);
+    }
 
     @Test
     public void testAjoutEtRelectureEtSuppression() {
