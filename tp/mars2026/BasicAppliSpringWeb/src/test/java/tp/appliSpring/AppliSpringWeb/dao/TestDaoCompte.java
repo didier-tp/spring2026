@@ -19,9 +19,9 @@ public class TestDaoCompte {
     public void testAjoutRelecture(){
         Compte c1 = new Compte(null,"compte_1",100.0);
         this.daoCompte.save(c1); //déclenche INSERT INTO et auto_increment
-        log.info("c1 sauvegardé:" + c1.toString());
+        log.debug("c1 sauvegardé:" + c1.toString());
         Compte c1Relu = this.daoCompte.findById(c1.getNumero()).get();
-        log.info("c1Relu="+c1Relu);
+        log.debug("c1Relu="+c1Relu);
         assertEquals("compte_1",c1Relu.getLabel());
         assertEquals(100.0 , c1Relu.getSolde(), 0.000001);
 
