@@ -9,7 +9,7 @@ public class Application {
 	//de l'exterieur java ... -Dspring.profiles.active=dev2,p2
 
 	public static void main(String[] args) {
-		//System.setProperty("spring.profiles.default","dev2");
+		//System.setProperty("spring.profiles.active","dev2");
 		SpringApplication.run(Application.class, args);
 		System.out.println("http://localhost:8080/springApp");
 	}

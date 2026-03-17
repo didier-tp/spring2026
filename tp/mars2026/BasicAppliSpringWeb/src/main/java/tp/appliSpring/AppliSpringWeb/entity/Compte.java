@@ -9,7 +9,7 @@ import lombok.*;
 @Entity //entity persistante en base de données
 public class Compte {
 
-    @Id //identifiant , clef primaire
+    @Id //identifiant , clef primaire **
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pour auto_incrémentation
     private Long numero;
 
