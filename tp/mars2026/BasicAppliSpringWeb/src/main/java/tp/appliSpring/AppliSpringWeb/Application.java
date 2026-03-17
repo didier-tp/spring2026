@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
+	//de l'exterieur java ... -Dspring.profiles.active=dev2,p2
 
+	public static void main(String[] args) {
+		//System.setProperty("spring.profiles.default","dev");
 		SpringApplication.run(Application.class, args);
 		System.out.println("http://localhost:8080/springApp");
 	}
