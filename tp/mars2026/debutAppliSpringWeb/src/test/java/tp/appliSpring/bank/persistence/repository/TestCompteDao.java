@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest(classes= {AppliSpringApplication.class})//reprendre la configuration de la classe principale
-@ActiveProfiles({  "dev" })
+@ActiveProfiles({  "dev2" })
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = @Autowired) //pour injection de dépendances via constructeur (final fields)
 public class TestCompteDao {

@@ -1,22 +1,37 @@
 package tp.appliSpring.bank.persistence.repository;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import tp.appliSpring.AppliSpringApplication;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.entity.OperationEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 //A COMPLETER EN TP:
+@SpringBootTest(classes= {AppliSpringApplication.class})//reprendre la configuration de la classe principale
+@ActiveProfiles({  "dev2" })
+@Slf4j
 public class TestOperationDao {
 
     //A COMPLETER EN TP:@Autowired
+    @Autowired
     private CompteRepository daoCompte; //pour aider à tester
 
     //A COMPLETER EN TP:
+    @Autowired
     private OperationRepository daoOperation;  //à tester
 
     //A COMPLETER EN TP:
+    @Test
     public void testFindForCompteWithDateBetween() throws Exception{
 
         CompteEntity compteA = this.daoCompte.save(new CompteEntity(null,"compteA",200.0));
@@ -38,6 +53,10 @@ public class TestOperationDao {
         op4CptB.setCompte(compteB);this.daoOperation.save(op4CptB);
 
         //A COMPLETER EN TP:
+        List<OperationEntity> listeOp = this.daoOperation.findOperationForCompteNumWithDateBetween(compteB.getNumero(),
+                     dateFormat.parse("2025-02-12") ,  dateFormat.parse("2025-03-11"));
+        log.debug("listeOp="+listeOp);
+        assertTrue(listeOp.size()==2);
 
     }
 

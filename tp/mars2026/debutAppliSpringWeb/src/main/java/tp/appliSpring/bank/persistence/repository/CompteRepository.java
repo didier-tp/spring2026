@@ -34,7 +34,7 @@ public interface CompteRepository extends JpaRepository<CompteEntity,Long>{
     List<Compte> findAsComptesByClientNum(Long numCli);
 
 
-	//code de la requete dans @NamedQuery("Compte.findWithOperations")
+	//code de la requete dans @NamedQuery("CompteEntity.findWithOperations")
 	CompteEntity findWithOperations(long numCompte);
 	
 	//le code/la requete de cette méthode va être généré automatiquement (sans @NamedQuery)

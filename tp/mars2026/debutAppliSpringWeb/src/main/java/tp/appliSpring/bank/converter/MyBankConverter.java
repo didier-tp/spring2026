@@ -32,5 +32,7 @@ public interface MyBankConverter extends MyGenericMapperUtil {
 
     Task taskEntityToTask(TaskEntity source);
     List<Task> taskEntityListToTaskList(List<TaskEntity> source);
+
+
 }
 
