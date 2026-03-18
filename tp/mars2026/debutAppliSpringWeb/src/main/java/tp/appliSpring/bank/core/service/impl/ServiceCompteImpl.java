@@ -35,7 +35,7 @@ public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntit
 		this.myBankGenericMapper=myBankGenericMapper;
 	}
 
-	//@Transactional()
+	@Transactional()
 	//@Transactional(propagation = Propagation.REQUIRED)par défaut
 	public void transfer(double montant, String numCptDeb, String numCptCred)throws BankException {
 		try {
