@@ -14,6 +14,7 @@
 	<name>debutAppliSpringWeb</name>
 	<description>Debut appliSpring Web avec Lombok et mapStruct</description>
 	<url/>
+	<!-- <packaging>war</packaging> -->
 	<licenses>
 		<license/>
 	</licenses>

@@ -9,6 +9,8 @@ import tp.appliSpring.bank.core.service.ServiceCompte;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.repository.CompteRepository;
 
+import java.util.List;
+
 
 @RestController //@Component de type controller d'api rest
 @RequestMapping(value="/rest/api-bank/v1/comptes" , headers="Accept=application/json")
@@ -63,7 +65,18 @@ public class CompteRestCtrl {
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes?soldeMini=50
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes?numClient=1
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes?soldeMini=50&critere2=val2&critere3=val3
-	//...
+	@GetMapping("")
+	public List<Compte> getComptesByCriteria(@RequestParam(value = "soldeMini", required = false) Double soldeMini,
+											 @RequestParam(value = "numClient", required = false) String numClient) {
+		List<Compte> listeCompte = null; //new ArrayList<>();
+		if (soldeMini != null)
+			listeCompte = serviceCompte.searchWithMinimumBalance(soldeMini);
+		if (numClient != null)
+			listeCompte = serviceCompte.searchCustomerAccounts(numClient);
+		if (soldeMini == null && numClient == null)
+			listeCompte = serviceCompte.searchAll();
+		return listeCompte;
+	}
 
 	//appelé en mode POST
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes

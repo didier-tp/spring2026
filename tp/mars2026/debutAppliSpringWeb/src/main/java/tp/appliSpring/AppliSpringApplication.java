@@ -2,12 +2,14 @@ package tp.appliSpring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class AppliSpringApplication {
+public class AppliSpringApplication extends SpringBootServletInitializer {
 	
 	
 	public static void initProfiles() {
@@ -30,7 +32,7 @@ public class AppliSpringApplication {
 		initProfiles();
 		SpringApplication.run(AppliSpringApplication.class, args);
 		//url de l'appli
-		System.out.println("http://localhost:8181/appliSpring");
+		System.out.println("http://localhost:8181/appliSpring ou autre");
 	}
 
 	@Bean
@@ -39,6 +41,11 @@ public class AppliSpringApplication {
 		//or new BCryptPasswordEncoder(int strength) with strength between 4 and 31
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(AppliSpringApplication.class)
+				.profiles("dev","reInit");
+	}
 
 	//pour test temporaire de @ConditionalOnMissingBean()
 	//sur xy.MySecurityConfig du sous projet mysecurity-autoconfigure :
