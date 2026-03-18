@@ -14,26 +14,28 @@ import tp.lib.beans.*;
 @ConfigurationPropertiesScan("tp.conf.properties")
 public class MyLibConfig {
 
-
+   /*
     @Value("${encadreur.prefixe:#}")
     private String monPrefixe; //="#";
 
     @Value("${encadreur.suffixe:#}")
     private String monSuffixe; //="#";
-
+*/
     @Autowired(required = false)
     public EncadreurProperties encadreurProperties;
 
     @Bean
     @ConditionalOnMissingBean(name="prefixeur")
     public Prefixeur prefixeur(){
-        return new PrefixeurBasic(monPrefixe);
+        //return new PrefixeurBasic(monPrefixe);
+        return new PrefixeurBasic(this.encadreurProperties.getPrefixe());
     }
 
     @Bean
     @ConditionalOnMissingBean(name="suffixeur")
     public Suffixeur suffixeur(){
-        return new SuffixeurBasic(monSuffixe);
+        //return new SuffixeurBasic(monSuffixe);
+        return new SuffixeurBasic(this.encadreurProperties.getSuffixe());
     }
 
     @Bean

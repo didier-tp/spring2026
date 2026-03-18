@@ -36,12 +36,12 @@ public class AppliSpringApplication {
 		System.exit(0);
     }
 
-    /*
+/*
     @Bean
     public Suffixeur suffixeur(){
         return new SuffixeurBasic("___redefined_suffix___");
     }
-    */
+  */
 
 
 }
