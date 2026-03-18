@@ -1,5 +1,6 @@
 package tp.appliSpring.bank.core.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
 
 
 @Service //@Component de type Service
+@Slf4j
 //@Transactional
 public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntity,Long> implements ServiceCompte  {
 
@@ -33,23 +35,26 @@ public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntit
 		this.myBankGenericMapper=myBankGenericMapper;
 	}
 
-	@Transactional()
+	//@Transactional()
 	//@Transactional(propagation = Propagation.REQUIRED)par défaut
 	public void transfer(double montant, String numCptDeb, String numCptCred)throws BankException {
 		try {
 			Long numCptDebLong = Long.parseLong(numCptDeb);
-			/* //à compléter en TP:
-			//1. remonter le "CompteEntity" à débiter selon son numero Long
-			//   nouveau solde = ancien solde -montant
-			//   sauvegarder si  nécessaire les valeurs modifiées en base
-			 */
+			//à compléter en TP:
+			CompteEntity cptDeb = this.daoCompte.findById(numCptDebLong).get();
+			//le dao exécute son code dans la grande transaction
+			//commencée par le service sans la fermer et l'objet cptDeb remonte à l'état persistant
+			cptDeb.setSolde(cptDeb.getSolde() - montant);
+			log.debug("nouveau solde temporaire pour cptDeb= " + cptDeb.getSolde());
+			this.daoCompte.save(cptDeb); //facultatif si @Transactional
 
 			Long numCptCredLong = Long.parseLong(numCptCred);
-			/* //à compléter en TP:
-			//1. remonter le "CompteEntity" à créditer selon son numero Long
-			//   nouveau solde = ancien solde + montant
-			//   sauvegarder si  nécessaire les valeurs modifiées en base
-			 */
+			CompteEntity cptCred = this.daoCompte.findById(numCptCredLong).get();
+			//le dao exécute son code dans la grande transaction
+			//commencée par le service sans la fermer et l'objet cptDeb remonte à l'état persistant
+			cptCred.setSolde(cptCred.getSolde() + montant);
+			log.debug("nouveau solde temporaire pour cptCred= " + cptCred.getSolde());
+			this.daoCompte.save(cptCred); //facultatif si @Transactional
 
 		} catch (Exception e) {
 			throw new BankException("echec virement",e);

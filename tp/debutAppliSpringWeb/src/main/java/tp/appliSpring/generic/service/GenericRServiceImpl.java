@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Slf4j
 //@Service
-@Transactional
+//@Transactional
 public class GenericRServiceImpl<T extends WithIdAsString,E,ID> implements GenericRService<T> {
 
     protected Class<T> modelClass;

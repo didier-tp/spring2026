@@ -10,7 +10,7 @@ import tp.appliSpring.generic.model.WithIdAsString;
 
 @Slf4j
 //@Service
-@Transactional
+//@Transactional
 public class GenericCRUDServiceImpl<T extends WithIdAsString,E,ID> extends GenericRDServiceImpl<T,E,ID> implements GenericCRUDService<T> {
 
     public GenericCRUDServiceImpl(Class<T> modelClass ,

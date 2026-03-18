@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
+import tp.appliSpring.annotation.LogExecutionTime;
 
 @Component
 public class Coordinateur {
@@ -35,7 +36,7 @@ public class Coordinateur {
 
 
 
-
+	@LogExecutionTime
 	public void calculerEtAfficher() {
 		double x=4;
 		double res =monCalculateur.calculer(x); //x*x ou bien 2*x ou bien ...
