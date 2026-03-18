@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.support.TransactionTemplate;
 import tp.appliSpring.AppliSpringApplication;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.entity.OperationEntity;
@@ -127,6 +128,35 @@ public class TestCompteDao {
 		CompteEntity compteReluApresSuppression = this.daoCompte.findById(compteSauvegarde.getNumero()).orElse(null);
 		Assertions.assertTrue(compteReluApresSuppression == null);
 		*/
+    }
+
+    @Autowired
+    TransactionTemplate txTemplate;
+
+    @Test
+    public void testCompteAvecOperationsEtAvecTransactionDeNiveauTest() {
+    //phase1 (avec transaction1 comitée): insérer jeyx de données
+        Long numCptA = txTemplate.execute(transactionStatus->{
+            CompteEntity cptA = daoCompte.save(new CompteEntity(null,"compteAha",101.0));
+            OperationEntity op1 = new OperationEntity(null,"achat 1" , -5.0 , new Date());
+            op1.setCompte(cptA); daoOperation.save(op1);
+            OperationEntity op2 = new OperationEntity(null,"achat 2" , -6.0 , new Date());
+            op2.setCompte(cptA);daoOperation.save(op2);
+            return cptA.getNumero();
+        });
+        System.out.println("numCptA="+numCptA);
+        //phase2 (avec transaction2 comitée): relire les données stockées en base
+
+        txTemplate.execute(transactionStatus-> {
+            CompteEntity cptArelu = daoCompte.findById(numCptA).get();
+            System.out.println("cptArelu="+cptArelu);
+            //NB:ici en mode transactionnel , pas de lazy exception bien que LAZY et simple appel à findById
+            for(OperationEntity op: cptArelu.getOperations()) {
+                System.out.println("\t op="+op);
+            }
+            assertTrue(cptArelu.getOperations().size()==2);
+           return null;
+        });
     }
 
 }

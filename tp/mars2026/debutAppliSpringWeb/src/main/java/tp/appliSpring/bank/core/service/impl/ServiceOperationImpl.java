@@ -14,7 +14,7 @@ import tp.appliSpring.bank.persistence.repository.OperationRepository;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class ServiceOperationImpl implements ServiceOperation {
 
     @Autowired
