@@ -1,14 +1,20 @@
 package tp.appliSpring.bank.web.api.rest;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.bank.core.model.Compte;
 import tp.appliSpring.bank.core.service.ServiceCompte;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.repository.CompteRepository;
+import tp.appliSpring.bank.web.api.dto.CompteToCreate;
+import tp.appliSpring.generic.exception.EntityNotFoundException;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -52,13 +58,24 @@ public class CompteRestCtrl {
 
 
 
-    /*
+/*
 	//V2 avec ResponseEntity<?> mais sans ExceptionHandler
 
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
 	@GetMapping("/{id}")
-	...
-   */
+	public ResponseEntity<Compte> getCompteById(@PathVariable("id") String numeroCompte) {
+
+        try {
+            Compte compte= serviceCompte.searchById(numeroCompte);
+			//return new ResponseEntity<Compte>(compte,HttpStatus.OK);
+			return ResponseEntity.ok(compte);
+        } catch (EntityNotFoundException e) {
+			//return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
+        }
+		//return ResponseEntity.of(serviceCompte.findById(numeroCompte));
+	}
+*/
 
 	//GET Multiple
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes
@@ -66,6 +83,8 @@ public class CompteRestCtrl {
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes?numClient=1
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes?soldeMini=50&critere2=val2&critere3=val3
 	@GetMapping("")
+	@ApiResponse(responseCode = "200", ref = "#/components/responses/CompteResponse")
+	@ApiResponse(responseCode = "500", ref = "#/components/responses/InternalServerErrorResponse")
 	public List<Compte> getComptesByCriteria(@RequestParam(value = "soldeMini", required = false) Double soldeMini,
 											 @RequestParam(value = "numClient", required = false) String numClient) {
 		List<Compte> listeCompte = null; //new ArrayList<>();
@@ -82,14 +101,31 @@ public class CompteRestCtrl {
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes
 	//avec dans la partie "body" de la requête
 	// { "numero" : null , "label" : "comptequiVaBien" , "solde" : 50.0 }
-	//...
+	@PostMapping("")
+	public ResponseEntity<?> postCompte(@Valid @RequestBody CompteToCreate compte) {
+		Compte compteSauvegarde = serviceCompte.create(compte);  //avec numero auto_incrémenté
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(compteSauvegarde.getNumero()).toUri();
+		//return ResponseEntity.created(location).build(); //return 201/CREATED , no body but URI to find added account
+		return ResponseEntity.created(location).body(compteSauvegarde);//return 201/CREATED with account  AND with URI to find added account
+       /* ou bien encore
+		return ResponseEntity.ok()
+				.headers(responseHeadersWithLocation)
+				.body(compteSauvegarde); //avec numero auto_incrémenté
+		*/
+	}
 
 	//appelé en mode PUT
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1
 	//avec dans la partie "body" de la requête
 	// { "numero" : "1" , "label" : "libelleModifie" , "solde" : 120.0  }
 	@PutMapping("/{id}")
-	public ResponseEntity<Compte> putCompte(@RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
+	@ApiResponse(responseCode = "404", ref = "#/components/responses/NotFoundErrorResponse")
+	@ApiResponse(responseCode = "204", ref = "#/components/responses/NoContentResponse")
+	@ApiResponse(responseCode = "500", ref = "#/components/responses/InternalServerErrorResponse")
+	public ResponseEntity<Compte> putCompte(@Valid @RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
 		compte.setNumero(idToUpdate);
 		Compte compteMisAJour = serviceCompte.update(compte);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //204 : OK sans aucun message dans partie body
@@ -97,8 +133,13 @@ public class CompteRestCtrl {
 	}
 
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
-	//@DeleteMapping("/{id}")
-	//....
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteCompteById(@PathVariable("id") String id) {
+		serviceCompte.removeById(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //NO_CONTENT = OK mais sans message
+		//return ResponseEntity.ok(new MessageDto("compte with id=" + id + " successfully deleted")); //200/OK + message
+		//exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
+	}
 }
 
 

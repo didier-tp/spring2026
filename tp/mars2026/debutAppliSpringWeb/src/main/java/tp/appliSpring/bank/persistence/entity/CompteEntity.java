@@ -1,6 +1,7 @@
 package tp.appliSpring.bank.persistence.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,10 +29,11 @@ public class CompteEntity {
     private Double solde;
     
     @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE)
-    //@JsonIgnore
+    @JsonIgnore
     private List<OperationEntity> operations = new ArrayList<>(); //+get/set
 
 	@ManyToMany(mappedBy = "comptes" , cascade = CascadeType.DETACH) // coté secondaire avec mappedBy="nomJavaRelationInverse"
+	@JsonIgnore
 	private List<ClientEntity> clients = new ArrayList<>();
 
   //+get/set , constructeur , toString()

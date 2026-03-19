@@ -17,7 +17,7 @@ import tp.appliSpring.generic.exception.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@ControllerAdvice
+@ControllerAdvice
 public class RestResponseEntityExceptionHandler 
    extends ResponseEntityExceptionHandler {
 	
