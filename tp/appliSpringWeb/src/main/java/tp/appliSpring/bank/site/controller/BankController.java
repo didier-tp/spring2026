@@ -81,10 +81,8 @@ public class BankController {
 			 @RequestParam(name="numClient", required = false)  String numClient) {
 		System.out.println("/site/bank/v1/espace_client with numClient="+numClient );
 		String message="";
-		/*
 		if(numClient==null )
 			numClient = automaticNumClientRetreiveAfterSpringSecurityLogin();
-		 */
 		if(numClient==null )
 			message="numClient is required";
 		if(numClient!=null) {

@@ -39,9 +39,9 @@ public class SecurityConfigForSite {
 				.csrf( Customizer.withDefaults() )
 
 				//.formLogin( formLogin -> formLogin.permitAll() )
-				.formLogin( formLogin -> formLogin.loginPage("/site/app/login")
-						.failureUrl("/site/app/login-error")
-						.defaultSuccessUrl("/site/app/toWelcome", false)
+				.formLogin( formLogin -> formLogin.loginPage("/site/app/v1/login")
+						.failureUrl("/site/app/v1/login-error")
+						.defaultSuccessUrl("/site/app/v1/toWelcome", false)
 						.permitAll())
 				.sessionManagement(session -> session
 						.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

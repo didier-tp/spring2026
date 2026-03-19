@@ -31,8 +31,8 @@ public class AppliSpringApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		initProfiles();
 		SpringApplication.run(AppliSpringApplication.class, args);
-		//url de l'appli
-		System.out.println("http://localhost:8181/appliSpring ou autre ");
+		//url de l'application
+		System.out.println("http://localhost:8181/appliSpring ou autre");
 	}
 
 	@Bean
