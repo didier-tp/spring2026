@@ -19,8 +19,8 @@ public class AppliSpringApplication extends SpringBootServletInitializer {
 			System.out.println("spring.profiles.active="+profilsActifs);
 		}else {
 			//String defaultProfils  = "dev,reInit";
-			String defaultProfils  = "dev,reInit,withSecurity";
-			//String defaultProfils  = "dev,reInit,withSecurity,withoutOAuth2";
+			//String defaultProfils  = "dev,reInit,withSecurity";
+			String defaultProfils  = "dev,reInit,withSecurity,withoutOAuth2";
 			//String defaultProfils  = "dev2,reInit";
 			//String defaultProfils  = "prod";
 			System.setProperty("spring.profiles.default", defaultProfils);
