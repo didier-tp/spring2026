@@ -29,7 +29,7 @@ function withDefaultErrorMessage(xhr,errorMessage){
 
 function setTokenInRequestHeader(xhr){
 	let authToken = sessionStorage.getItem("authToken");
-	if(authToken!=null && authToken!="")
+	if(authToken!=null && authToken!="" && authToken!="null")
 	   xhr.setRequestHeader("Authorization", "Bearer " + authToken);
 }
 
