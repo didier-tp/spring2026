@@ -1,5 +1,8 @@
 package tp.appliSpring.exemple;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MonCalculateurDouble implements MonCalculateur {
 
 	@Override
