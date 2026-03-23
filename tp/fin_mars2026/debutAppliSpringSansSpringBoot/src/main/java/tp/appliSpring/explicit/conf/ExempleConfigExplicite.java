@@ -20,15 +20,26 @@ public class ExempleConfigExplicite {
     @Value("${preferences.suffixe:#}")
     private  String monSuffixe; //="#";
 
-    @Bean
+    @Bean @Profile("!maj")
     public Prefixeur prefixeur(){
         return new PrefixeurBasic(monPrefixe);
     }
 
 
-    @Bean
+    @Bean @Profile("!maj")
     public Suffixeur suffixeur(){
         return new SuffixeurBasic(monSuffixe);
+    }
+
+    @Bean @Profile("maj")
+    public Prefixeur prefixeurMaj(){
+        return new PrefixeurMaj(monPrefixe);
+    }
+
+
+    @Bean @Profile("maj")
+    public Suffixeur suffixeurMaj(){
+        return new SuffixeurMaj(monSuffixe);
     }
 
     @Bean
