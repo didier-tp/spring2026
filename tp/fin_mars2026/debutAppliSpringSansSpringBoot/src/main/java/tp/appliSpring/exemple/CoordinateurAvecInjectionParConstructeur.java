@@ -6,15 +6,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CoordinateurAvecInjectionParConstructeur {
 
-
-	private final MonAfficheur monAfficheur=null; //référence vers afficheur à injecter
+	private final MonAfficheur monAfficheur; //référence vers afficheur à injecter
 	
-	private final MonCalculateur monCalculateur=null;//référence vers calculateur à injecter
+	private final MonCalculateur monCalculateur;//référence vers calculateur à injecter
 
-	/*
 	//Autre solution pour lever ambiguité sur choses à injecter:
 	//placer @Primary sur une des versions (la propriété)
 	public CoordinateurAvecInjectionParConstructeur(
@@ -24,7 +22,7 @@ public class CoordinateurAvecInjectionParConstructeur {
 		this.monAfficheur = monAfficheur;
 		this.monCalculateur = monCalculateur;
 	}
-	*/
+
 
 
 	public void calculerEtAfficher() {

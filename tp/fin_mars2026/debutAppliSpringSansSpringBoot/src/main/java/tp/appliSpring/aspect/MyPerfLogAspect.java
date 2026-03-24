@@ -7,7 +7,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-
+@Aspect
+@Component
 @Profile("perf")
 public class MyPerfLogAspect {
 
@@ -30,7 +31,7 @@ public class MyPerfLogAspect {
 	//@Around("annotAffPointcut()")
 	//@Around("surPackageExemple() && annotAffPointcut()")
 	//@Around("annotLogExecutionTimePointcut()")
-	@Around("surPackageExemple() || surPackageService()")
+	@Around("(surPackageExemple() || surPackageService()) && annotLogExecutionTimePointcut() ")
 	public Object doPerfLog(ProceedingJoinPoint pjp) throws Throwable {
 		System.out.println("<< trace == debut == " + pjp.getSignature().toLongString() + " <<");
 		long td = System.nanoTime();

@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import tp.appliSpring.annotation.LogExecutionTime;
 
 @Component
 public class Coordinateur {
@@ -24,6 +25,7 @@ public class Coordinateur {
 		System.out.println("dans initialiser() préfixé par @PostConstruct , monCalculateur=" + monCalculateur);
 	}
 
+	//@LogExecutionTime
 	public void calculerEtAfficher() {
 		double x=4;
 		double res =monCalculateur.calculer(x); //x*x ou bien 2*x ou bien ...
