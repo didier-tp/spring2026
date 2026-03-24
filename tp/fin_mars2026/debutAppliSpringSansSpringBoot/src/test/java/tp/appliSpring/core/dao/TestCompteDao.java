@@ -24,8 +24,8 @@ public class TestCompteDao {
     private static Logger logger = LoggerFactory.getLogger(TestCompteDao.class);
 	
 	@Autowired
-	@Qualifier("simu")
-	//@Qualifier("jdbc")
+	//@Qualifier("simu")
+	@Qualifier("jdbc")
 	//@Qualifier("jpa")
 	private DaoCompte daoCompte; //à tester
 	
