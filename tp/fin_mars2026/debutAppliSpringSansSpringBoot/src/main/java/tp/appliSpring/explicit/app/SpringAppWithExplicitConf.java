@@ -17,7 +17,7 @@ public class SpringAppWithExplicitConf {
 		//choix prioritaire : celui effectué depuis un script de lancement extérieur (ex: -Dspring.profiles.active=p1,p2 dans .bat ou .sh ).
 
 
-		ApplicationContext contextSpring = new AnnotationConfigApplicationContext(ExempleConfigExplicite.class);
+		ApplicationContext contextSpring =new AnnotationConfigApplicationContext(ExempleConfigExplicite.class);
 		//contextSpring représente un ensemble de composants pris en charge par spring
 		//et qui est initialisé selon une ou plusieurs classes de configuration.
 		

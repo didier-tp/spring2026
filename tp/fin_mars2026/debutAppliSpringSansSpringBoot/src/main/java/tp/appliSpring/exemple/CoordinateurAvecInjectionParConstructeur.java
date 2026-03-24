@@ -1,5 +1,6 @@
 package tp.appliSpring.exemple;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -7,10 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CoordinateurAvecInjectionParConstructeur {
+
+
+	private final MonAfficheur monAfficheur=null; //référence vers afficheur à injecter
 	
-	private final MonAfficheur monAfficheur; //référence vers afficheur à injecter
-	
-	private final MonCalculateur monCalculateur;//référence vers calculateur à injecter
+	private final MonCalculateur monCalculateur=null;//référence vers calculateur à injecter
 
 	/*
 	//Autre solution pour lever ambiguité sur choses à injecter:

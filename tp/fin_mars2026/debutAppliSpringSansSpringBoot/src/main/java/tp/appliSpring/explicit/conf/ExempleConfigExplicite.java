@@ -31,13 +31,13 @@ public class ExempleConfigExplicite {
         return new SuffixeurBasic(monSuffixe);
     }
 
-    @Bean @Profile("maj")
+    @Bean(name="prefixeur") @Profile("maj")
     public Prefixeur prefixeurMaj(){
-        return new PrefixeurMaj(monPrefixe);
+      return new PrefixeurMaj(monPrefixe);
     }
 
 
-    @Bean @Profile("maj")
+    @Bean(name="suffixeur") @Profile("maj")
     public Suffixeur suffixeurMaj(){
         return new SuffixeurMaj(monSuffixe);
     }
