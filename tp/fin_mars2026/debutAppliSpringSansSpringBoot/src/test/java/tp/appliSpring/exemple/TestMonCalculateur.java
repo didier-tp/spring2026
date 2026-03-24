@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -13,13 +15,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class) //si junit5/jupiter
 @ContextConfiguration(classes= {ExempleConfig.class})
 @Slf4j
+@ActiveProfiles(profiles = {"perf"})
 public class TestMonCalculateur {
 	
 	//private static Logger log = LoggerFactory.getLogger(TestMonCalculateur.class);
 	
-	@Autowired
-	private MonCalculateurCarre monCalculateur; //à tester
-	//private MonCalculateur monCalculateur; //à tester
+	@Autowired @Qualifier("monCalculateurCarre")
+	//private MonCalculateurCarre monCalculateur; //à tester
+	private MonCalculateur monCalculateur; //à tester
 	
 	@Test
 	public void testCalculer() {
