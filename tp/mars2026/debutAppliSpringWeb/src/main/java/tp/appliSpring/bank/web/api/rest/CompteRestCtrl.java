@@ -1,6 +1,7 @@
 package tp.appliSpring.bank.web.api.rest;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -127,7 +128,8 @@ public class CompteRestCtrl {
 	@ApiResponse(responseCode = "404", ref = "#/components/responses/NotFoundErrorResponse")
 	@ApiResponse(responseCode = "204", ref = "#/components/responses/NoContentResponse")
 	@ApiResponse(responseCode = "500", ref = "#/components/responses/InternalServerErrorResponse")
-	@PreAuthorize("hasAuthority('SCOPE_resource.write') or hasRole('ADMIN') or hasRole('CUSTOMER')")
+	//@PreAuthorize("hasAuthority('SCOPE_resource.write') or hasRole('ADMIN') or hasRole('CUSTOMER')")
+	@RolesAllowed({"ADMIN","CUSTOMER"})
 	public ResponseEntity<Compte> putCompte(@Valid @RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
 		compte.setNumero(idToUpdate);
 		Compte compteMisAJour = serviceCompte.update(compte);

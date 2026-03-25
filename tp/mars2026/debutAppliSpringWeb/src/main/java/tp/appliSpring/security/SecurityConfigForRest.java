@@ -26,7 +26,7 @@ import tp.appliSpring.security.generic.standalone.JwtAuthenticationFilter;
 
 @Configuration
 @Profile("withSecurity")
-@EnableMethodSecurity()//pour que le test @PreAuthorize("hasRole('ADMIN')") puisse bien fonctionner
+@EnableMethodSecurity(jsr250Enabled = true)//pour que le test @PreAuthorize("hasRole('ADMIN')") puisse bien fonctionner
 public class SecurityConfigForRest {
 
 	@Bean
