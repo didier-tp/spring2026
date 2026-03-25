@@ -1,5 +1,6 @@
 package tp.mySpringBoot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Compte {
                 '}';
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY) //valeur de mappedBy = nom java de la relation inverse
     private List<Operation> operations; //avec get/set
 

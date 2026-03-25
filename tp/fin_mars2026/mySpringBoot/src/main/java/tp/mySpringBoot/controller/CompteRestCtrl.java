@@ -15,6 +15,7 @@ public class CompteRestCtrl {
 
     private final ServiceCompte serviceCompte;
 
+    //pour l'instant , en debut de dev, mettre ddl-auto=none pour avoir une table pas vide
     //http:localhost:8080/mySpringBoot/rest/api-bank/v1/comptes/1
     @GetMapping("/{id}")
     Compte getCompteById(@PathVariable("id") Long numero){
