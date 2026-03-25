@@ -1,6 +1,7 @@
 package tp.mySpringBoot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import tp.mySpringBoot.entity.Compte;
 
 import java.util.List;
@@ -9,8 +10,15 @@ import java.util.Optional;
 //avec des méthodes CRUD : Create , Retreive , Update , Delete
 
 public interface RepositoryCompte extends JpaRepository<Compte,Long> {
-
+    /* principales méthodes héritées:
+       .save() , .findById() , .deleteById()
+    */
     List<Compte> findByLabelLike(String  label);
+
+    List<Compte> findBySoldeBetween(double soldeMini,double soldeMaxi);
+
+    @Query("SELECT c FROM Compte c WHERE c.solde>= :soldeMini AND c.solde<= :soldeMaxi")
+    List<Compte> rechercherAvecSoldeEntre(double soldeMini,double soldeMaxi);
 
     //...
 }

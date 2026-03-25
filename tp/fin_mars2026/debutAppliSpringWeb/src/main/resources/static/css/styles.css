@@ -1,0 +1,10 @@
+label { color: blue ; }
+.highlight { font-weight: bold; }
+.simpleAlign { color: blue ; display: inline-block; width: 10em; text-align: right; }
+
+.error { color : red; font-weight: bold; font-style: italic; }
+
+
+fieldset, legend {
+   all: revert;
+}

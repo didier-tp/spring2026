@@ -30,6 +30,19 @@ public class TestCompteRepository {
     }
 
     @Test
+    public void testFindSoldeBetween() {
+        this.daoCompte.save(new Compte(null,"compteCc1",100.0));
+        this.daoCompte.save(new Compte(null,"compteCc2",120.0));
+        this.daoCompte.save(new Compte(null,"compteCc3",150.0));
+        this.daoCompte.save(new Compte(null,"compteCc4",180.0));
+        //List<Compte> comptes =daoCompte.findBySoldeBetween(110,170);
+        List<Compte> comptes =daoCompte.rechercherAvecSoldeEntre(110,170); //à coder via @Query()
+        log.debug("comptes avec solde entre 110 et 170=" + comptes);
+        assertTrue(comptes.size()>=2);
+
+    }
+
+    @Test
     public void testAjoutEtRelectureEtSuppression() {
         //hypothese : base avec tables vides au lancement du test
         Compte compte = new Compte(null,"compteA",100.0);

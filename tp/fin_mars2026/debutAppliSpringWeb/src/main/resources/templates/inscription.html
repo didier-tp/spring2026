@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<div xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}"
+     layout:fragment="content">
+     <script>
+		   function onSportif(){
+			   var sportifCheckBox=document.getElementById("sportifCheckBox");
+			   var sportPrincipalDiv=document.getElementById("sportPrincipalDiv");
+			   if(sportifCheckBox.checked)
+			      sportPrincipalDiv.style.display="block";
+			   else
+				  sportPrincipalDiv.style.display="none";
+		   }
+	</script>
+    <h1>Inscription</h1>
+    
+    <form th:action="@{/site/basic/doInscription}" method="GET"
+          th:object="${inscriptionF}">
+	    <label class="simpleAlign">nom:</label> 
+			<input type="text" name="nom" th:field="*{nom}" /><br/>
+		<label class="simpleAlign">pays:</label> 
+			<!-- nb: syntaxe th:field en *{...} pour selectionner une sous partie 
+					         de l'objet precisee par th:object du formulaire -->
+			<select th:field="*{pays}" >
+	           <option th:each ="p : ${inscriptionF.listePays}" th:value="${p}" th:utext="${p}"></option>
+	         </select> <br/>
+	     <label class="simpleAlign">dateDebut :</label> 
+			<input type="text" name="dateDebut" th:field="*{dateDebut}" />(ex: 2024-12-25 ou 25/12/2024)<br/>
+		<label class="simpleAlign">situation:</label>
+           <!--  
+			<input type="radio" name="situation" th:value="CELIBATAIRE" th:field="*{situation}" />
+			<span th:utext="CELIBATAIRE"></span> &nbsp; &nbsp;
+			<input type="radio" name="situation" th:value="EN_COUPLE" th:field="*{situation}" />
+			<span th:utext="EN_COUPLE"></span>
+			-->
+			<span th:each="s : ${T(tp.appliSpring.bank.site.form.InscriptionForm.Situation).values()}">
+			    <input type="radio" name="situation" th:value="${s}" th:field="*{situation}" />
+			    <span th:utext="${s}"></span> &nbsp;
+			</span>
+			<br/>
+		<label class="simpleAlign">sportif:</label> 
+			<input type="checkbox" id="sportifCheckBox" onclick="onSportif()"  name="sportif" th:checked="*{sportif}" /><br/>
+		
+		 <div id="sportPrincipalDiv" style="display:none">
+		    <fieldset> <legend>sportPrincipal</legend>
+		     <label class="simpleAlign">sport principal:</label> 
+			     <input type="text"  th:field="*{sportPrincipal.nom}" /><br/>
+			 <label class="simpleAlign">nbHeuresParSemaine:</label> 
+			     <input type="text"  th:field="*{sportPrincipal.nbHeuresParSemaine}" /><br/>
+			</fieldset>    
+		 </div>
+		 
+		
+		<input	type="submit" value="effectuer inscription" /> <br />
+	</form>
+	<hr/>
+	<span class="highlight"  th:utext="${message}"></span><br />
+	<hr/>
+    
+</div>
+  
