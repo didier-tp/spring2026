@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import tp.mySpringBoot.entity.Compte;
 
 import java.util.List;
@@ -37,6 +38,16 @@ public class TestCompteRepository {
         this.daoCompte.save(new Compte(null,"compteCc4",180.0));
         //List<Compte> comptes =daoCompte.findBySoldeBetween(110,170);
         List<Compte> comptes =daoCompte.rechercherAvecSoldeEntre(110,170); //à coder via @Query()
+        log.debug("comptes avec solde entre 110 et 170=" + comptes);
+        assertTrue(comptes.size()>=2);
+
+    }
+
+    @Test
+    @Sql("/comptes.sql")
+    public void testFindSoldeBetweenAvecSql() {
+        List<Compte> comptes =daoCompte.findBySoldeBetween(110,170);
+        //List<Compte> comptes =daoCompte.rechercherAvecSoldeEntre(110,170); //à coder via @Query()
         log.debug("comptes avec solde entre 110 et 170=" + comptes);
         assertTrue(comptes.size()>=2);
 

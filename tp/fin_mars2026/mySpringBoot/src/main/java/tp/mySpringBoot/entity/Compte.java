@@ -1,10 +1,9 @@
 package tp.mySpringBoot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +19,9 @@ public class Compte {
     private String label;
 
     private Double solde;
+
+    @OneToMany(mappedBy = "compte") //valeur de mappedBy = nom java de la relation inverse
+    private List<Operation> operations; //avec get/set
 
     public Compte(Long numero, String label, Double solde) {
         this.numero = numero;
