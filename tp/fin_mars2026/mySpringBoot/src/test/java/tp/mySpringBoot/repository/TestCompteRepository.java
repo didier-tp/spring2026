@@ -23,7 +23,7 @@ public class TestCompteRepository {
         this.daoCompte.save(new Compte(null,"compteC1",100.0));
         this.daoCompte.save(new Compte(null,"compteC2",150.0));
         this.daoCompte.save(new Compte(null,"compte3",150.0));
-        List<Compte> comptes =daoCompte.findByLabel("compteC%");
+        List<Compte> comptes =daoCompte.findByLabelLike("compteC%");
         log.debug("comptes=" + comptes);
         assertTrue(comptes.size()>=1);
 
