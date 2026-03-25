@@ -13,6 +13,9 @@ public interface RepositoryCompte extends JpaRepository<Compte,Long> {
     /* principales méthodes héritées:
        .save() , .findById() , .deleteById()
     */
+    @Query("SELECT c FROM Compte c LEFT JOIN FETCH c.operations op WHERE c.numero = :numCompte")
+    Optional<Compte> findCompteWithOperationsById(Long numCompte);
+
     List<Compte> findByLabelLike(String  label);
 
     List<Compte> findBySoldeBetween(double soldeMini,double soldeMaxi);

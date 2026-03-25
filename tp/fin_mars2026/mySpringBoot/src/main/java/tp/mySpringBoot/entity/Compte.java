@@ -28,7 +28,7 @@ public class Compte {
                 '}';
     }
 
-    @OneToMany(fetch=FetchType.EAGER ,mappedBy = "compte") //valeur de mappedBy = nom java de la relation inverse
+    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY) //valeur de mappedBy = nom java de la relation inverse
     private List<Operation> operations; //avec get/set
 
     public Compte(Long numero, String label, Double solde) {

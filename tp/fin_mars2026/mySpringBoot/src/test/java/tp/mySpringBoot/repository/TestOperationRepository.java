@@ -25,14 +25,25 @@ public class TestOperationRepository {
     @Test
     public void testFindOperationByCompteNumero(){
         Compte cA = repositoryCompte.save(new Compte(null,"cA" , 100.0));
-        /*Operation op1_cA = new Operation(null ,-5.5, "achat1");
-        op1_cA.setCompte(cA);*/
-        Operation op1_cA = new Operation(null ,-5.5, "achat1",new Date(),cA);
-        repositoryOperation.save(op1_cA);
+        /*Operation op1_cA = new Operation(null ,-5.5, "achat1");  op1_cA.setCompte(cA);*/
+        Operation op1_cA = new Operation(null ,-5.5, "achat1a",new Date(),cA);
+        Operation op2_cA = new Operation(null ,-15.5, "achat2a",new Date(),cA);
+        repositoryOperation.save(op1_cA); repositoryOperation.save(op2_cA);
+
+        Compte cB = repositoryCompte.save(new Compte(null,"cB" , 100.0));
+        Operation op1_cB = new Operation(null ,-6.5, "achat1b",new Date(),cB);
+        Operation op2_cB = new Operation(null ,-18.5, "achat2b",new Date(),cB);
+        repositoryOperation.save(op1_cB); repositoryOperation.save(op2_cB);
 
         List<Operation> operationsDeCa = repositoryOperation.findByCompteNumero(cA.getNumero());
         log.debug("operationsDeCa="+operationsDeCa);
-        assertTrue(operationsDeCa.size()>=1);
+        assertTrue(operationsDeCa.size()>=2);
 
+        //Compte cArelu = repositoryCompte.findById(cA.getNumero()).get();
+        Compte cArelu = repositoryCompte.findCompteWithOperationsById(cA.getNumero()).get();
+        log.debug("cArelu="+cArelu.toString());
+        for(Operation op : cArelu.getOperations()){
+            log.debug("\top:" +op);
+        }
     }
 }
