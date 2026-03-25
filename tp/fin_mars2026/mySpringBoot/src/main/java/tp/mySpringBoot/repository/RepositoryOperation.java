@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RepositoryOperation extends JpaRepository<Operation,Long> {
     //pas besoin de @Query ici (car convention de nommage findBy + Compte + Numero)
-    List<Operation> findByCompteNumero();  //findByAccountNumber si avec noms anglais
+    List<Operation> findByCompteNumero(Long numeroCompte);  //findByAccountNumber si avec noms anglais
 }

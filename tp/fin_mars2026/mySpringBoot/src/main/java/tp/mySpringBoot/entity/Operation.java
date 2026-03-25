@@ -12,7 +12,6 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Operation {
     @Id
@@ -31,6 +30,16 @@ public class Operation {
     @ManyToOne()
     @JoinColumn(name="num_compte") //fk
     private Compte compte;
+
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "numero=" + numero +
+                ", montant=" + montant +
+                ", label='" + label + '\'' +
+                ", dateOp=" + dateOp +
+                '}';
+    }
 
     public Operation(Long numero, Double montant, String label, Date dateOp, Compte compte) {
         this.numero = numero;

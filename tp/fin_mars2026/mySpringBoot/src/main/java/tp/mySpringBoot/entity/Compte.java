@@ -7,7 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Entity
 public class Compte {
@@ -20,7 +19,16 @@ public class Compte {
 
     private Double solde;
 
-    @OneToMany(mappedBy = "compte") //valeur de mappedBy = nom java de la relation inverse
+    @Override
+    public String toString() {
+        return "Compte{" +
+                "numero=" + numero +
+                ", label='" + label + '\'' +
+                ", solde=" + solde +
+                '}';
+    }
+
+    @OneToMany(fetch=FetchType.EAGER ,mappedBy = "compte") //valeur de mappedBy = nom java de la relation inverse
     private List<Operation> operations; //avec get/set
 
     public Compte(Long numero, String label, Double solde) {
