@@ -1,5 +1,8 @@
 package tp.mySpringBoot.repository;
 
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,10 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Slf4j
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class TestCompteRepository {
 
-    @Autowired
-    private RepositoryCompte daoCompte; //à tester
+    //@Autowired
+    private final RepositoryCompte daoCompte; //à tester
 
     @Test
     public void testFindByLabel() {

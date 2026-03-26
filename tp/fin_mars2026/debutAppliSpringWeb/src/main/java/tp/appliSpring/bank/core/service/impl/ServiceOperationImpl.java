@@ -40,9 +40,9 @@ public class ServiceOperationImpl implements ServiceOperation {
     @Transactional()
     public List<Operation> searchByCompte(String numCpt) {
         Long numCptLong = Long.parseLong(numCpt);
-        //CompteEntity compteEntity = daoCompte.findWithOperations(numCptLong);
-        CompteEntity compteEntity = daoCompte.findById(numCptLong).get();
-        compteEntity.getOperations().size();// boucle interne automatique (lazy loading différé)
+        CompteEntity compteEntity = daoCompte.findWithOperations(numCptLong);
+        //CompteEntity compteEntity = daoCompte.findById(numCptLong).get();
+        //compteEntity.getOperations().size();// boucle interne automatique (lazy loading différé)
         return myBankGenericMapper.map(compteEntity.getOperations(),Operation.class);
     }
 }

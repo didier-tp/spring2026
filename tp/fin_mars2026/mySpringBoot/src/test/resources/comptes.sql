@@ -1,3 +1,4 @@
+DELETE FROM operation;
 DELETE FROM compte;
 INSERT INTO compte(label,solde) VALUES ('compteCC1' , 100.0);
 INSERT INTO compte(label,solde) VALUES ('compteCC2' , 120.0);

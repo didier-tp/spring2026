@@ -2,6 +2,7 @@ package tp.appliSpring.bank.core.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.bank.converter.MyBankGenericMapper;
 import tp.appliSpring.bank.core.exception.BankException;
@@ -34,22 +35,25 @@ public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntit
 	}
 
 	@Transactional()
-	//@Transactional(propagation = Propagation.REQUIRED)par défaut
+	//@Transactional(propagation = Propagation.REQUIRED)//par défaut
 	public void transfer(double montant, String numCptDeb, String numCptCred)throws BankException {
 		try {
 			Long numCptDebLong = Long.parseLong(numCptDeb);
-			/* //à compléter en TP:
 			//1. remonter le "CompteEntity" à débiter selon son numero Long
+			CompteEntity compteEntityDeb = this.daoCompte.findById(numCptDebLong).get();
 			//   nouveau solde = ancien solde -montant
+			compteEntityDeb.setSolde(compteEntityDeb.getSolde()-montant);
 			//   sauvegarder si  nécessaire les valeurs modifiées en base
-			 */
+			this.daoCompte.save(compteEntityDeb);
 
 			Long numCptCredLong = Long.parseLong(numCptCred);
-			/* //à compléter en TP:
 			//1. remonter le "CompteEntity" à créditer selon son numero Long
+			CompteEntity compteEntityCred = this.daoCompte.findById(numCptCredLong).get();
 			//   nouveau solde = ancien solde + montant
+			compteEntityCred.setSolde(compteEntityCred.getSolde()+montant);
 			//   sauvegarder si  nécessaire les valeurs modifiées en base
-			 */
+			this.daoCompte.save(compteEntityCred);
+
 
 		} catch (Exception e) {
 			throw new BankException("echec virement",e);
