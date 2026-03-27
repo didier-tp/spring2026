@@ -3,6 +3,7 @@ package tp.appliSpring.bank.web.api.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.bank.core.model.Compte;
@@ -100,6 +101,7 @@ public class CompteRestCtrl {
 	//avec dans la partie "body" de la requête
 	// { "numero" : null , "label" : "comptequiVaBien" , "solde" : 50.0 }
 	@PostMapping("")
+	@PreAuthorize("hasRole('ADMIN') or hasAuthority('SCOPE_resource.write')")
 	public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody CompteToCreate obj) {
 		Compte savedObj = serviceCompte.create(obj);  //avec id auto_incrémenté
 		URI location = ServletUriComponentsBuilder
@@ -119,6 +121,7 @@ public class CompteRestCtrl {
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1
 	//avec dans la partie "body" de la requête
 	// { "numero" : "1" , "label" : "libelleModifie" , "solde" : 120.0  }
+	@PreAuthorize("hasRole('ADMIN') or hasAuthority('SCOPE_resource.write')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Compte> putCompte(@RequestBody Compte compte, @PathVariable("id") String idToUpdate) {
 		compte.setNumero(idToUpdate);
@@ -129,6 +132,7 @@ public class CompteRestCtrl {
 
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasAuthority('SCOPE_resource.delete')")
 	public ResponseEntity<?> deleteCompteByNum(@PathVariable("id")String numCompte){
 		serviceCompte.removeById(numCompte);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
