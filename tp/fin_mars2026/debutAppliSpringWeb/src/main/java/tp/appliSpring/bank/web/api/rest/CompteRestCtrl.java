@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.bank.core.model.Compte;
 import tp.appliSpring.bank.core.service.ServiceCompte;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
 import tp.appliSpring.bank.persistence.repository.CompteRepository;
+import tp.appliSpring.bank.web.api.dto.CompteToCreate;
 import tp.appliSpring.generic.dto.ApiError;
+import tp.appliSpring.generic.dto.MessageDto;
 import tp.appliSpring.generic.exception.EntityNotFoundException;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -41,7 +45,7 @@ public class CompteRestCtrl {
 		this.serviceCompte = serviceCompte;
 	}
 
-   /*
+
 	//Get By ID
 	//V1 avec DTO et V3 (avec automatisme ExceptionHandler)
 	//declencher en mode GET avec
@@ -51,10 +55,10 @@ public class CompteRestCtrl {
 		return serviceCompte.searchById(numeroCompte);
 		//NB: l'objet retourné sera automatiquement converti au format json
 	}
-*/
 
 
 
+/*
 	//V2 avec ResponseEntity<?> mais sans ExceptionHandler
 
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
@@ -69,7 +73,7 @@ public class CompteRestCtrl {
 					             .body(new ApiError(HttpStatus.NOT_FOUND,"compte inexistant"));
         }
 	}
-
+*/
 
 	//GET Multiple
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes
@@ -95,7 +99,21 @@ public class CompteRestCtrl {
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes
 	//avec dans la partie "body" de la requête
 	// { "numero" : null , "label" : "comptequiVaBien" , "solde" : 50.0 }
-	//...
+	@PostMapping("")
+	public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody CompteToCreate obj) {
+		Compte savedObj = serviceCompte.create(obj);  //avec id auto_incrémenté
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(savedObj.getNumero()).toUri();
+	//return ResponseEntity.created(location).build();
+	//return 201/CREATED , no body but URI to find added obj
+			return ResponseEntity.created(location).body(savedObj);
+	//return 201/CREATED with savedObj  AND with URI to find added obj
+				/* ou bien encore  return ResponseEntity.ok()
+	.headers(responseHeadersWithLocation).body(savedObj);
+	*/
+	}
 
 	//appelé en mode PUT
 	//avec url = http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1
@@ -110,8 +128,15 @@ public class CompteRestCtrl {
 	}
 
 	//http://localhost:8181/appliSpring/rest/api-bank/v1/comptes/1 ou 2
-	//@DeleteMapping("/{id}")
-	//....
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteCompteByNum(@PathVariable("id")String numCompte){
+		serviceCompte.removeById(numCompte);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		//NO_CONTENT = 204 = OK mais sans message
+		//ou bien return ResponseEntity.ok(new MessageDto("devise with code=" + numCompte + " successfully deleted"));
+		//200/OK + message
+		//exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
+	}
 }
 
 
