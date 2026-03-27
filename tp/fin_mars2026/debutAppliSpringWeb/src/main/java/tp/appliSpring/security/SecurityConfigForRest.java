@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +15,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -40,7 +42,16 @@ public class SecurityConfigForRest {
 
 	private HttpSecurity restFilterChainBuilder(HttpSecurity http) throws Exception {
 
-		return null;
+		return http.securityMatcher("/rest/**")
+				.authorizeHttpRequests(auth->
+				auth.requestMatchers(HttpMethod.GET,"/rest/api-bank/v1/comptes/**").permitAll()
+						.requestMatchers("/rest/api-auth/v1/standalone-jwt-auth").permitAll()
+						.requestMatchers("/rest/**").authenticated()
+		         ).sessionManagement(sM ->
+				sM.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.cors( Customizer.withDefaults())
+				//enable CORS (avec @CrossOrigin sur class @RestController)
+				.csrf( csrf  -> csrf.disable() );
         /*
         A COMPLETER EN TP
         avec permitAll sur GET /rest/api-bank/v1/comptes/**
