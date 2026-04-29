@@ -26,7 +26,7 @@ import tp.appliSpring.security.generic.standalone.JwtAuthenticationFilter;
 
 @Configuration
 @Profile("withSecurity")
-@EnableMethodSecurity()//pour que le test @PreAuthorize("hasRole('ADMIN')") puisse bien fonctionner
+@EnableMethodSecurity(jsr250Enabled = true)//pour que le test @PreAuthorize("hasRole('ADMIN')") puisse bien fonctionner
 public class SecurityConfigForRest {
 
 	@Bean
@@ -45,12 +45,11 @@ public class SecurityConfigForRest {
 		return http.securityMatcher("/rest/**")
 		         .authorizeHttpRequests( auth ->
 						    auth.requestMatchers(HttpMethod.GET,"/rest/api-bank/v1/comptes/**").permitAll()
-								.requestMatchers("/rest/api-bank/v1/comptes/**").authenticated()
+								.requestMatchers("/rest/api-bank/v1/**").authenticated()
 				              .requestMatchers("/rest/api-auth/v1/standalone-jwt-auth").permitAll())
                   .cors( Customizer.withDefaults())
 				.csrf( csrf -> csrf.disable() )
-				.sessionManagement(sM -> sM.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
+				.sessionManagement(sM -> sM.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 	}
 

@@ -13,7 +13,7 @@ git clone https://github.com/didier-tp/spring2026
 --------
 futures actualisations:
 cd c:\references\spring2026
-git pull
+git pull 
 ---------
 Aternative --> code / download zip
 

@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Chat WebSocket</title>
+        <script src="./js/sockjs.min.js"></script>
+        <script src="./js/stomp.min.js"></script>
+        <script src="./js/my-chat.js"></script>
+        
+    </head>
+    <body onload="disconnect()">
+        <div>
+            <div>
+                sender/from:<input type="text" id="from" placeholder="Choose a nickname"/> <br />
+                <button id="connect" onclick="connect();">Connect</button>
+                <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+            </div>
+            <hr />
+            <div id="conversationDiv">
+                message:<input type="text" id="text" placeholder="Write a message..."/>
+                <button id="sendMessage" onclick="sendMessage();">Send</button>
+                <ul id="response"></ul>
+            </div>
+        </div>
+
+    </body>
+</html>

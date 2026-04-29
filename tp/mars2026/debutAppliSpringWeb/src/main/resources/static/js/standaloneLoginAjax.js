@@ -15,6 +15,10 @@ function parseJwt (token) {
 
 function displayCurrentToken(){
 	let jwtToken =  sessionStorage.getItem("authToken");
+	if(jwtToken==null || jwtToken =="" || jwtToken == "null"){
+        document.getElementById("spanMessageToken").innerHTML="<b>no token</b>";
+        return;
+    }
 	var message = parseJwt(jwtToken);
     document.getElementById("spanMessageToken").innerHTML="<b>"+message+"</b>";
     console.log(message);
