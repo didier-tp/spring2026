@@ -1,0 +1,23 @@
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        number:
+          type: string
+        label:
+          type: string
+        balance:
+          type: number
+    AccountNotFoundError:
+      type: object
+      properties:
+        message:
+          type: string
+    DepositRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        depositAmount:
+          type: number

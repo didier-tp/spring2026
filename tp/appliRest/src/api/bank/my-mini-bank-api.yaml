@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: MiniBank simple api
+  description: |-
+    A simple banking API that allows two operations:
+    - get account balance given account number
+    - deposit amount to a account
+  version: 1.0-SNAPSHOT
+servers:
+  - url: http://localhost:8080/appliRest/my-bank-api/v1
+tags:
+  - name: accounts
+    description: Operations between bank accounts
+components:
+  schemas:
+    Account:
+      $ref: 'schemas/account.yaml#/components/schemas/Account'
+
+paths:
+  /accounts/{id}:
+    get:
+      tags:
+        - accounts
+      summary: Get account information
+      description: Get account information using account number
+      operationId: getAccount
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          example: 1
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas/account.yaml#/components/schemas/Account'
+        404:
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas/account.yaml#/components/schemas/AccountNotFoundError'
+  /deposits:
+    post:
+      tags:
+        - accounts
+      summary: Deposit amount to account
+      description: Initiates a deposit operation of a desired amount to the account specified
+      operationId: depositToAccount
+      requestBody:
+        description: Account number and desired amount to deposit
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas/account.yaml#/components/schemas/DepositRequest'
+        required: true
+      responses:
+        204:
+          description: Success
+        404:
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas/account.yaml#/components/schemas/AccountNotFoundError'
+

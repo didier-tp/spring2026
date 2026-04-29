@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ConvertResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          example : 100
+        source:
+          type: string
+          example : EUR
+        target:
+          type: string
+          example: USD
+        result:
+          type: number
+          format: double
+          example : 112

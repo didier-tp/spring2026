@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: devise api
+  description: |-
+    currency conversion
+  version: 1.0-SNAPSHOT
+servers:
+  - url: http://localhost:8080/appliRest/tp/devise-api/v1
+tags:
+  - name: devises
+    description: currency ,  convert
+components:
+  schemas:
+    Devise:
+      $ref: 'schemas/devise.yaml#/components/schemas/Devise'
+    ConvertResponse:
+      $ref: 'schemas/convertResponse.yaml#/components/schemas/ConvertResponse'
+
+paths:
+  /devises/{id}:
+    get:
+      description: get devise by id/code
+      operationId: getDeviseById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          example: EUR
+          schema:
+            type: string
+      responses:
+        200:
+          description: Returns Devise
+          content:
+            application/json:
+              schema:
+                $ref: "schemas/devise.yaml#/components/schemas/Devise"
+        404:
+          description: NOT_FOUND
+    delete:
+      description: delete devise by id/code
+      operationId: deleteDeviseById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          example: DDK
+          schema:
+            type: string
+      responses:
+        204:
+          description: NO CONTENT (OK)
+        404:
+          description: NOT_FOUND
+    put:
+      description: update devise with existing id/code
+      operationId: putDevise
+      parameters:
+        - name: id
+          in: path
+          required: true
+          example: JPY
+          schema:
+            type: string
+        - name: v
+          in: query
+          required: false
+          description: "verbose: to ask 200/updatedDevise (not 204/NO_CONTENT)"
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "schemas/devise.yaml#/components/schemas/Devise"
+      responses:
+        200:
+          description: updated devise
+          content:
+            application/json:
+              schema:
+                $ref: "schemas/devise.yaml#/components/schemas/Devise"
+        204:
+          description: NO_CONTENT (OK)
+        404:
+          description: NOT_FOUND
+  /devises:
+    get:
+      description: get devises from optional criteria (changeMini=)
+      operationId: getDeviseByCriteria
+      parameters:
+        - name: changeMini
+          in: query
+          required: false
+          example: 1.0
+          schema:
+            type: number
+            format: double
+      responses:
+        200:
+          description: devise list
+          content:
+            application/json:
+              schema:
+                $ref: "schemas/devise.yaml#/components/schemas/DeviseArray"
+    post:
+      description: post a new devise
+      operationId: postDevise
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref:  "schemas/devise.yaml#/components/schemas/Devise"
+      responses:
+        201:
+          description: saved devise
+          content:
+            application/json:
+              schema:
+                $ref: "schemas/devise.yaml#/components/schemas/Devise"
+        500:
+          description: INTERNAL_SERVER_ERROR
+  /devises/convert:
+    get:
+      description: return converted change
+      operationId: convert
+      parameters:
+        - name: amount
+          in: query
+          required: true
+          example: 100
+          schema:
+            type: number
+            format: double
+        - name: source
+          in: query
+          required: true
+          example: EUR
+          schema:
+            type: string
+            description: "code of source devise/currency"
+        - name: target
+          in: query
+          required: true
+          example: USD
+          schema:
+            type: string
+            description: "code of target devise/currency"
+      responses:
+        200:
+          description: converted change
+          content:
+            application/json:
+              schema:
+                $ref: "schemas/convertResponse.yaml#/components/schemas/ConvertResponse"
