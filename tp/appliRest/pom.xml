@@ -76,6 +76,7 @@
 				<artifactId>openapi-generator-maven-plugin</artifactId>
 				<version>7.21.0</version>
 				<executions>
+
 					<execution>
 						<id>bank-api</id>
 						<goals>
@@ -94,6 +95,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
+
 					<execution>
 						<id>devise-api</id>
 						<goals>
