@@ -1,0 +1,3 @@
+
+create table purchase (amount float(53) not null CHECK (amount <= 1000), customer_id bigint, id bigint not null auto_increment, order_id bigint, time_stamp datetime(6), primary key (id));
+

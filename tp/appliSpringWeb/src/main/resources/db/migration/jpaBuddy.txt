@@ -1,0 +1,14 @@
+https://jpa-buddy.com/guides/use-flyway-with-jpa-hibernate-entities/
+-----------------
+NB: au sein des versions récentes de intelliJ ,
+la plupart des fonctionnalités du plugin jpaBuddy sont accessibles
+  - soit depuis l'éditeur d'un fichier entityXXX.java
+  - soit depuis ... tools / Persistence
+     (une fois dans ... tools / Persistence)
+       menu (en haut pas contextuel) new database connection
+OUI , MAIS entre anciennes et nouvelles versions de intellij, de jpabuddy ,
+           entre version community et ultimate
+           entre config plus ou moins implicite de JPA
+... ça devient du au cas par cas pas très stable ....
+====
+Dans la doc officielle de jpaBuddy , le lien avec flyway est dans "Paid Features"
