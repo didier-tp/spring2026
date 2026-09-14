@@ -1,18 +1,21 @@
 package tp.appliSpring.exemple;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-//@RequiredArgsConstructor //si ambiguité , on peut s'appuyer sur @Primary
+//@RequiredArgsConstructor(onConstructor_ = @__(@Autowired)) //si ambiguité , on peut s'appuyer sur @Primary
 public class CoordinateurAvecInjectionParConstructeur {
 
 	private final MonAfficheur monAfficheur; //référence vers afficheur à injecter
 
-	private final MonCalculateur monCalculateur;//référence vers calculateur à injecter
+	private final  MonCalculateur monCalculateur;//référence vers calculateur à injecter
 	
 
+	@Autowired
 	public CoordinateurAvecInjectionParConstructeur(
 			@Qualifier("monAfficheurV1") MonAfficheur monAfficheur,
 			@Qualifier("monCalculateurCarre") MonCalculateur monCalculateur) {
@@ -21,7 +24,8 @@ public class CoordinateurAvecInjectionParConstructeur {
 		this.monCalculateur = monCalculateur;
 	}
 
-
+	/*public CoordinateurAvecInjectionParConstructeur(){
+	}*/
 
 	public void calculerEtAfficher() {
 		double x=4;
