@@ -32,13 +32,13 @@ public class ExempleConfigExplicite {
     private String monSuffixe="#";
 
     @Bean
-    @Profile("!maj")
+    @Profile("!maj")  //ou @Profile("basic")
     public Prefixeur prefixeur(){
         return new PrefixeurBasic(monPrefixe);
     }
 
     @Bean
-    @Profile("!maj")
+    @Profile("!maj") //ou @Profile("basic")
     public Suffixeur suffixeur(){
         return new SuffixeurBasic(monSuffixe);
     }
