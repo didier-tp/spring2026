@@ -8,7 +8,7 @@ import tp.appliSpring.explicit.conf.ExempleConfigExplicite;
 
 public class SpringAppWithExplicitConf {
 	public static void main(String[] args) {
-        //System.setProperty("spring.profiles.active","maj"); //ou bien -Dspring.profiles.active=maj dans .sh de lancement
+        System.setProperty("spring.profiles.active","maj"); //ou bien -Dspring.profiles.active=maj dans .sh de lancement
 		//Choisir éventuellement des profiles à activer AVANT l'initialisation du context spring:
 		//en fixant la valeur de la propriété spring.profiles.active ou bien spring.profiles.default
 
