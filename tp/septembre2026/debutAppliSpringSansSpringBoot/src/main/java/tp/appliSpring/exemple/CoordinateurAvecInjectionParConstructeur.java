@@ -1,19 +1,27 @@
 package tp.appliSpring.exemple;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+//@RequiredArgsConstructor //si ambiguité , on peut s'appuyer sur @Primary
 public class CoordinateurAvecInjectionParConstructeur {
+
+	private final MonAfficheur monAfficheur; //référence vers afficheur à injecter
+
+	private final MonCalculateur monCalculateur;//référence vers calculateur à injecter
 	
-	private MonAfficheur monAfficheur; //référence vers afficheur à injecter
-	
-	private MonCalculateur monCalculateur;//référence vers calculateur à injecter
-	
-	
+
 	public CoordinateurAvecInjectionParConstructeur(
-			MonAfficheur monAfficheur, 
-			MonCalculateur monCalculateur) {
+			@Qualifier("monAfficheurV1") MonAfficheur monAfficheur,
+			@Qualifier("monCalculateurCarre") MonCalculateur monCalculateur) {
 		super();
 		this.monAfficheur = monAfficheur;
 		this.monCalculateur = monCalculateur;
 	}
+
+
 
 	public void calculerEtAfficher() {
 		double x=4;

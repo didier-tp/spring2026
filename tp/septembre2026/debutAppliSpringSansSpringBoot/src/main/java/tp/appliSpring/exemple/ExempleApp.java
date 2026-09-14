@@ -11,12 +11,17 @@ public class ExempleApp {
 		//contextSpring représente un ensemble de composants pris en charge par spring
 		//et qui est initialisé selon une ou plusieurs classes de configuration.
 		
-		MonCalculateur monCalculateur = contextSpring.getBean(MonCalculateur.class);
+		//MonCalculateur monCalculateur = contextSpring.getBean(MonCalculateur.class); //ok si un seul calculateur possible
+		//MonCalculateur monCalculateur = (MonCalculateur) contextSpring.getBean("monCalculateurCarre");
+		MonCalculateur monCalculateur = contextSpring.getBean("monCalculateurCarre", MonCalculateur.class);
 		System.out.println("resCalcul="+monCalculateur.calculer(4));//4*4=16.0 ou autre 
 		
 		//A completer ...
 		Coordinateur coordinateurPrisEnChargeParSpring = contextSpring.getBean(Coordinateur.class);
 		coordinateurPrisEnChargeParSpring.calculerEtAfficher();
+
+		CoordinateurAvecInjectionParConstructeur coordinateurAipcPrisEnChargeParSpring = contextSpring.getBean(CoordinateurAvecInjectionParConstructeur.class);
+		coordinateurAipcPrisEnChargeParSpring.calculerEtAfficher();
 		
 		((AnnotationConfigApplicationContext) contextSpring).close();
 	}
