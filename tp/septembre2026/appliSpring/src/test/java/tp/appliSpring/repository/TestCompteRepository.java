@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import tp.appliSpring.entity.CompteEntity;
 
 import java.util.List;
@@ -42,6 +43,17 @@ public class TestCompteRepository {
         //List<CompteEntity> compteAvecSoldeAuMoins100 = this.compteRepository.findBySoldeMini(100.0); //ok
         assertTrue(compteAvecSoldeAuMoins100.size()>=2);
         log.debug("compteAvecSoldeAuMoins100=" + compteAvecSoldeAuMoins100);
+
+    }
+
+    //@Test
+    //@Sql({"/import_comptes.sql"})
+    public void testComptesAvecSoldeMini(){
+
+        List<CompteEntity> compteAvecSoldeAuMoins2000 = this.compteRepository.findBySoldeGreaterThanEqual(2000.0);
+        //List<CompteEntity> compteAvecSoldeAuMoins2000 = this.compteRepository.findBySoldeMini(2000.0); //ok
+        assertTrue(compteAvecSoldeAuMoins2000.size()>=2);
+        log.debug("compteAvecSoldeAuMoins2000=" + compteAvecSoldeAuMoins2000);
 
     }
 }
