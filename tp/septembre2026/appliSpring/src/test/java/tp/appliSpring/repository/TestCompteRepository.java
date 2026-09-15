@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import tp.appliSpring.AppliSpringApplication;
 import tp.appliSpring.entity.CompteEntity;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+@SpringBootTest(classes = {AppliSpringApplication.class})
 @ActiveProfiles({ "dev"})  //pour analyser application-dev.properties
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = @__(@Autowired)) //injection par constructeur avec lombok et final
@@ -46,8 +47,8 @@ public class TestCompteRepository {
 
     }
 
-    //@Test
-    //@Sql({"/import_comptes.sql"})
+    @Test
+    @Sql({"/import_comptes.sql"})
     public void testComptesAvecSoldeMini(){
 
         List<CompteEntity> compteAvecSoldeAuMoins2000 = this.compteRepository.findBySoldeGreaterThanEqual(2000.0);
