@@ -25,9 +25,12 @@ public class CompteEntity {
         this.solde = solde;
     }
 
-    @OneToMany(mappedBy = "compte")
+    @OneToMany(mappedBy = "compte") //coté inverse/secondaire d'une relation bi-directionnelle avec mappedBy="..."
     //@JsonIgnore
     private List<OperationEntity> operations;
+
+    @ManyToMany(mappedBy = "comptes")  //coté inverse/secondaire d'une relation bi-directionnelle avec mappedBy="..."
+    private List<ClientEntity> clients;
 
     public CompteEntity(){
         this(null,null,null);
