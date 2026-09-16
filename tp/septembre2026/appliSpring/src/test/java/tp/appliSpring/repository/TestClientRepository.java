@@ -41,7 +41,8 @@ public class TestClientRepository {
         client2.getComptes().add(compteZ); client2.getComptes().add(compteW);
         clientRepository.save(client2); //.save() du coté client là où il n'ya pas mappedBy
 
-        List<CompteEntity> comptesDuClient1 = clientRepository.findComptesOfClientNum(client1.getNumero());
+        //List<CompteEntity> comptesDuClient1 = clientRepository.findComptesOfClientNum(client1.getNumero());
+        List<CompteEntity> comptesDuClient1 = compteRepository.findByClients_Numero(client1.getNumero());
         assertTrue(comptesDuClient1.size()==2);
         log.debug("comptesDuClient1="+comptesDuClient1);
 

@@ -11,6 +11,4 @@ public interface ClientRepository extends JpaRepository<ClientEntity,Long> {
 
     @Query("SELECT cli.comptes FROM ClientEntity cli WHERE cli.numero= :numClient")
     List<CompteEntity> findComptesOfClientNum(long numClient);
-
-    //List<CompteEntity> findByClients_Numero(long numClient);
 }
