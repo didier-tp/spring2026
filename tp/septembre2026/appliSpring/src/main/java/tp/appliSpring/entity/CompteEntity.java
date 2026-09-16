@@ -1,5 +1,6 @@
 package tp.appliSpring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class CompteEntity {
     }
 
     @OneToMany(mappedBy = "compte")
+    //@JsonIgnore
     private List<OperationEntity> operations;
 
     public CompteEntity(){

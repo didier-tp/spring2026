@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tp.appliSpring.entity.CompteEntity;
+import tp.appliSpring.model.Compte;
 import tp.appliSpring.service.ServiceCompte;
 
 @RestController  //component de type pointEntree ApiRest
@@ -17,7 +18,9 @@ public class CompteRestCtrl {
 
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
-    public CompteEntity getCompteByNum(@PathVariable("numCompte") Long numCompte) {
-        return serviceCompte.findById(numCompte).get();
+    public Compte getCompteByNum(@PathVariable("numCompte") Long numCompte) {
+        CompteEntity compteEntity = serviceCompte.findById(numCompte).get();
+        Compte compteDto = new Compte(compteEntity.getNumero(),compteEntity.getLabel(),compteEntity.getSolde());
+        return compteDto;
     }
 }
