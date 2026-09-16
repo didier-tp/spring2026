@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
 import tp.appliSpring.repository.CompteRepository;
+import tp.appliSpring.repository.OperationRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     //+ injection de dépendance pour déléguer à CompteRepository
     private final CompteRepository compteRepository;
+    private final OperationRepository operationRepository;
 
     @Override
     public CompteEntity searchById(Long numCompte) {
@@ -28,7 +30,7 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public void removeById(Long numCompte) {
-
+         compteRepository.deleteById(numCompte);
     }
 
     @Override
@@ -38,18 +40,13 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
-    public void transferer(double montant, long numCompteDebiter, long numCompteCredider) {
-
-    }
-
-    @Override
     public List<CompteEntity> findAll() {
-        return List.of();
+        return compteRepository.findAll();
     }
 
     @Override
     public List<CompteEntity> findBySoldeMini(double mini) {
-        return List.of();
+        return compteRepository.findBySoldeMini(mini);
     }
 
     @Override
@@ -59,6 +56,11 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public List<OperationEntity> findOperationsForCompteNumero(long numCompte) {
-        return List.of();
+        return operationRepository.findByCompteNumero(numCompte);
+    }
+
+    @Override
+    public void transferer(double montant, long numCompteDebiter, long numCompteCredider) {
+
     }
 }
