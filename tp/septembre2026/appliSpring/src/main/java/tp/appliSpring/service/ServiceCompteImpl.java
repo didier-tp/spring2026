@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service //@Component de type Service métier
-//@Transactional
+//@Transactional systematiquement ici sur projet serieux d'entreprise
 @RequiredArgsConstructor
 public class ServiceCompteImpl implements ServiceCompte{
 
@@ -65,8 +65,10 @@ public class ServiceCompteImpl implements ServiceCompte{
     @Transactional
     public CompteEntity searchByIdWithOperations(Long numCompte) {
         CompteEntity cpt = this.compteRepository.findById(numCompte).get();
+        //cpt remonte ici à l'état persistant de JPA/Hibernate que si @Transactional , sinon état détaché
         for(OperationEntity op : cpt.getOperations()){
             //boucle for pour remonter en mémoire les élements de la collection en mode lazy
+            //ok seulement à l'état persistant , sinon LazyInitializationException (quand détaché et trop tard)
         }
         return cpt;
     }
