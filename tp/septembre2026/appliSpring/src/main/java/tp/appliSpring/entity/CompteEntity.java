@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name="compte")
 @Getter @Setter
@@ -21,6 +23,9 @@ public class CompteEntity {
         this.label = label;
         this.solde = solde;
     }
+
+    @OneToMany(mappedBy = "compte")
+    private List<OperationEntity> operations;
 
     public CompteEntity(){
         this(null,null,null);
