@@ -62,8 +62,13 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
+    @Transactional
     public CompteEntity searchByIdWithOperations(Long numCompte) {
-        return this.compteRepository.findById(numCompte).get();
+        CompteEntity cpt = this.compteRepository.findById(numCompte).get();
+        for(OperationEntity op : cpt.getOperations()){
+            //boucle for pour remonter en mémoire les élements de la collection en mode lazy
+        }
+        return cpt;
     }
 
     @Override

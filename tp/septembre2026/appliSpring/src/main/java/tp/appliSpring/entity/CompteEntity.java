@@ -25,7 +25,7 @@ public class CompteEntity {
         this.solde = solde;
     }
 
-    @OneToMany(mappedBy = "compte") //coté inverse/secondaire d'une relation bi-directionnelle avec mappedBy="..."
+    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY) //coté inverse/secondaire d'une relation bi-directionnelle avec mappedBy="..."
     //@JsonIgnore
     private List<OperationEntity> operations;
 
