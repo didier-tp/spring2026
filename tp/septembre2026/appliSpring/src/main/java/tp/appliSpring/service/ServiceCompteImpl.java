@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service //@Component de type Service métier
+//@Transactional
 @RequiredArgsConstructor
 public class ServiceCompteImpl implements ServiceCompte{
 
@@ -58,6 +59,11 @@ public class ServiceCompteImpl implements ServiceCompte{
     @Override
     public List<OperationEntity> findOperationsForCompteNumero(long numCompte) {
         return operationRepository.findByCompteNumero(numCompte);
+    }
+
+    @Override
+    public CompteEntity searchByIdWithOperations(Long numCompte) {
+        return this.compteRepository.findById(numCompte).get();
     }
 
     @Override

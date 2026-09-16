@@ -19,4 +19,6 @@ public interface ServiceCompte {
     public List<CompteEntity> findByClientNumero(long numClient);
 
     public List<OperationEntity> findOperationsForCompteNumero(long numCompte);
+
+    public CompteEntity searchByIdWithOperations(Long numCompte);
 }

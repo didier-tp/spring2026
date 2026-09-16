@@ -9,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tp.appliSpring.AppliSpringApplication;
 import tp.appliSpring.entity.CompteEntity;
+import tp.appliSpring.entity.OperationEntity;
+import tp.appliSpring.repository.OperationRepository;
+
+import java.time.LocalDate;
 
 @SpringBootTest(classes = {AppliSpringApplication.class})
 @ActiveProfiles({ "dev"})  //pour analyser application-dev.properties
@@ -17,6 +21,7 @@ import tp.appliSpring.entity.CompteEntity;
 public class TestServiceCompte {
 
     private final ServiceCompte serviceCompte; //à injecter et tester
+    private final OperationRepository operationRepository;
 
     @Test
     public void testFindCompteByNum(){
@@ -27,6 +32,14 @@ public class TestServiceCompte {
         Assertions.assertEquals("compteA",compteRelu.getLabel());
         Assertions.assertEquals(100.0,compteRelu.getSolde());
         log.debug("compteRelu apres insertion=" + compteRelu);
+
+        operationRepository.save(new OperationEntity(null,"opA1",-5.5, LocalDate.now(),compteSauvegarde));
+        operationRepository.save(new OperationEntity(null,"opA2",-5.6, LocalDate.now(),compteSauvegarde));
+
+        CompteEntity compteReluAvecOperations = this.serviceCompte.searchByIdWithOperations(compteSauvegarde.getNumero());
+        for(OperationEntity op : compteReluAvecOperations.getOperations()){
+            log.debug("\t op="+op);
+        }
     }
 
     @Test
