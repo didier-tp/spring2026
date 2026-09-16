@@ -46,6 +46,11 @@ public class TestClientRepository {
         assertTrue(comptesDuClient1.size()==2);
         log.debug("comptesDuClient1="+comptesDuClient1);
 
+        //tester la version avec projection:
+        List<Compte> comptesDtoDuClient2=  clientRepository.findAsComptesByClientNum(client2.getNumero());
+        assertTrue(comptesDtoDuClient2.size()==2);
+        log.debug("comptesDtoDuClient2="+comptesDtoDuClient2);
+
     }
 
     @Test

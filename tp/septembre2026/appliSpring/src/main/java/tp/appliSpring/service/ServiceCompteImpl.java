@@ -51,7 +51,7 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public List<CompteEntity> findByClientNumero(long numClient) {
-        return List.of();
+        return compteRepository.findByClients_Numero(numClient);
     }
 
     @Override
