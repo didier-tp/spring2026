@@ -1,5 +1,6 @@
 package tp.appliSpring.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,7 +93,7 @@ public class CompteRestCtrl {
     //ou mieux encore { "label" : "…." , "solde" : 50.0 } avec dto.CompteToCreate héritant de model.Compte
     @PostMapping("")
     //public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody CompteToCreate obj) {
-    public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody Compte obj) {
+    public ResponseEntity<?> postCompte(@Valid @RequestBody Compte obj) {
         CompteEntity compteEntityToSave = myMapper.compteToCompteEntity(obj);
         CompteEntity savedObjEntity = serviceCompte.saveOrUpdate(compteEntityToSave); //avec id auto_incrémenté
         Compte savedObj = myMapper.compteEntityToCompte(savedObjEntity);
