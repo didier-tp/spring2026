@@ -1,14 +1,14 @@
 package tp.appliSpring.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.mapper.MyMapper;
 import tp.appliSpring.model.Compte;
 import tp.appliSpring.service.ServiceCompte;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController  //component de type pointEntree ApiRest
 @RequestMapping(value="/rest/bank-api/v1/comptes")
@@ -25,5 +25,18 @@ public class CompteRestCtrl {
         //Compte compteDto = new Compte(compteEntity.getNumero(),compteEntity.getLabel(),compteEntity.getSolde());
         Compte compteDto = myMapper.compteEntityToCompte(compteEntity);
         return compteDto;
+    }
+
+    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
+    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?soldeMini=0.0
+    @GetMapping()
+    public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini) {
+        List<CompteEntity> compteEntityList = new ArrayList<>();
+        if(soldeMini!=null) {
+            compteEntityList = serviceCompte.findBySoldeMini(soldeMini);
+        }
+        else
+            compteEntityList=serviceCompte.findAll();
+        return myMapper.compteEntityListToCompteList(compteEntityList);
     }
 }
