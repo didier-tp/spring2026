@@ -11,6 +11,7 @@ import tp.appliSpring.service.ServiceCompte;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController  //component de type pointEntree ApiRest
 @RequestMapping(value="/rest/bank-api/v1/comptes")
@@ -32,6 +33,7 @@ public class CompteRestCtrl {
     }
     */
 
+    /*
     //V2 avec ResponseEntity
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
@@ -47,6 +49,17 @@ public class CompteRestCtrl {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    */
+
+    //V3 avec ResponseEntity.of
+    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
+    @GetMapping("/{numCompte}" )
+    public ResponseEntity<Compte> getCompteByNum(@PathVariable("numCompte") Long numCompte) {
+        Optional<CompteEntity> compteEntityOptional = serviceCompte.findById(numCompte);
+        Optional<Compte> compteOptional = compteEntityOptional.map((compteEntity)->myMapper.compteEntityToCompte(compteEntity));
+        return ResponseEntity.of(compteOptional); //retournant automatiquement ok() ou .notFound()
+    }
+
 
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?soldeMini=0.0
