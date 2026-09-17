@@ -76,11 +76,16 @@ public class CompteRestCtrl {
 
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?soldeMini=0.0
+    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?numClient=1
     @GetMapping()
-    public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini) {
+    public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini,
+                                             @RequestParam(value="numClient",required=false) Long numClient) {
         List<CompteEntity> compteEntityList = new ArrayList<>();
         if(soldeMini!=null) {
             compteEntityList = serviceCompte.findBySoldeMini(soldeMini);
+        }
+        else if(numClient!=null) {
+            compteEntityList = serviceCompte.findByClientNumero(numClient);
         }
         else
             compteEntityList=serviceCompte.findAll();

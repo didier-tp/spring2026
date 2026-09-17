@@ -4,8 +4,10 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import tp.appliSpring.entity.ClientEntity;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
+import tp.appliSpring.repository.ClientRepository;
 import tp.appliSpring.repository.CompteRepository;
 import tp.appliSpring.repository.OperationRepository;
 
@@ -19,6 +21,7 @@ public class ReinitDefaultDataSet {
 
     private final CompteRepository compteRepository;
     private final OperationRepository operationRepository;
+    private final ClientRepository clientRepository;
 
     @PostConstruct
     public void reinitDataSet() {
@@ -31,5 +34,13 @@ public class ReinitDefaultDataSet {
         //pour verifier:
         List<CompteEntity> comptes = this.compteRepository.findAll();
         System.out.println("ReinitDefaultDataSet ,comptes" + comptes);
+
+        ClientEntity client1 = new ClientEntity(null,"Bon","jean");
+        client1.getComptes().add(compteA); client1.getComptes().add(compteB);
+        clientRepository.save(client1);
+
+        ClientEntity client2 = new ClientEntity(null,"Aire","axelle");
+        client2.getComptes().add(compteC);
+        clientRepository.save(client2);
     }
 }
