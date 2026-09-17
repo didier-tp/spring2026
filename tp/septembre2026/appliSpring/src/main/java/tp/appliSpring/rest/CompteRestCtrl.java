@@ -102,4 +102,26 @@ public class CompteRestCtrl {
                 .buildAndExpand(savedObj.getNumero()).toUri();
         return ResponseEntity.created(location).body(savedObj);
     }
+
+    //à appeler en mode PUT
+    //avec url = tp://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1
+    //avec dans la partie "body" de la requête { "id" : 1 , "label" : "..." , "solde" : 120.0 }
+    @PutMapping("/{id}")
+    public ResponseEntity<Compte> putCompte(@RequestBody Compte obj, @PathVariable("id") Long idToUpdate) {
+        CompteEntity compteEntityToSave = myMapper.compteToCompteEntity(obj);
+        compteEntityToSave.setNumero(idToUpdate);
+        CompteEntity savedObjEntity = serviceCompte.saveOrUpdate(compteEntityToSave);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        //204 : OK sans aucun message dans partie body
+        //exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
+    }
+
+    //avec url = tp://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1
+    @DeleteMapping("/{numCompte}")
+    public ResponseEntity<?> deleteDeviseByCode(@PathVariable("numCompte")Long numCompte){
+        serviceCompte.removeById(numCompte);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        //NO_CONTENT = 204 = OK mais sans message
+        //exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
+    }
 }

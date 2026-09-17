@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface ServiceCompte {
     public CompteEntity searchById(Long numCompte) throws EntityNotFoundException;
     public Optional<CompteEntity> findById(Long numCompte);
-    public void removeById(Long numCompte);
-    public CompteEntity saveOrUpdate(CompteEntity compteEntity);
+    public void removeById(Long numCompte)throws EntityNotFoundException;
+    public CompteEntity saveOrUpdate(CompteEntity compteEntity)throws EntityNotFoundException;
     //....
     public void transferer(double montant,long numCompteDebiter,long numCompteCredider); //transaction importante
     public List<CompteEntity> findAll();

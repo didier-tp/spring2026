@@ -41,13 +41,16 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
-    public void removeById(Long numCompte) {
-         compteRepository.deleteById(numCompte);
+    public void removeById(Long numCompte) throws EntityNotFoundException{
+        if(!compteRepository.existsById(numCompte))
+            throw new EntityNotFoundException("cannot delete: compte not found with numero="+numCompte);
+        compteRepository.deleteById(numCompte);
     }
 
     @Override
-    public CompteEntity saveOrUpdate(CompteEntity compteEntity) {
-        //if(..) règles de gestion, ...
+    public CompteEntity saveOrUpdate(CompteEntity compteEntity) throws EntityNotFoundException{
+        if(compteEntity.getNumero()!=null && !compteRepository.existsById(compteEntity.getNumero()))
+            throw new EntityNotFoundException("cannot update: compte not found with numero="+compteEntity.getNumero());
         return compteRepository.save(compteEntity);
     }
 
