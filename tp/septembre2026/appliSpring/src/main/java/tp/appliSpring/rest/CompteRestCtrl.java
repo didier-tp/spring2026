@@ -40,9 +40,11 @@ public class CompteRestCtrl {
         try {
             compteEntity = serviceCompte.findById(numCompte).get();
             Compte compteDto = myMapper.compteEntityToCompte(compteEntity);
-            return new ResponseEntity<Compte>(compteDto, HttpStatus.OK);
+            //return new ResponseEntity<Compte>(compteDto, HttpStatus.OK);
+            return ResponseEntity.ok(compteDto);
         } catch (Exception e) {
-            return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);//404
+            //return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);//404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
