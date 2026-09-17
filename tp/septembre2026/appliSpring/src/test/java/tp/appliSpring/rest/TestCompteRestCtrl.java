@@ -1,17 +1,15 @@
 package tp.appliSpring.rest;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.mapper.MyMapper;
+import tp.appliSpring.model.Compte;
 import tp.appliSpring.service.ServiceCompte;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -22,7 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class) //si junit5/jupiter
+
+
+//@ExtendWith(SpringExtension.class) //par defaut @WebMvcTest de Spring 7
 @WebMvcTest(CompteRestCtrl.class)
 public class TestCompteRestCtrl {
 
@@ -32,12 +32,11 @@ public class TestCompteRestCtrl {
     @MockitoBean //anciennement @MockBean
     private ServiceCompte compteService; //not real implementation but mock to configure
 
-    //@MockitoBean //anciennement @MockBean
-    @Autowired
+    @MockitoBean //anciennement @MockBean
     private MyMapper myMapper;
 
-    //@Autowired
-    //private MyMapper realMapper;
+    //@Autowired dont work on MyMapper because default @WebMvcTest component scan ignore MyMapper
+    private MyMapper realMapper=MyMapper.INSTANCE;
 
     @Test //à lancer sans le profile withSecurity
     public void testComptesDuClient1WithMockOfCompteService(){
@@ -45,14 +44,16 @@ public class TestCompteRestCtrl {
         List<CompteEntity> comptesEntities = new ArrayList<>();
         comptesEntities.add(new CompteEntity(1L,"compteA",40.0));
         comptesEntities.add(new CompteEntity(2L,"compteB",90.0));
-        Mockito.when(compteService.findByClientNumero(1)).thenReturn(comptesEntities);
+        //System.out.println("comptesEntities="+comptesEntities);
+        List<Compte> comptes = realMapper.compteEntityListToCompteList(comptesEntities);
+        //System.out.println("comptes="+comptes);
 
-        /*
-        Mockito.when(myMapper.compteEntityListToCompteList(comptesEntities)).
-                thenReturn(realMapper.compteEntityListToCompteList(comptesEntities));*/
+        Mockito.when(compteService.findByClientNumero(1)).thenReturn(comptesEntities);
+        Mockito.when(myMapper.compteEntityListToCompteList(Mockito.anyList())).thenReturn(comptes);
+
         try {
             MvcResult mvcResult =
-                    mvc.perform(get("/api-bank/compte?numClient=1")
+                    mvc.perform(get("/rest/bank-api/v1/comptes?numClient=1")
                                     .contentType(MediaType.APPLICATION_JSON))
                             .andExpect(status().isOk())
                             .andExpect(jsonPath("$", hasSize(2) ))

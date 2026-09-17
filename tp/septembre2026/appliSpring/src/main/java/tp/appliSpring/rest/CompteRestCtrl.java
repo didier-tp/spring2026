@@ -90,6 +90,7 @@ public class CompteRestCtrl {
         else
             compteEntityList=serviceCompte.findAll();
         return myMapper.compteEntityListToCompteList(compteEntityList);
+        //return MyMapper.INSTANCE.compteEntityListToCompteList(compteEntityList);
     }
 
     //appelé en mode POST
