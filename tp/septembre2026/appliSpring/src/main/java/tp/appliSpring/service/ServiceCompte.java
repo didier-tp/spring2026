@@ -2,13 +2,14 @@ package tp.appliSpring.service;
 
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
+import tp.appliSpring.exception.EntityNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 //avec des throws RuntimeException implicites
 public interface ServiceCompte {
-    public CompteEntity searchById(Long numCompte);
+    public CompteEntity searchById(Long numCompte) throws EntityNotFoundException;
     public Optional<CompteEntity> findById(Long numCompte);
     public void removeById(Long numCompte);
     public CompteEntity saveOrUpdate(CompteEntity compteEntity);

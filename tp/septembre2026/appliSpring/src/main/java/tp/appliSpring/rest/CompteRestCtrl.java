@@ -51,6 +51,7 @@ public class CompteRestCtrl {
     }
     */
 
+    /*
     //V3 avec ResponseEntity.of
     //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
@@ -58,6 +59,14 @@ public class CompteRestCtrl {
         Optional<CompteEntity> compteEntityOptional = serviceCompte.findById(numCompte);
         Optional<Compte> compteOptional = compteEntityOptional.map((compteEntity)->myMapper.compteEntityToCompte(compteEntity));
         return ResponseEntity.of(compteOptional); //retournant automatiquement ok() ou .notFound()
+    }
+     */
+
+    //V4 avec ExceptionHandler et appel à .searchById retournant EntityNotFoundException
+    @GetMapping("/{numCompte}" )
+    public Compte getCompteByNum(@PathVariable("numCompte") Long numCompte) {
+        CompteEntity compteEntity = serviceCompte.searchById(numCompte);
+        return myMapper.compteEntityToCompte(compteEntity);
     }
 
 

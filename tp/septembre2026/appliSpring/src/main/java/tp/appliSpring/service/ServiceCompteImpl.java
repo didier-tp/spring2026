@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
+import tp.appliSpring.exception.EntityNotFoundException;
 import tp.appliSpring.repository.CompteRepository;
 import tp.appliSpring.repository.OperationRepository;
 
@@ -24,8 +25,12 @@ public class ServiceCompteImpl implements ServiceCompte{
     private final OperationRepository operationRepository;
 
     @Override
-    public CompteEntity searchById(Long numCompte) {
-        return compteRepository.findById(numCompte).get(); //ou bien .orElse(null)
+    public CompteEntity searchById(Long numCompte) throws EntityNotFoundException {
+        try {
+            return compteRepository.findById(numCompte).get(); //ou bien .orElse(null)
+        } catch (Exception e) {
+            throw new EntityNotFoundException("compte not found with numero="+numCompte,e);
+        }
     }
 
     @Override
