@@ -16,6 +16,9 @@ public interface CompteRepository extends JpaRepository<CompteEntity,Long> {
     @Query("SELECT c FROM CompteEntity c WHERE c.solde >= :soldeMini")
     List<CompteEntity> findBySoldeMini(double soldeMini);
 
+    @Query("SELECT c FROM CompteEntity c LEFT JOIN FETCH c.operations WHERE c.numero = :numCompte")
+    CompteEntity findByIdWithOperations(Long numCompte);
+
     //convention de nommage findBy + "SousPartie (ici de type List)" + "_" + "SousSousPartie"
     List<CompteEntity> findByClients_Numero(long numClient);
 }

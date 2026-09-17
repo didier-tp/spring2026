@@ -1,5 +1,6 @@
 package tp.appliSpring.bank.core.service.impl;
 
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class ServiceCompteImpl extends GenericCRUDServiceImpl<Compte,CompteEntit
 	}
 
 	@Override
+	@Observed(name = "serviceCompte_searchAll") //actuator/metrics/serviceCompte_searchAll
 	public List<Compte> searchAll() {
 		this.applicationEventPublisher.publishEvent(new MyEvent("searchAll was called by " + Thread.currentThread().getName()));
 		return super.searchAll();

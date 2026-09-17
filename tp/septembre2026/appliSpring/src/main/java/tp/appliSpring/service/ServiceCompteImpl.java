@@ -61,6 +61,8 @@ public class ServiceCompteImpl implements ServiceCompte{
         return operationRepository.findByCompteNumero(numCompte);
     }
 
+    /*
+    //V1 avec performances moyennes
     @Override
     @Transactional
     public CompteEntity searchByIdWithOperations(Long numCompte) {
@@ -70,8 +72,17 @@ public class ServiceCompteImpl implements ServiceCompte{
             //boucle for pour remonter en mémoire les élements de la collection en mode lazy
             //ok seulement à l'état persistant , sinon LazyInitializationException (quand détaché et trop tard)
         }
+        //ou bien cpt.getOperations().size();
         return cpt;
     }
+    */
+
+    @Override
+    //@Transactional
+    public CompteEntity searchByIdWithOperations(Long numCompte) {
+        return compteRepository.findByIdWithOperations(numCompte);
+    }
+
 
     @Override
     @Transactional

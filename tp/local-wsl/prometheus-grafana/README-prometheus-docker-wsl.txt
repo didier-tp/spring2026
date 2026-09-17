@@ -16,7 +16,21 @@ option networkingMode=mirrored dans .wslconfig
 #http://localhost:8181/appliSpring/actuator
 
 #http://localhost:8181/appliSpring/actuator/prometheus ==> affiche une liste de query pour prometheus
+exemples:
+  system_cpu_usage
+  jvm_classes_loaded_classes
+  ...
+
 #with micrometer-registry-prometheus in springBoot pom.xml
 #and management.endpoint.prometheus.enabled=true
 #and management.endpoints.web.exposure.include=prometheus
 #in application.properties
+
+#attention si observer personnalisé de @Observer(name="xxx.yyy.zzz") dans spring alors le nom vue par prometheus est xxx_yyy_zzz
+
+#exemple pour @Observer(name="serviceCompte_searchAll")
+http://localhost:8181/appliSpring/actuator/metrics/serviceCompte_searchAll
+http://localhost:8181/appliSpring/actuator/prometheus list:
+serviceCompte_searchAll_seconds_count{class="tp.appliSpring.bank.core.service.impl.ServiceCompteImpl",error="none",method="searchAll"}
+serviceCompte_searchAll_seconds_sum{class="tp.appliSpring.bank.core.service.impl.ServiceCompteImpl",error="none",method="searchAll"}
+serviceCompte_searchAll_seconds_max{class="tp.appliSpring.bank.core.service.impl.ServiceCompteImpl",error="none",method="searchAll"}
