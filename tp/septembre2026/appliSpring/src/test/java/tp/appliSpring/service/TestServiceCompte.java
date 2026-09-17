@@ -23,6 +23,18 @@ public class TestServiceCompte {
     private final ServiceCompte serviceCompte; //à injecter et tester
     private final OperationRepository operationRepository;
 
+
+    @Test
+    public void testFindCompteByNum2FoisDeSuite(){
+        CompteEntity compte = new CompteEntity(null,"compteA",100.0);
+        CompteEntity compteSauvegarde = this.serviceCompte.saveOrUpdate(compte); //INSERT INTO
+        log.debug("compteSauvegarde=" + compteSauvegarde);
+        CompteEntity compteReluUnePremiereFois = this.serviceCompte.findById(compteSauvegarde.getNumero()).orElse(null); //SELECT
+        log.debug("compteReluUnePremiereFois=" + compteReluUnePremiereFois);
+        CompteEntity compteReluUneSecondeFois = this.serviceCompte.findById(compteSauvegarde.getNumero()).orElse(null); //SELECT
+        log.debug("compteReluUneSecondeFois=" + compteReluUneSecondeFois);
+    }
+
     @Test
     public void testFindCompteByNum(){
         CompteEntity compte = new CompteEntity(null,"compteA",100.0);

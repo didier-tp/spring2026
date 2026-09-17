@@ -1,6 +1,8 @@
 package tp.appliSpring.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.entity.CompteEntity;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @Service //@Component de type Service métier
 //@Transactional systematiquement ici sur projet serieux d'entreprise
 @RequiredArgsConstructor
+@Slf4j
 public class ServiceCompteImpl implements ServiceCompte{
 
     //+ injection de dépendance pour déléguer à CompteRepository
@@ -26,7 +29,9 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
+    //@Cacheable("compteById")
     public Optional<CompteEntity> findById(Long numCompte) {
+        log.trace("appel normal de findById sur ServiceCompteImpl");
         return compteRepository.findById(numCompte);
     }
 
