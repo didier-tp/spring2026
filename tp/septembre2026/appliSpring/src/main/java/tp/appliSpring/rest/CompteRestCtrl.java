@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.mapper.MyMapper;
 import tp.appliSpring.model.Compte;
 import tp.appliSpring.service.ServiceCompte;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,5 +83,21 @@ public class CompteRestCtrl {
         else
             compteEntityList=serviceCompte.findAll();
         return myMapper.compteEntityListToCompteList(compteEntityList);
+    }
+
+    //appelé en mode POST
+    //avec url = http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
+    //avec dans la partie "body" de la requête { "id" : null , "label" : "…." , "solde" : 50.0 } si model.Compte
+    //ou mieux encore { "label" : "…." , "solde" : 50.0 } avec dto.CompteToCreate héritant de model.Compte
+    @PostMapping("")
+    public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody Compte obj) {
+        CompteEntity compteEntityToSave = myMapper.compteToCompteEntity(obj);
+        CompteEntity savedObjEntity = serviceCompte.saveOrUpdate(compteEntityToSave); //avec id auto_incrémenté
+        Compte savedObj = myMapper.compteEntityToCompte(savedObjEntity);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedObj.getNumero()).toUri();
+        return ResponseEntity.created(location).body(savedObj);
     }
 }
