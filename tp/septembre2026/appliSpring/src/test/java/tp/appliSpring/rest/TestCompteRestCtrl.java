@@ -53,7 +53,7 @@ public class TestCompteRestCtrl {
 
         try {
             MvcResult mvcResult =
-                    mvc.perform(get("/rest/bank-api/v1/comptes?numClient=1")
+                    mvc.perform(get("/rest/api-bank/v1/comptes?numClient=1")
                                     .contentType(MediaType.APPLICATION_JSON))
                             .andExpect(status().isOk())
                             .andExpect(jsonPath("$", hasSize(2) ))

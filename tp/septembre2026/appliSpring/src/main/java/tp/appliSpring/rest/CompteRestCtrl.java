@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController  //component de type pointEntree ApiRest
-@RequestMapping(value="/rest/bank-api/v1/comptes")
+@RequestMapping(value="/rest/api-bank/v1/comptes")
 @RequiredArgsConstructor
 public class CompteRestCtrl {
 
@@ -27,7 +27,7 @@ public class CompteRestCtrl {
 
     /*
     //V1
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
     public Compte getCompteByNum(@PathVariable("numCompte") Long numCompte) {
         CompteEntity compteEntity = serviceCompte.findById(numCompte).get();
@@ -39,7 +39,7 @@ public class CompteRestCtrl {
 
     /*
     //V2 avec ResponseEntity
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
     public ResponseEntity<Compte> getCompteByNum(@PathVariable("numCompte") Long numCompte) {
         CompteEntity compteEntity = null;
@@ -57,7 +57,7 @@ public class CompteRestCtrl {
 
     /*
     //V3 avec ResponseEntity.of
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1 ou 2
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1 ou 2
     @GetMapping("/{numCompte}" )
     public ResponseEntity<Compte> getCompteByNum(@PathVariable("numCompte") Long numCompte) {
         Optional<CompteEntity> compteEntityOptional = serviceCompte.findById(numCompte);
@@ -74,9 +74,9 @@ public class CompteRestCtrl {
     }
 
 
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?soldeMini=0.0
-    //http://localhost:8080/appliSpring/rest/bank-api/v1/comptes?numClient=1
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?soldeMini=0.0
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?numClient=1
     @GetMapping()
     public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini,
                                              @RequestParam(value="numClient",required=false) Long numClient) {
@@ -94,7 +94,7 @@ public class CompteRestCtrl {
     }
 
     //appelé en mode POST
-    //avec url = http://localhost:8080/appliSpring/rest/bank-api/v1/comptes
+    //avec url = http://localhost:8080/appliSpring/rest/api-bank/v1/comptes
     //avec dans la partie "body" de la requête { "id" : null , "label" : "…." , "solde" : 50.0 } si model.Compte
     //ou mieux encore { "label" : "…." , "solde" : 50.0 } avec dto.CompteToCreate héritant de model.Compte
     @PostMapping("")
@@ -111,7 +111,7 @@ public class CompteRestCtrl {
     }
 
     //à appeler en mode PUT
-    //avec url = tp://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1
+    //avec url = tp://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1
     //avec dans la partie "body" de la requête { "id" : 1 , "label" : "..." , "solde" : 120.0 }
     @PutMapping("/{id}")
     public ResponseEntity<Compte> putCompte(@RequestBody Compte obj, @PathVariable("id") Long idToUpdate) {
@@ -123,7 +123,7 @@ public class CompteRestCtrl {
         //exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
     }
 
-    //avec url = tp://localhost:8080/appliSpring/rest/bank-api/v1/comptes/1
+    //avec url = tp://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1
     @DeleteMapping("/{numCompte}")
     public ResponseEntity<?> deleteDeviseByCode(@PathVariable("numCompte")Long numCompte){
         serviceCompte.removeById(numCompte);
