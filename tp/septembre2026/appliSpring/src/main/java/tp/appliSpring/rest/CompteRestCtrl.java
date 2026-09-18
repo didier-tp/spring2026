@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.entity.CompteEntity;
@@ -98,6 +99,7 @@ public class CompteRestCtrl {
     //avec dans la partie "body" de la requête { "id" : null , "label" : "…." , "solde" : 50.0 } si model.Compte
     //ou mieux encore { "label" : "…." , "solde" : 50.0 } avec dto.CompteToCreate héritant de model.Compte
     @PostMapping("")
+    @PreAuthorize("hasAuthority('SCOPE_resource.write')")
     //public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody CompteToCreate obj) {
     public ResponseEntity<?> postCompte(@Valid @RequestBody Compte obj) {
         CompteEntity compteEntityToSave = myMapper.compteToCompteEntity(obj);
@@ -114,6 +116,7 @@ public class CompteRestCtrl {
     //avec url = tp://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1
     //avec dans la partie "body" de la requête { "id" : 1 , "label" : "..." , "solde" : 120.0 }
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_resource.write')")
     public ResponseEntity<Compte> putCompte(@RequestBody Compte obj, @PathVariable("id") Long idToUpdate) {
         CompteEntity compteEntityToSave = myMapper.compteToCompteEntity(obj);
         compteEntityToSave.setNumero(idToUpdate);
@@ -125,6 +128,7 @@ public class CompteRestCtrl {
 
     //avec url = tp://localhost:8080/appliSpring/rest/api-bank/v1/comptes/1
     @DeleteMapping("/{numCompte}")
+    @PreAuthorize("hasAuthority('SCOPE_resource.delete')")
     public ResponseEntity<?> deleteDeviseByCode(@PathVariable("numCompte")Long numCompte){
         serviceCompte.removeById(numCompte);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
