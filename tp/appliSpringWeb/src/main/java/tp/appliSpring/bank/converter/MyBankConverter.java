@@ -4,8 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import tp.appliSpring.bank.core.model.Client;
 import tp.appliSpring.bank.core.model.Compte;
+import tp.appliSpring.bank.core.model.Task;
 import tp.appliSpring.bank.persistence.entity.ClientEntity;
 import tp.appliSpring.bank.persistence.entity.CompteEntity;
+import tp.appliSpring.bank.persistence.entity.TaskEntity;
 import tp.appliSpring.generic.converter.MyGenericMapperUtil;
 
 import java.util.List;
@@ -19,6 +21,9 @@ public interface MyBankConverter extends MyGenericMapperUtil {
     //@Mapping(target="firstname", source="prenom")
     //@Mapping(target="lastname", source="nom")
     Client clientEntityToClient(ClientEntity source);
+
+    Task taskEntityToTask(TaskEntity source);
+    TaskEntity taskToTaskEntity(Task source);
 
     ClientEntity clientToClientEntity(Client source);
 
