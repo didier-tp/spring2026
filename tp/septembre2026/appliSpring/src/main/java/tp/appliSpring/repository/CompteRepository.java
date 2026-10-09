@@ -1,12 +1,13 @@
 package tp.appliSpring.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import tp.appliSpring.entity.CompteEntity;
 
 import java.util.List;
 
-public interface CompteRepository extends JpaRepository<CompteEntity,Long> {
+public interface CompteRepository extends JpaRepository<CompteEntity,Long> , JpaSpecificationExecutor<CompteEntity> {
     //principales méthodes héritées: .save() , .findById() , .findAll() , .deleteById();
 
     //avec un nom de méthode respectant des conventions de nommage, le SQL sera généré automatiquement

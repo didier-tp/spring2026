@@ -1,5 +1,6 @@
 package tp.appliSpring.service;
 
+import org.springframework.data.jpa.domain.Specification;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
 import tp.appliSpring.exception.EntityNotFoundException;
@@ -16,6 +17,7 @@ public interface ServiceCompte {
     //....
     public void transferer(double montant,long numCompteDebiter,long numCompteCredider); //transaction importante
     public List<CompteEntity> findAll();
+    public List<CompteEntity> findAll(Specification<CompteEntity> spec);
     public List<CompteEntity> findBySoldeMini(double mini);
     public List<CompteEntity> findByClientNumero(long numClient);
 

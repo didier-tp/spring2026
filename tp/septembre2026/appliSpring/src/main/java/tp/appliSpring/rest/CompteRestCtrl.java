@@ -2,6 +2,7 @@ package tp.appliSpring.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,11 +13,14 @@ import tp.appliSpring.mapper.MyMapper;
 import tp.appliSpring.model.Compte;
 import tp.appliSpring.model.CompteToCreate;
 import tp.appliSpring.service.ServiceCompte;
+import tp.appliSpring.specification.CompteSpecificationsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController  //component de type pointEntree ApiRest
 @RequestMapping(value="/rest/api-bank/v1/comptes")
@@ -79,10 +83,14 @@ public class CompteRestCtrl {
     //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?soldeMini=0.0
     //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?numClient=1
     @GetMapping()
-    public List<Compte> getComptesByCriteria(@RequestParam(value="soldeMini",required=false) Double soldeMini,
+    public List<Compte> getComptesByCriteria(@RequestParam(value="search",required=false) String search,
+                                             @RequestParam(value="soldeMini",required=false) Double soldeMini,
                                              @RequestParam(value="numClient",required=false) Long numClient) {
         List<CompteEntity> compteEntityList = new ArrayList<>();
-        if(soldeMini!=null) {
+        if(search!=null) {
+            compteEntityList = this.searchWithSpecification(search);
+        }
+        else if(soldeMini!=null) {
             compteEntityList = serviceCompte.findBySoldeMini(soldeMini);
         }
         else if(numClient!=null) {
@@ -92,6 +100,17 @@ public class CompteRestCtrl {
             compteEntityList=serviceCompte.findAll();
         return myMapper.compteEntityListToCompteList(compteEntityList);
         //return MyMapper.INSTANCE.compteEntityListToCompteList(compteEntityList);
+    }
+
+    private List<CompteEntity>  searchWithSpecification(String search){
+        CompteSpecificationsBuilder builder = new CompteSpecificationsBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+        Specification<CompteEntity> spec = builder.build();
+        return serviceCompte.findAll(spec);
     }
 
     //appelé en mode POST

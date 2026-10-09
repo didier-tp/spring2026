@@ -3,6 +3,7 @@ package tp.appliSpring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.entity.CompteEntity;
@@ -57,6 +58,11 @@ public class ServiceCompteImpl implements ServiceCompte{
     @Override
     public List<CompteEntity> findAll() {
         return compteRepository.findAll();
+    }
+
+    @Override
+    public List<CompteEntity> findAll(Specification<CompteEntity> spec) {
+        return compteRepository.findAll(spec);
     }
 
     @Override
