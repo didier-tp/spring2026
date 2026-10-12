@@ -1,6 +1,7 @@
 package tp.appliSpring.exemple;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ public class Coordinateur {
 	private MonAfficheur monAfficheur=null; //référence vers afficheur à injecter
 	
 	@Autowired @Qualifier("monCalculateurDouble")
+	//@Resource(name = "monCalculateurDouble")
 	private MonCalculateur monCalculateur=null;//référence vers calculateur à injecter
 
 	public Coordinateur() {
