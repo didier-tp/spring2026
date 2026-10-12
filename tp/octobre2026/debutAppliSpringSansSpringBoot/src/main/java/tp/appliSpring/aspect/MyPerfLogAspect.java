@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
+@Aspect
+@Component
 @Profile("perf")
 public class MyPerfLogAspect {
 
