@@ -1,6 +1,7 @@
 package tp.appliSpring.exemple;
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
