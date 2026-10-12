@@ -9,7 +9,7 @@ import tp.appliSpring.explicit.conf.ExempleConfigExplicite;
 public class SpringAppWithExplicitConf {
 	public static void main(String[] args) {
 		//System.setProperty("spring.profiles.active", "maj"); //ok
-		System.setProperty("spring.profiles.default", "azertyuiop"); //mieux encore , spring.profiles.default comme spring.profiles.active
+		System.setProperty("spring.profiles.default", "maj"); //mieux encore , spring.profiles.default comme spring.profiles.active
 		//mais moins prioritaire que -Dspring.profiles.active=p1,p2,p3 d'un script de lancement externe
 
 		//Choisir éventuellement des profiles à activer AVANT l'initialisation du context spring:
