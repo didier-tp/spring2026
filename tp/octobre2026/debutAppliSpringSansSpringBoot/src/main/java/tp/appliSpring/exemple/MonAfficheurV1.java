@@ -1,5 +1,8 @@
 package tp.appliSpring.exemple;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MonAfficheurV1 implements MonAfficheur {
 
 	@Override

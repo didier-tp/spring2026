@@ -1,5 +1,9 @@
 package tp.appliSpring.exemple;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
 public class CoordinateurAvecInjectionParConstructeur {
 	
 	private MonAfficheur monAfficheur; //référence vers afficheur à injecter
@@ -8,8 +12,8 @@ public class CoordinateurAvecInjectionParConstructeur {
 	
 	
 	public CoordinateurAvecInjectionParConstructeur(
-			MonAfficheur monAfficheur, 
-			MonCalculateur monCalculateur) {
+			@Qualifier("monAfficheurV2") MonAfficheur monAfficheur,
+			@Qualifier("monCalculateurCarre") MonCalculateur monCalculateur) {
 		super();
 		this.monAfficheur = monAfficheur;
 		this.monCalculateur = monCalculateur;
