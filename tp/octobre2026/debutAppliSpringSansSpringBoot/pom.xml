@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tp</groupId>
+  <artifactId>debutAppliSpringSansSpringBoot</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  
+  <properties>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<java.version>17</java.version>
+        <spring.version>7.0.5</spring.version>
+		<junit.jupiter.version>6.0.3</junit.jupiter.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- windows/preferences/general/workspace / UTF8 avec eclipse coherent -->
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.1</version>
+		</dependency> <!-- pour que Spring puise interpreter @Inject comme @Autowired -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency> <!-- et indirectement spring-bean, spring-core , spring-aop -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency> <!-- et indirectement aspectj-weaver -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency> <!-- et indirectement spring-web -->
+		
+		
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version>
+			<scope>provided</scope> <!-- provided by tomcat after deploying .war -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<version>2.25.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.4.240</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency> <!-- et indirectement spring-jdbc, spring-tx -->
+	    <dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>7.2.4.Final</version>
+		</dependency> <!-- et indirectement jpa -->
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId> <!-- @PostConstruct -->
+			<version>3.0.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.42</version>
+		</dependency>
+
+
+<!-- lombok sert à générer automatiquement les get/set et toString() 
+         pas de configuration supplémentaire absolument nécessaire dans intellij
+         pour que lombok fonctionne bien dans eclipse:
+           1) repérer le chemin menant à lombok.jar
+              $HOME\.m2\repository\org\projectlombok\lombok\1.18.24\lombok.jar
+           2) effectuer un double click sur lombok.jar 
+              (ou bien java -jar lombok.jar)
+           3) spécifier si besoin le chemin menant à eclipse
+           4) cliquer sur "Install" de façon à modifier eclipse.ini
+           5) arrêter et redémarrer eclipse
+           6) activer le menu Project/clean
+		   
+		   OU BIEN https://projectlombok.org/p2 (install new software , add site)
+      -->
+	</dependencies>
+	<build>
+		<finalName>appSpringSansSpringBoot</finalName> <!-- to build appSpringSansSpringBoot.war -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.14.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.5.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.4</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
