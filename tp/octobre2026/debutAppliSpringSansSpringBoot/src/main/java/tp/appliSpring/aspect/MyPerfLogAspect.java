@@ -1,6 +1,8 @@
 package tp.appliSpring.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -42,6 +44,12 @@ public class MyPerfLogAspect {
 		System.out.println(
 				">> trace == fin == " + pjp.getSignature().toShortString() + " [" + (tf - td) / 1000000.0 + " ms] >>");
 		return objRes;
+	}
+
+	@AfterThrowing(pointcut = "surPackageExemple()", throwing = "ex" )
+	public void logAfterThrowingAllServiceMethodsAdvice(JoinPoint jp , Exception ex ) throws Throwable
+	{
+		System.out.println("**** LoggingAspect" + ex + " in "  +jp.getSignature().toLongString());
 	}
 	
 }

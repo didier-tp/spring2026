@@ -11,6 +11,8 @@ public class MonCalculateurCarre implements MonCalculateur {
 	@Override
 	@LogExecutionTime
 	public double calculer(double x) {
+		/*if(x<5)
+		   throw new RuntimeException("erreur caclcul");*/
 		return x*x;
 	}
 
