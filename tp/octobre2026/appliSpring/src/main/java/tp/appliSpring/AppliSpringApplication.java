@@ -1,10 +1,12 @@
 package tp.appliSpring;
 
 import lombok.extern.slf4j.Slf4j;
+/*
 import org.example.explicit.beans.Encadreur;
 import org.example.explicit.beans.EncadreurImpl;
 import org.example.explicit.beans.PrefixeurBasic;
 import org.example.explicit.beans.SuffixeurBasic;
+*/
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,8 @@ public class AppliSpringApplication {
 	}
 
 
+	/*
+	//test temporaire de starter personnalisé avec @ConditionalOnMissingBean
 	@Bean(name="encadreurSpring")
 	public Encadreur EncadreurRedefini(){
 		EncadreurImpl encadreurImpl =  new EncadreurImpl();
@@ -29,7 +33,7 @@ public class AppliSpringApplication {
 		encadreurImpl.setSuffixeur(new SuffixeurBasic("#"));
 		return encadreurImpl;
 	}
-
+    */
 
 
 }

@@ -31,12 +31,14 @@
 	</properties>
 	<dependencies>
 
+		<!-- test temporaire de stater personnalise -->
+		<!--
 		<dependency>
 			<groupId>org.example</groupId>
 			<artifactId>mystarter</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-
+        -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
