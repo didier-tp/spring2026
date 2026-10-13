@@ -21,7 +21,7 @@ public class AppliSpringApplication {
 		log.info("http://localhost:8080/appliSpring"); // /index.html sous entendu (implicite)
 	}
 
-	/*
+
 	@Bean(name="encadreurSpring")
 	public Encadreur EncadreurRedefini(){
 		EncadreurImpl encadreurImpl =  new EncadreurImpl();
@@ -29,7 +29,7 @@ public class AppliSpringApplication {
 		encadreurImpl.setSuffixeur(new SuffixeurBasic("#"));
 		return encadreurImpl;
 	}
-	*/
+
 
 
 }
