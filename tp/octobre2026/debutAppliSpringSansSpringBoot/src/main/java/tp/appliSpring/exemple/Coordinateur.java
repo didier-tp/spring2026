@@ -8,6 +8,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Coordinateur {
+
+	//essai temporaire qui ne fonctionne pas si prog par aspect mise en oeuvre:
+	//@Autowired
+	//private MonCalculateurCarre monCalculateurCarre;
+	//raison du problème : @EnableAspectJAutoProxy fait en sorte que le code généré au démarrage de l'apppli
+	//par les mécanismes "Aspects" (classe ayant un nom comme jdk.proxy2.$Proxy27) remplace l'instance initiale
+	//de la classe MonCalculateurCarre (avec même nom de bean "monCalculateurCarre" --> ça génère un petit décalage
+	//sur le type exact (exception BeanNotOfRequiredTypeException)
+	//bonne pratique : injection au maximum avec type abstrait (interface) pour ne pas être embêté .
 	
 	@Autowired @Qualifier("monAfficheurV1")
 	private MonAfficheur monAfficheur=null; //référence vers afficheur à injecter

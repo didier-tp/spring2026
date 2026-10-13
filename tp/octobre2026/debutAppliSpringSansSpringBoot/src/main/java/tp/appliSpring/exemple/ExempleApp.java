@@ -17,6 +17,13 @@ public class ExempleApp {
 		MonCalculateur monCalculateur = contextSpring.getBean("monCalculateurCarre",MonCalculateur.class);
 		System.out.println("resCalcul(direct)="+monCalculateur.calculer(4));//4*4=16.0 ou autre
 
+		/*
+		//les deux lignes suivantes ne fonctionnent quelquefois plus si prog par aspect mis en oeuvre
+		MonCalculateurCarre monCalculateurCarre = contextSpring.getBean("monCalculateurCarre",MonCalculateurCarre.class);
+		System.out.println("resCalcul carré(direct)="+monCalculateurCarre.calculer(4));//4*4=16.0
+		*/
+
+
 		Coordinateur coordinateurPrisEnChargeParSpring =
 				contextSpring.getBean(Coordinateur.class);
 		coordinateurPrisEnChargeParSpring.calculerEtAfficher();
