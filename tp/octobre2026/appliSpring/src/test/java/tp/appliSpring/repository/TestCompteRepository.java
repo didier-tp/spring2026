@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import tp.appliSpring.entity.CompteEntity;
 
 import java.util.List;
@@ -33,11 +34,14 @@ public class TestCompteRepository {
     }
 
     @Test
+    @Sql({"/import_comptes.sql"}) //import_products.sql dans src/test/resources
     public void testRechercherCompteAvecSoldeMini(){
+        /*
         this.compteRepository.save(new CompteEntity(null,"compteC1",100.0));
         this.compteRepository.save(new CompteEntity(null,"compteC2",20.0));
         this.compteRepository.save(new CompteEntity(null,"compteC3",150.0));
         this.compteRepository.save(new CompteEntity(null,"compteC4",60.0));
+        */
         //List<CompteEntity> comptesAvecSoldeMini80 = compteRepository.rechercherCompteAvecSoldeMini(80.0);
         List<CompteEntity> comptesAvecSoldeMini80 = compteRepository.findBySoldeGreaterThanEqual(80.0);
         assertTrue(comptesAvecSoldeMini80.size()>=2);
