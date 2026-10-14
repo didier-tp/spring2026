@@ -1,5 +1,6 @@
 package tp.appliSpring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class CompteEntity {
     private Double solde;
 
     @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY)
+    //@JsonIgnore
     private List<OperationEntity> operations;
 
     @ManyToMany(mappedBy = "comptes" , fetch = FetchType.LAZY)
