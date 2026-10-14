@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import tp.appliSpring.entity.CompteEntity;
+import tp.appliSpring.entity.OperationEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,16 +23,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestCompteRepository {
 
     private final CompteRepository compteRepository; //à tester
+    private final OperationRepository operationRepository; //pour aider à tester
 
     @Test
     public void testAjoutCompteEtrelecture(){
         CompteEntity compte = new CompteEntity(null,"compteA",100.0);
         CompteEntity compteSauvegarde = this.compteRepository.save(compte); //INSERT INTO , saveOrUpdate
         log.debug("compteSauvegarde=" + compteSauvegarde);
+
+        operationRepository.save(new OperationEntity(null,"opA1",-5.5, LocalDate.now(),compteSauvegarde));
+        operationRepository.save(new OperationEntity(null,"opA2",-6.5, LocalDate.now(),compteSauvegarde));
+
         CompteEntity compteRelu = this.compteRepository.findById(compteSauvegarde.getNumero()).orElse(null); //SELECT
         assertEquals("compteA",compteRelu.getLabel());
         assertEquals(100.0,compteRelu.getSolde());
         log.debug("compteRelu apres insertion=" + compteRelu);
+        //affichage des opérations liées au compteA:
+        for(OperationEntity op : compteRelu.getOperations()){
+            log.debug("\t op=" +op.toString());
+        }
     }
 
     @Test
