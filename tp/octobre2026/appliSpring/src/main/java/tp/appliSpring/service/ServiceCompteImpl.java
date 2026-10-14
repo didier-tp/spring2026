@@ -34,11 +34,21 @@ public class ServiceCompteImpl implements ServiceCompte{
         return Optional.empty();
     }
 
+
     @Override
     public List<Operation> searchOperationsPourCompte(long numCompte) {
         CompteEntity compteEntity = compteRepository.rechercherCompteAvecOperations(numCompte);
         return myMapper.operationEntityListToOperationList(compteEntity.getOperations());
     }
+
+    /*
+    @Override
+    @Transactional
+    public List<Operation> searchOperationsPourCompte(long numCompte) {
+        CompteEntity compteEntity = compteRepository.findById(numCompte).get();
+        return myMapper.operationEntityListToOperationList(compteEntity.getOperations());
+    }
+   */
 
     @Override
     public List<Compte> searchAll() {
