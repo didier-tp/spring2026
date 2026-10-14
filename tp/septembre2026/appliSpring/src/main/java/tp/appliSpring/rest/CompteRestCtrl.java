@@ -2,6 +2,7 @@ package tp.appliSpring.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import java.util.regex.Pattern;
 @RestController  //component de type pointEntree ApiRest
 @RequestMapping(value="/rest/api-bank/v1/comptes")
 @RequiredArgsConstructor
+@Slf4j
 public class CompteRestCtrl {
 
     private final ServiceCompte serviceCompte;
@@ -82,13 +84,14 @@ public class CompteRestCtrl {
     //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes
     //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?soldeMini=0.0
     //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?numClient=1
+    //http://localhost:8080/appliSpring/rest/api-bank/v1/comptes?search=solde>50,label~compte
     @GetMapping()
     public List<Compte> getComptesByCriteria(@RequestParam(value="search",required=false) String search,
                                              @RequestParam(value="soldeMini",required=false) Double soldeMini,
                                              @RequestParam(value="numClient",required=false) Long numClient) {
         List<CompteEntity> compteEntityList = new ArrayList<>();
         if(search!=null) {
-            compteEntityList = this.searchWithSpecification(search);
+            compteEntityList = serviceCompte.searchWithSpecificationsString(search);
         }
         else if(soldeMini!=null) {
             compteEntityList = serviceCompte.findBySoldeMini(soldeMini);
@@ -102,16 +105,7 @@ public class CompteRestCtrl {
         //return MyMapper.INSTANCE.compteEntityListToCompteList(compteEntityList);
     }
 
-    private List<CompteEntity>  searchWithSpecification(String search){
-        CompteSpecificationsBuilder builder = new CompteSpecificationsBuilder();
-        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
-        Matcher matcher = pattern.matcher(search + ",");
-        while (matcher.find()) {
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-        Specification<CompteEntity> spec = builder.build();
-        return serviceCompte.findAll(spec);
-    }
+
 
     //appelé en mode POST
     //avec url = http://localhost:8080/appliSpring/rest/api-bank/v1/comptes

@@ -11,9 +11,12 @@ import tp.appliSpring.entity.OperationEntity;
 import tp.appliSpring.exception.EntityNotFoundException;
 import tp.appliSpring.repository.CompteRepository;
 import tp.appliSpring.repository.OperationRepository;
+import tp.appliSpring.specification.CompteSpecificationsBuilder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service //@Component de type Service métier
 //@Transactional systematiquement ici sur projet serieux d'entreprise
@@ -65,6 +68,21 @@ public class ServiceCompteImpl implements ServiceCompte{
         return compteRepository.findAll(spec);
     }
 
+    public List<CompteEntity>  searchWithSpecificationsString(String search){
+        log.debug("searchWithSpecificationsString() , search="+search);
+        CompteSpecificationsBuilder builder = new CompteSpecificationsBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>|~)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            String key=matcher.group(1);
+            String op=matcher.group(2);
+            String value=matcher.group(3);
+            log.debug("\t key=%s op=%s value=%s".formatted(key,op,value));
+            builder.with(key, op, value);
+        }
+        Specification<CompteEntity> spec = builder.build();
+        return this.findAll(spec);
+    }
     @Override
     public List<CompteEntity> findBySoldeMini(double mini) {
         return compteRepository.findBySoldeMini(mini);

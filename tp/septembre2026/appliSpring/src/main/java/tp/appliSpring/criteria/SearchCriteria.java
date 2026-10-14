@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class SearchCriteria {
-    private static final String EQUALS_OP = "=";
+    private static final String EQUALS_OP = ":"; //not "=" because "=" is used in URL query param
     private static final String LESS_OP = "<";
     private static final String GREATER_OP = ">";
     private static final String LIKE_OP = "~";
