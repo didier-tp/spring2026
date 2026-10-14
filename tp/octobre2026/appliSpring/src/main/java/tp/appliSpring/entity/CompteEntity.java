@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="compte")
 @Getter @Setter
 @NoArgsConstructor
-@ToString
+//surtout pas de @ToString qui en fait trop : boucle infinie , lazy exception, ...
 public class CompteEntity {
 
     @Id
@@ -32,5 +33,14 @@ public class CompteEntity {
         this.numero = numero;
         this.label = label;
         this.solde = solde;
+    }
+
+    @Override
+    public String toString() {
+        return "CompteEntity{" +
+                "numero=" + numero +
+                ", label='" + label + '\'' +
+                ", solde=" + solde +
+                '}';
     }
 }

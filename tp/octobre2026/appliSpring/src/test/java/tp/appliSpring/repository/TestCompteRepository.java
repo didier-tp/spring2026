@@ -34,7 +34,8 @@ public class TestCompteRepository {
         operationRepository.save(new OperationEntity(null,"opA1",-5.5, LocalDate.now(),compteSauvegarde));
         operationRepository.save(new OperationEntity(null,"opA2",-6.5, LocalDate.now(),compteSauvegarde));
 
-        CompteEntity compteRelu = this.compteRepository.findById(compteSauvegarde.getNumero()).orElse(null); //SELECT
+        //CompteEntity compteRelu = this.compteRepository.findById(compteSauvegarde.getNumero()).orElse(null); //SELECT
+        CompteEntity compteRelu = this.compteRepository.rechercherCompteAvecOperations(compteSauvegarde.getNumero());
         assertEquals("compteA",compteRelu.getLabel());
         assertEquals(100.0,compteRelu.getSolde());
         log.debug("compteRelu apres insertion=" + compteRelu);
