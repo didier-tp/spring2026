@@ -28,8 +28,15 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<mapstruct.version>1.5.2.Final</mapstruct.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
 
 		<!-- test temporaire de stater personnalise -->
 		<!--
@@ -89,38 +96,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>default-compile</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
+				<configuration>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
 									<artifactId>lombok</artifactId>
 								</path>
-							</annotationProcessorPaths>
-						</configuration>
-					</execution>
-					<execution>
-						<id>default-testCompile</id>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-						<configuration>
-							<annotationProcessorPaths>
+								<!-- Mapstruct should follow the lombok path(s) -->
 								<path>
-									<groupId>org.projectlombok</groupId>
-									<artifactId>lombok</artifactId>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${mapstruct.version}</version>
 								</path>
 							</annotationProcessorPaths>
-						</configuration>
-					</execution>
-				</executions>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
