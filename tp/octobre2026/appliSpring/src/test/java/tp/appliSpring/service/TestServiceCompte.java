@@ -9,9 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.model.Compte;
+import tp.appliSpring.model.Operation;
 import tp.appliSpring.repository.CompteRepository;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest()
 @ActiveProfiles({  "dev" , "reinit" })
@@ -27,6 +31,14 @@ public class TestServiceCompte {
         Compte compte = serviceCompte.searchById(1L);
         assertNotNull(compte);
         log.debug("compte="+compte);
+    }
+
+    @Test
+    public void testSearchOperationsPourCompte(){
+        //NB: compte numero 1L =  le premier de ReinitDataSet.reiniDefaultDataSet() avec deux operations opC1a et opC1b
+        List<Operation> listeOperationsDuCompte1 = serviceCompte.searchOperationsPourCompte(1L);
+        assertTrue(listeOperationsDuCompte1.size()>=2);
+        log.debug("listeOperationsDuCompte1="+listeOperationsDuCompte1);
     }
 
     @Test
