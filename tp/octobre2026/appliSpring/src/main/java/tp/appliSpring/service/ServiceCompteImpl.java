@@ -1,8 +1,8 @@
 package tp.appliSpring.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.exception.NotFoundException;
 import tp.appliSpring.mapper.MyMapper;
@@ -63,7 +63,20 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
+    @Transactional()
     public void transferer(double montant, long numCompteDebit, long numCompteCred) {
+
+        try {
+            CompteEntity cptDeb = this.compteRepository.findById(numCompteDebit).get();
+            cptDeb.setSolde(cptDeb.getSolde()-montant);
+            this.compteRepository.save(cptDeb);
+
+            CompteEntity cptCred = this.compteRepository.findById(numCompteCred).get();
+            cptCred.setSolde(cptCred.getSolde()+montant);
+            this.compteRepository.save(cptCred);
+        } catch (Exception e) {
+            throw new RuntimeException("echec virement",e);//déclenchera un rollback si @Transactional
+        }
 
     }
 }
