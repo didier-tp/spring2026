@@ -36,7 +36,8 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public List<Operation> searchOperationsPourCompte(long numCompte) {
-        return List.of();
+        CompteEntity compteEntity = compteRepository.rechercherCompteAvecOperations(numCompte);
+        return myMapper.operationEntityListToOperationList(compteEntity.getOperations());
     }
 
     @Override

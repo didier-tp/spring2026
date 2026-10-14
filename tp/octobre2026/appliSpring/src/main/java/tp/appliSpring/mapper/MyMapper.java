@@ -19,4 +19,5 @@ public interface MyMapper {
     CompteEntity compteToCompteEntity(Compte source);
 
     Operation operationEntityToOperation(OperationEntity source);
+    List<Operation> operationEntityListToOperationList(List<OperationEntity> source);
 }
