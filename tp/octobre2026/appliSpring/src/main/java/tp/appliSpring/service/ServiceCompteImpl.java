@@ -2,11 +2,13 @@ package tp.appliSpring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.exception.NotFoundException;
 import tp.appliSpring.mapper.MyMapper;
 import tp.appliSpring.model.Compte;
+import tp.appliSpring.model.Operation;
 import tp.appliSpring.repository.CompteRepository;
 
 import java.util.List;
@@ -33,12 +35,20 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
+    public List<Operation> searchOperationsPourCompte(long numCompte) {
+        return List.of();
+    }
+
+    @Override
     public List<Compte> searchAll() {
         return List.of();
     }
 
     @Override
     public List<Compte> searchBySoldeMini(double soldeMini) {
+        //Au moins deux impléméntations possibles :
+        //  * avec conversion mapStruct
+        //  * avec projection direct JPAQL de CompteEntity vers model.compte
         return List.of();
     }
 
@@ -63,7 +73,7 @@ public class ServiceCompteImpl implements ServiceCompte{
     }
 
     @Override
-    @Transactional()
+    @Transactional(/*propagation = Propagation.REQUIRED*/)
     public void transferer(double montant, long numCompteDebit, long numCompteCred) {
 
         try {

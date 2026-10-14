@@ -2,6 +2,7 @@ package tp.appliSpring.service;
 
 import tp.appliSpring.exception.NotFoundException;
 import tp.appliSpring.model.Compte;
+import tp.appliSpring.model.Operation;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,8 @@ public interface ServiceCompte {
     public Compte searchById(Long numero);
 
     public Optional<Compte> searchOptionalById(Long numero);
+
+    public List<Operation> searchOperationsPourCompte(long numCompte);
 
     public List<Compte> searchAll();
 
