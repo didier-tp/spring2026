@@ -30,6 +30,7 @@ public class TestPurchaseOrderService {
     private final PurchaseRepository purchaseRepository;
     private final OrderRepository orderRepository;
 
+    @Autowired
     public TestPurchaseOrderService(PurchaseOrderService purchaseOrderService, CustomerRepository customerRepository, ProductRepository productRepository, PurchaseRepository purchaseRepository, OrderRepository orderRepository) {
         this.purchaseOrderService = purchaseOrderService;
         this.customerRepository = customerRepository;

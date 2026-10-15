@@ -20,6 +20,7 @@ public class TestCustomerRepository {
 
     private final CustomerRepository customerRepository;
 
+    @Autowired
     public TestCustomerRepository(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }

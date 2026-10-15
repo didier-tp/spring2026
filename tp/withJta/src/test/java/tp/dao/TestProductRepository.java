@@ -21,6 +21,7 @@ public class TestProductRepository {
 
     private final ProductRepository productRepository;
 
+    @Autowired
     public TestProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }

@@ -24,6 +24,7 @@ public class TestOrderRepository {
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
 
+    @Autowired
     public TestOrderRepository(ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;

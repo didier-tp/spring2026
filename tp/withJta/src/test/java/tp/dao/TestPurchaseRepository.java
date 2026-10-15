@@ -20,6 +20,7 @@ public class TestPurchaseRepository {
 
     private final PurchaseRepository purchaseRepository;
 
+    @Autowired
     public TestPurchaseRepository(PurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;
     }
