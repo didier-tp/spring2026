@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tp.appliSpring.entity.CompteEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tp.appliSpring.model.Compte;
-import tp.appliSpring.repository.CompteRepository;
 import tp.appliSpring.service.ServiceCompte;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController //@Component de type endpoint api rest
@@ -81,5 +81,32 @@ public class CompteRestCtrl {
         //via automatic try/catch
     }
 
+    //appelé en mode POST
+    //avec url = ...../rest/api-bank/v1/comptes
+    //avec dans la partie "body" de la requête { "numero" : null , "label" : "…." , "solde" : 50.0 }
+    @PostMapping("")
+    public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody Compte obj) {
+        Compte savedObj = serviceCompte.insert(obj);  //avec id auto_incrémenté
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedObj.getNumero()).toUri();
+        return ResponseEntity.created(location).body(savedObj);
+        //return 201/CREATED with savedObj  AND with URI to find added obj
+
+    }
+
+    //à appeler en mode PUT
+    //avec url = ...../rest/api-bank/v1/comptes/1
+    //avec dans la partie "body" de la requête { "id" : 1 , "label" : "..." , "solde" : 120.0  }
+    @PutMapping("/{id}")
+    public ResponseEntity<Compte> putCompte(@RequestBody Compte obj,
+                                         @PathVariable("id") Long idToUpdate) {
+        obj.setNumero(idToUpdate);
+        serviceCompte.update(obj);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        //204 : OK sans aucun message dans partie body
+        //exception handler may return NOT_FOUND or INTERNAL_SERVER_ERROR
+    }
 
 }

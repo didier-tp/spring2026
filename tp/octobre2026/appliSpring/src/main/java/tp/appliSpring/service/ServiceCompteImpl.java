@@ -79,12 +79,18 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public void update(Compte compte) throws NotFoundException {
-
+        if(!compteRepository.existsById(compte.getNumero()))
+            throw new NotFoundException("pas de compte existant à mettre à jour avec numero="+compte.getNumero());
+        CompteEntity compteEntity = myMapper.compteToCompteEntity(compte);
+        compteRepository.save(compteEntity);
     }
 
     @Override
     public Compte insert(Compte compte) {
-        return null;
+        CompteEntity compteEntity = myMapper.compteToCompteEntity(compte);
+        CompteEntity compteEntitySaved = this.compteRepository.save(compteEntity);
+        compte.setNumero(compteEntitySaved.getNumero()); //ou bien conv myMapper dans sens inverse
+        return compte;
     }
 
     @Override

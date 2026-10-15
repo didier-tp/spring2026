@@ -24,7 +24,7 @@ public class CompteEntity {
     private String label;
     private Double solde;
 
-    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "compte" , fetch = FetchType.LAZY , cascade = { CascadeType.REMOVE })
     //@JsonIgnore
     private List<OperationEntity> operations;
 
