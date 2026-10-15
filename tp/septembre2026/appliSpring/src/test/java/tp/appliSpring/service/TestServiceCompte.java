@@ -8,11 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import tp.appliSpring.AppliSpringApplication;
+import tp.appliSpring.criteria.SearchCriteria;
+import tp.appliSpring.entity.ClientEntity;
 import tp.appliSpring.entity.CompteEntity;
 import tp.appliSpring.entity.OperationEntity;
+import tp.appliSpring.repository.CompteRepository;
 import tp.appliSpring.repository.OperationRepository;
+import tp.appliSpring.specification.CompteEntitySpecification;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(classes = {AppliSpringApplication.class})
 @ActiveProfiles({ "dev"})  //pour analyser application-dev.properties
@@ -22,6 +29,7 @@ public class TestServiceCompte {
 
     private final ServiceCompte serviceCompte; //à injecter et tester
     private final OperationRepository operationRepository;
+    private final CompteRepository compteRepository;
 
 
     @Test
@@ -106,6 +114,42 @@ public class TestServiceCompte {
         //verifier aucunes différences de soldes sur A et B (car si rollback bien fait rien doit changer):
         Assertions.assertEquals(soldeA_avant , soldeA_apres,0.000001);
         Assertions.assertEquals(soldeB_avant , soldeB_apres,0.000001);
+    }
+
+    @Test
+    public void testComptesAvecSoldeMiniWithSpecification(){
+        this.reinitDataSet();
+        /*
+        CompteEntitySpecification specSoldeMini =
+                new CompteEntitySpecification(new SearchCriteria("solde", ">", 50.0));
+
+        List<CompteEntity> compteAvecSoldeSuperieurA50 = this.serviceCompte.findAll(specSoldeMini);
+        */
+        List<CompteEntity> compteAvecSoldeSuperieurA50 = this.serviceCompte.searchWithSpecificationsString("solde>50");
+        assertTrue(compteAvecSoldeSuperieurA50.size()>=2);
+        log.debug("compteAvecSoldeSuperieurA50=" + compteAvecSoldeSuperieurA50);
+
+        List<CompteEntity> compteAvecLabelContenantCompte = this.serviceCompte.searchWithSpecificationsString("label~compte");
+        assertTrue(compteAvecLabelContenantCompte.size()>=2);
+        log.debug("compteAvecLabelContenantCompte=" + compteAvecLabelContenantCompte);
+
+        List<CompteEntity> compteAvecLabelContenantCompteEtSoldeSuperieurA50 = this.serviceCompte.searchWithSpecificationsString("solde>50,label~compte");
+        assertTrue(compteAvecLabelContenantCompteEtSoldeSuperieurA50.size()>=1);
+        log.debug("compteAvecLabelContenantCompteEtSoldeSuperieurA50=" + compteAvecLabelContenantCompteEtSoldeSuperieurA50);
+
+    }
+
+    private void reinitDataSet() {
+        CompteEntity compteA= this.compteRepository.save(new CompteEntity(null,"compteAaa",50.5));
+        CompteEntity compteB= this.compteRepository.save(new CompteEntity(null,"accountBbb",60.5));
+        CompteEntity compteC= this.compteRepository.save(new CompteEntity(null,"compteCCC",-70.0));
+
+        operationRepository.save(new OperationEntity(null,"achat1",-6.6 , LocalDate.now(),compteA));
+        operationRepository.save(new OperationEntity(null,"achat2",-7.6 , LocalDate.now(),compteA));
+        //pour verifier:
+        List<CompteEntity> comptes = this.compteRepository.findAll();
+        System.out.println("ReinitDefaultDataSet ,comptes" + comptes);
+
     }
 
 }

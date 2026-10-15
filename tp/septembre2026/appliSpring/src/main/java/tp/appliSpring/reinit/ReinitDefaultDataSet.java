@@ -25,8 +25,8 @@ public class ReinitDefaultDataSet {
 
     @PostConstruct
     public void reinitDataSet() {
-        CompteEntity compteA= this.compteRepository.save(new CompteEntity(null,"compteAaa",50.0));
-        CompteEntity compteB= this.compteRepository.save(new CompteEntity(null,"compteBbb",60.0));
+        CompteEntity compteA= this.compteRepository.save(new CompteEntity(null,"compteAaa",50.5));
+        CompteEntity compteB= this.compteRepository.save(new CompteEntity(null,"accountBbb",60.5));
         CompteEntity compteC= this.compteRepository.save(new CompteEntity(null,"compteCCC",-70.0));
 
         operationRepository.save(new OperationEntity(null,"achat1",-6.6 , LocalDate.now(),compteA));
