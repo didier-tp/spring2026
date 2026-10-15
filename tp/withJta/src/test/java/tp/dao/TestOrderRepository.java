@@ -16,13 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
+//@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 @Slf4j
 public class TestOrderRepository {
 
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
+
+    public TestOrderRepository(ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
+        this.productRepository = productRepository;
+        this.customerRepository = customerRepository;
+        this.orderRepository = orderRepository;
+    }
 
     @Test
     public void testOrders(){

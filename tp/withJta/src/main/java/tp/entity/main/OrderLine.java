@@ -7,9 +7,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name="order_line")
-@Getter
-@Setter
-@NoArgsConstructor
 public class OrderLine {
 
     @EmbeddedId
@@ -42,5 +39,32 @@ public class OrderLine {
         this.orderLinePk = orderLinePk;
         this.order = order;
         this.quantity = quantity;
+    }
+
+    public OrderLinePk getOrderLinePk() {
+        return orderLinePk;
+    }
+
+    public void setOrderLinePk(OrderLinePk orderLinePk) {
+        this.orderLinePk = orderLinePk;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public OrderLine() {
     }
 }

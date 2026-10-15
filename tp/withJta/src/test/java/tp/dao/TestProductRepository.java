@@ -15,11 +15,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
+//@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 @Slf4j
 public class TestProductRepository {
 
     private final ProductRepository productRepository;
+
+    public TestProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Test
     public void testProduct(){

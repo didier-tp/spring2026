@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
+//@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 @Slf4j
 public class TestPurchaseOrderService {
 
@@ -30,6 +30,13 @@ public class TestPurchaseOrderService {
     private final PurchaseRepository purchaseRepository;
     private final OrderRepository orderRepository;
 
+    public TestPurchaseOrderService(PurchaseOrderService purchaseOrderService, CustomerRepository customerRepository, ProductRepository productRepository, PurchaseRepository purchaseRepository, OrderRepository orderRepository) {
+        this.purchaseOrderService = purchaseOrderService;
+        this.customerRepository = customerRepository;
+        this.productRepository = productRepository;
+        this.purchaseRepository = purchaseRepository;
+        this.orderRepository = orderRepository;
+    }
 
     private static long idProdA,idProdB,idCustomerY;
 

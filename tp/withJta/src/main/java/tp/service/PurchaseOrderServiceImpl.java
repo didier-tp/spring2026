@@ -16,13 +16,19 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class PurchaseOrderServiceImpl implements PurchaseOrderService{
 
     private final OrderRepository orderRepository;
     private final PurchaseRepository purchaseRepository;
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
+
+    public PurchaseOrderServiceImpl(OrderRepository orderRepository, PurchaseRepository purchaseRepository, ProductRepository productRepository, CustomerRepository customerRepository) {
+        this.orderRepository = orderRepository;
+        this.purchaseRepository = purchaseRepository;
+        this.productRepository = productRepository;
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     public long savePurchaseOrder(long customerId, List<ProductSelection> productSelections) {

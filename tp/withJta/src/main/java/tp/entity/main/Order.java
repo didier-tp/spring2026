@@ -12,10 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name="t_order")  //table name must not be "order" (reserved sql key word)
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
 public class Order {
 
     @Id
@@ -44,6 +40,51 @@ public class Order {
         this.dateTime = dateTime;
         this.customerId = customerId;
         this.lines = lines;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public List<OrderLine> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<OrderLine> lines) {
+        this.lines = lines;
+    }
+
+    public Order() {
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", customerId=" + customerId +
+                ", lines=" + lines +
+                '}';
     }
 
     public Order(Long customerId){
