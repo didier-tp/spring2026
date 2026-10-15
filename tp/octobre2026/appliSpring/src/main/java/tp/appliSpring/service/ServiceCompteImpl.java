@@ -31,7 +31,8 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public Optional<Compte> searchOptionalById(Long numero) {
-        return Optional.empty();
+        CompteEntity compteEntity = compteRepository.findById(numero).orElse(null);
+        return Optional.ofNullable(myMapper.compteEntityToCompte(compteEntity));
     }
 
 
@@ -71,7 +72,9 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public void removeById(long numCompte) throws NotFoundException {
-
+        if(!compteRepository.existsById(numCompte))
+            throw new NotFoundException("pas de compte existant à supprimer avec numero="+numCompte);
+        compteRepository.deleteById(numCompte);
     }
 
     @Override
