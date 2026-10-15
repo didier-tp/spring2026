@@ -52,7 +52,7 @@ public class ServiceCompteImpl implements ServiceCompte{
 
     @Override
     public List<Compte> searchAll() {
-        return List.of();
+        return myMapper.compteEntityListToCompteList (compteRepository.findAll());
     }
 
     @Override
@@ -60,7 +60,8 @@ public class ServiceCompteImpl implements ServiceCompte{
         //Au moins deux impléméntations possibles :
         //  * avec conversion mapStruct
         //  * avec projection direct JPAQL de CompteEntity vers model.compte
-        return List.of();
+        return myMapper.compteEntityListToCompteList (
+                compteRepository.findBySoldeGreaterThanEqual(soldeMini));
     }
 
     @Override

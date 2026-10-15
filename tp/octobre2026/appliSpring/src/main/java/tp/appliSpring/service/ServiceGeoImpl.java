@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class ServiceGeoImpl implements ServiceGeo {
     @CacheEvict(value="villesByCodePostal",allEntries = true)
-    @Scheduled(fixedRateString = "${spring.caching/myTTL:2000}") //2s par defaut
+    //@Scheduled(fixedRateString = "${spring.caching/myTTL:2000}") //2s par defaut
     public void resetCache(){
         //empty code , indirect effect with @CacheEvict
         System.out.println("reset cache");
