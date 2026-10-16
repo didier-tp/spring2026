@@ -86,7 +86,7 @@ public class CompteRestCtrl {
     //appelé en mode POST
     //avec url = ...../rest/api-bank/v1/comptes
     //avec dans la partie "body" de la requête { "numero" : null , "label" : "…." , "solde" : 50.0 }
-    @PreAuthorize("hasAuthority('SCOPE_resource.write')")
+    @PreAuthorize("hasAuthority('SCOPE_resource.write') or hasRole('ADMIN') ")
     @PostMapping("")
     public ResponseEntity<?> postCompte(/*@Valid*/ @RequestBody Compte obj) {
         Compte savedObj = serviceCompte.insert(obj);  //avec id auto_incrémenté

@@ -4,6 +4,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,6 +38,8 @@ public class TestCompteRestCtrl {
     */
 
     @Test //à lancer sans le profile withSecurity
+    //@WithMockUser(username = "user1" , roles = {"USER" })
+    @WithMockUser(username = "admin1" , roles = {"ADMIN" })
     public void testComptesAvecsoldeMini10WithMockOfCompteService(){
         //préparation du mock (qui sera utilisé en arrière plan du contrôleur rest à tester):
         List<Compte> comptes = new ArrayList<>();
