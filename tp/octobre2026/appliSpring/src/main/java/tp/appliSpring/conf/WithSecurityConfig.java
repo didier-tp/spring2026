@@ -24,6 +24,7 @@ public class WithSecurityConfig {
                         auth -> auth.requestMatchers("/",  "/favicon.ico",
                                         "/**/*.png",   "/**/*.gif",    "/**/*.svg",
                                         "/**/*.jpg",   "/**/*.html",   "/**/*.css",    "/**/*.js").permitAll()
+                                .requestMatchers("/swagger-ui/**" , "/swagger-ui/*.*").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/rest/api-bank/v1/**").permitAll()
                                 .requestMatchers("/rest/api-bank/v1/**").authenticated() )
                 .cors( Customizer.withDefaults())
